@@ -10,10 +10,18 @@ import { GithubIcon, LinkedinIcon } from '@/components/icons/BrandIcons';
 export function ContactSection() {
   const [status, setStatus] = useState<'idle' | 'success'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const message = formData.get('message');
+    
+    window.location.href = `mailto:${portfolioData.contact?.email || 'cemyildizcy@hotmail.com'}?subject=${encodeURIComponent(`Portfolyo İletişim: ${name}`)}&body=${encodeURIComponent(`Gönderen: ${name} (${email})\n\nMesaj:\n${message}`)}`;
+    
     setStatus('success');
     setTimeout(() => setStatus('idle'), 3000);
+    (e.target as HTMLFormElement).reset();
   };
 
   return (
@@ -72,6 +80,7 @@ export function ContactSection() {
                   <input 
                     type="text" 
                     id="name" 
+                    name="name"
                     required 
                     className="w-full bg-[var(--surface)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all"
                     placeholder="Adınız Soyadınız"
@@ -82,7 +91,8 @@ export function ContactSection() {
                   <label htmlFor="email" className="block text-sm font-medium text-[var(--text-secondary)] mb-2">E-posta</label>
                   <input 
                     type="email" 
-                    id="email" 
+                    id="email"
+                    name="email" 
                     required 
                     className="w-full bg-[var(--surface)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all"
                     placeholder="ornek@email.com"
@@ -93,6 +103,7 @@ export function ContactSection() {
                   <label htmlFor="message" className="block text-sm font-medium text-[var(--text-secondary)] mb-2">Mesaj</label>
                   <textarea 
                     id="message" 
+                    name="message"
                     required 
                     rows={4}
                     className="w-full bg-[var(--surface)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all resize-none"

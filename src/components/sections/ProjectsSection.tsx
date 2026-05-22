@@ -83,10 +83,10 @@ export const ProjectsSection = () => {
         </div>
 
         {/* GitHub Repositories Grid */}
-        <SectionHeading title="Açık Kaynak" subtitle="GitHub üzerinde en çok yıldız alan depolarım." />
+        <SectionHeading title="Açık Kaynak" subtitle="GitHub üzerinde paylaştığım projeler." />
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {repos.map((repo, index) => (
+          {repos.length > 0 ? repos.map((repo, index) => (
             <ScrollReveal key={repo.id} delay={index * 0.1}>
               <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="block h-full">
                 <motion.div
@@ -116,7 +116,11 @@ export const ProjectsSection = () => {
                 </motion.div>
               </a>
             </ScrollReveal>
-          ))}
+          )) : (
+            <div className="col-span-full text-center text-[var(--text-secondary)] py-8">
+              Projeler yükleniyor...
+            </div>
+          )}
         </div>
       </div>
     </section>
