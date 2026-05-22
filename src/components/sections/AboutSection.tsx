@@ -29,7 +29,7 @@ export function AboutSection() {
                     src="/images/profile.jpg" 
                     alt="Cem Yıldız" 
                     fill
-                    className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-500"
+                    className="object-cover object-center hover:scale-105 transition-transform duration-700"
                     sizes="(max-width: 768px) 100vw, 50vw"
                     priority
                   />

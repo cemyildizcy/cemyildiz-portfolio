@@ -6,9 +6,9 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 // Bu ID'leri kendi LinkedIn gönderilerinden alabilirsin
 // LinkedIn postunda sağ üstten "Gönderiyi yerleştir" (Embed this post) deyip URL içindeki activity ID'yi kopyalayabilirsin
 const linkedinPosts = [
-  "7175893321523456789", // Placeholder ID 1
-  "7172893321523456789", // Placeholder ID 2
-  "7171893321523456789"  // Placeholder ID 3
+  "7463283782419238912", // Post 1
+  "7459681621911375873", // Post 2
+  "7457482069338669056"  // Post 3
 ];
 
 export const LinkedinSection = () => {
@@ -20,26 +20,16 @@ export const LinkedinSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
           {linkedinPosts.map((postId, index) => (
             <ScrollReveal key={index} delay={index * 0.1}>
-              <div className="bg-[var(--card)] rounded-2xl overflow-hidden border border-[var(--border-color)] shadow-lg h-[400px] w-full flex items-center justify-center">
-                {/* LinkedIn Embed Iframe */}
-                <div className="text-center p-6 text-[var(--text-secondary)]">
-                  <p className="text-sm mb-4">Gönderi yüklenemezse veya ad-blocker engellerse linke tıklayın:</p>
-                  <a href={`https://www.linkedin.com/feed/update/urn:li:activity:${postId}`} target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] hover:underline text-sm font-medium">
-                    LinkedIn'de Görüntüle
-                  </a>
-                </div>
-                {/* Gerçek kullanımda üstteki div yerine aşağıdaki iframe aktif edilecek: */}
-                {/* 
+              <div className="bg-[var(--card)] rounded-2xl overflow-hidden border border-[var(--border-color)] shadow-lg h-[460px] w-full flex flex-col group hover:border-[var(--accent)] transition-colors duration-300">
                 <iframe 
-                  src={`https://www.linkedin.com/embed/feed/update/urn:li:share:${postId}`} 
+                  src={`https://www.linkedin.com/embed/feed/update/urn:li:activity:${postId}`} 
                   height="100%" 
                   width="100%" 
                   frameBorder="0" 
                   allowFullScreen 
-                  title="Embedded post"
-                  className="bg-white"
+                  title="Embedded LinkedIn post"
+                  className="bg-transparent w-full h-full flex-grow"
                 ></iframe>
-                */}
               </div>
             </ScrollReveal>
           ))}

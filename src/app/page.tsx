@@ -12,9 +12,9 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ProjectsSection />
+      <LinkedinSection />
       <SkillsSection />
       <EducationSection />
-      <LinkedinSection />
       <ContactSection />
     </>
   );
