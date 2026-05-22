@@ -34,10 +34,10 @@ export const SkillsSection = () => {
               >
                 <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[var(--border-color)]">
                   <div className="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border-color)] group-hover:border-[var(--accent)] transition-colors">
-                    {getCategoryIcon(category.name)}
+                    {getCategoryIcon(category.category)}
                   </div>
                   <h3 className="text-lg font-bold text-[var(--text-primary)]">
-                    {category.name}
+                    {category.category}
                   </h3>
                 </div>
                 

@@ -3,8 +3,8 @@
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { portfolioData } from '@/data/portfolio';
+import Image from 'next/image';
 
-// Adapting the mock shape requested to the actual data found
 const stats = [
   { value: "2+", label: "Yıl Deneyim" },
   { value: "10+", label: "Proje" },
@@ -20,23 +20,35 @@ export function AboutSection() {
           <SectionHeading title={portfolioData.about.title} />
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-            {/* Left Column: Text */}
-            <div className="space-y-6 text-[var(--text-secondary)] text-lg leading-relaxed">
-              <p>{portfolioData.about.description}</p>
-            </div>
-
-            {/* Right Column: Visual/Image Placeholder */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative w-[200px] h-[200px] rounded-full bg-gradient-to-tr from-[var(--accent)] to-[var(--surface)] flex items-center justify-center border-4 border-[var(--card)] shadow-2xl">
-                <span className="text-6xl font-bold text-white font-geist tracking-tighter">CY</span>
-                {/* Decorative outer ring */}
-                <div className="absolute inset-[-10px] rounded-full border border-[var(--border-color)] opacity-50" />
-                <div className="absolute inset-[-20px] rounded-full border border-[var(--border-color)] opacity-20" />
+            
+            <ScrollReveal direction="right" delay={0.1}>
+              <div className="relative w-full aspect-square max-w-sm mx-auto">
+                <div className="absolute inset-0 bg-gradient-to-tr from-[var(--accent)] to-[var(--accent-hover)] rounded-3xl opacity-20 blur-2xl"></div>
+                <div className="relative h-full w-full rounded-3xl overflow-hidden border border-[var(--border-color)] bg-[var(--surface)] shadow-2xl">
+                  <Image 
+                    src="/images/profile.jpg" 
+                    alt="Cem Yıldız" 
+                    fill
+                    className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                  />
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
+
+            <ScrollReveal direction="left" delay={0.2}>
+              <div className="space-y-6 text-[var(--text-secondary)] text-lg leading-relaxed">
+                <p>{portfolioData.about.description}</p>
+                <div className="pt-6 border-t border-[var(--border-color)]">
+                   <p className="font-medium text-[var(--text-primary)] mb-2">🎓 Eskişehir Osmangazi Üniversitesi</p>
+                   <p className="text-sm">Matematik ve Bilgisayar Bilimleri (2028)</p>
+                </div>
+              </div>
+            </ScrollReveal>
+            
           </div>
 
-          {/* Stats Row */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((stat, index) => (
               <div 

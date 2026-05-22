@@ -38,9 +38,21 @@ export function HeroSection() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[var(--bg)]">
+      {/* Background Image with Overlay */}
+      <div 
+        className="absolute inset-0 z-0 opacity-20"
+        style={{
+          backgroundImage: 'url(/images/bg-network.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[var(--bg)]/50 via-[var(--bg)]/80 to-[var(--bg)]" />
+      
       {/* Grid background with radial gradient */}
-      <div className="absolute inset-0 grid-bg opacity-30" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--accent)_0%,transparent_50%)] opacity-10" />
+      <div className="absolute inset-0 z-0 grid-bg opacity-30" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,var(--accent)_0%,transparent_50%)] opacity-10" />
 
       <motion.div 
         className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto"
