@@ -90,7 +90,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="noise">
+      <body className={`${GeistSans.variable} ${GeistMono.variable} noise antialiased bg-[var(--bg)] text-[var(--text-primary)] min-h-screen`}>
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false}>
           <CustomCursor />
           <Navbar />
