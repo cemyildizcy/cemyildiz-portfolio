@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { portfolioData } from '@/data/portfolio';
-import { Github, Linkedin as LinkedinIconFallback, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '@/components/icons/BrandIcons';
 import { useState, useEffect } from 'react';
 
 const roles = [
@@ -96,11 +97,11 @@ export function HeroSection() {
 
         <motion.div variants={itemVariants} className="flex gap-6">
           <a href={portfolioData.socialLinks.find(s => s.name === 'GitHub')?.url} target="_blank" rel="noreferrer" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
-            <Github size={24} />
+            <GithubIcon size={24} />
             <span className="sr-only">GitHub</span>
           </a>
           <a href={portfolioData.socialLinks.find(s => s.name === 'LinkedIn')?.url} target="_blank" rel="noreferrer" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
-            <LinkedinIconFallback size={24} />
+            <LinkedinIcon size={24} />
             <span className="sr-only">LinkedIn</span>
           </a>
         </motion.div>

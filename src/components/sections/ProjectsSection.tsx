@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { portfolioData } from '@/data/portfolio';
-import { Github, Star, GitFork, ExternalLink } from 'lucide-react';
+import { Star, GitFork, ExternalLink } from 'lucide-react';
+import { GithubIcon } from '@/components/icons/BrandIcons';
 
 interface Repo {
   id: number;
@@ -67,7 +68,7 @@ export const ProjectsSection = () => {
                 <div className="flex items-center gap-4 mt-auto pt-4 border-t border-[var(--border-color)]">
                   {project.github && (
                     <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors flex items-center gap-2 text-sm font-medium">
-                      <Github className="w-4 h-4" /> GitHub
+                      <GithubIcon className="w-4 h-4" /> GitHub
                     </a>
                   )}
                   {project.link && (
@@ -94,7 +95,7 @@ export const ProjectsSection = () => {
                   className="h-full rounded-xl p-5 bg-[var(--card)] border border-[var(--border-color)] flex flex-col hover:border-[var(--accent)] transition-colors duration-300"
                 >
                   <div className="flex items-center gap-2 mb-3 text-[var(--text-primary)]">
-                    <Github className="w-5 h-5 text-[var(--text-primary)]" />
+                    <GithubIcon className="w-5 h-5 text-[var(--text-primary)]" />
                     <h4 className="font-bold truncate text-sm" title={repo.name}>{repo.name}</h4>
                   </div>
                   <p className="text-xs text-[var(--text-secondary)] mb-4 flex-grow line-clamp-3">

@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { portfolioData } from '@/data/portfolio';
-import { Mail, Linkedin as LinkedinIconFallback, Github } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '@/components/icons/BrandIcons';
 
 export function ContactSection() {
   const [status, setStatus] = useState<'idle' | 'success'>('idle');
@@ -44,7 +45,7 @@ export function ContactSection() {
                 {portfolioData.socialLinks?.find(s => s.name === 'LinkedIn')?.url && (
                   <a href={portfolioData.socialLinks.find(s => s.name === 'LinkedIn')?.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors p-4 rounded-xl border border-transparent hover:border-[var(--border-color)] bg-[var(--surface)]/50 hover:bg-[var(--surface)]">
                     <div className="bg-[var(--surface)] p-3 rounded-full text-[var(--accent)] border border-[var(--border-color)]">
-                      <LinkedinIconFallback className="w-5 h-5" />
+                      <LinkedinIcon className="w-5 h-5" />
                     </div>
                     <span className="font-medium text-[var(--text-primary)]">LinkedIn</span>
                   </a>
@@ -53,7 +54,7 @@ export function ContactSection() {
                 {portfolioData.socialLinks?.find(s => s.name === 'GitHub')?.url && (
                   <a href={portfolioData.socialLinks.find(s => s.name === 'GitHub')?.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors p-4 rounded-xl border border-transparent hover:border-[var(--border-color)] bg-[var(--surface)]/50 hover:bg-[var(--surface)]">
                     <div className="bg-[var(--surface)] p-3 rounded-full text-[var(--accent)] border border-[var(--border-color)]">
-                      <Github className="w-5 h-5" />
+                      <GithubIcon className="w-5 h-5" />
                     </div>
                     <span className="font-medium text-[var(--text-primary)]">GitHub</span>
                   </a>
