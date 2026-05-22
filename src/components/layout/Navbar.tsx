@@ -67,7 +67,7 @@ export const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
             <Link 
-              href="https://github.com/cemyildiz" 
+              href="https://github.com/cemyildizcy" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
@@ -124,7 +124,7 @@ export const Navbar = () => {
               <div className="flex items-center space-x-4 px-3 py-2 mt-4 border-t border-[var(--border-color)] pt-4">
                 <ThemeToggle />
                 <Link 
-                  href="https://github.com/cemyildiz" 
+                  href="https://github.com/cemyildizcy" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]"

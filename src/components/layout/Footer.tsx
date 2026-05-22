@@ -10,7 +10,7 @@ export const Footer = () => {
         
         <div className="flex items-center space-x-6">
           <Link 
-            href="https://github.com/cemyildiz" 
+            href="https://github.com/cemyildizcy" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
@@ -21,7 +21,7 @@ export const Footer = () => {
             </svg>
           </Link>
           <Link 
-            href="https://linkedin.com/in/cemyildiz" 
+            href="https://www.linkedin.com/in/cemyildizcy/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
