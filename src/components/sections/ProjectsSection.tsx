@@ -40,8 +40,14 @@ export const ProjectsSection = () => {
           {portfolioData.projects.map((project: any, index: number) => (
             <ScrollReveal key={index} delay={index * 0.1}>
               <motion.div
-                whileHover={{ y: -8 }}
-                className="group relative h-full rounded-3xl p-8 bg-[var(--surface)] border border-[var(--border-color)] flex flex-col overflow-hidden backdrop-blur-xl transition-all duration-300 hover:shadow-[0_0_40px_-10px_var(--accent)] hover:border-[var(--accent)]"
+                whileHover={{ 
+                  y: -8, 
+                  scale: 1.02,
+                  boxShadow: "0 0 0 1px rgba(0,0,0,0.08), 0 8px 16px -8px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.05)"
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="group relative h-full rounded-[12px] p-8 bg-[var(--surface)] border-none flex flex-col overflow-hidden backdrop-blur-xl transition-all duration-300"
+                style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.08), 0 2px 2px rgba(0,0,0,0.04)" }}
               >
                 {/* Glow Overlay */}
                 <div className="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-gradient-to-br from-[var(--accent)] to-transparent opacity-10 rounded-full blur-3xl group-hover:opacity-30 transition-opacity duration-500"></div>
@@ -100,9 +106,14 @@ export const ProjectsSection = () => {
             <ScrollReveal key={repo.id} delay={index * 0.1}>
               <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="block h-full">
                 <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                  className="h-full rounded-xl p-5 bg-[var(--card)] border border-[var(--border-color)] flex flex-col hover:border-[var(--accent)] transition-colors duration-300"
+                  whileHover={{ 
+                    scale: 1.02,
+                    y: -4,
+                    boxShadow: "0 0 0 1px rgba(0,0,0,0.08), 0 8px 16px -8px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.05)"
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="h-full rounded-[8px] p-5 bg-[var(--card)] border-none flex flex-col transition-all duration-300"
+                  style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.08), 0 2px 2px rgba(0,0,0,0.04)" }}
                 >
                   <div className="flex items-center gap-2 mb-3 text-[var(--text-primary)]">
                     <GithubIcon className="w-5 h-5 text-[var(--text-primary)]" />

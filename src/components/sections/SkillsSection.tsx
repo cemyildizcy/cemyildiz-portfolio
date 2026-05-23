@@ -28,9 +28,14 @@ export const SkillsSection = () => {
             {portfolioData.skills.map((category: any, index: number) => (
               <motion.div
                 key={index}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-                className="group rounded-2xl p-6 bg-[var(--card)] border border-[var(--border-color)] backdrop-blur-md hover:border-[var(--accent)] transition-colors duration-300"
+                whileHover={{ 
+                  scale: 1.02,
+                  y: -4,
+                  boxShadow: "0 0 0 1px rgba(0,0,0,0.08), 0 8px 16px -8px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.05)"
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="group rounded-[12px] p-6 bg-[var(--card)] border-none backdrop-blur-md transition-all duration-300"
+                style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.08), 0 2px 2px rgba(0,0,0,0.04)" }}
               >
                 <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[var(--border-color)]">
                   <div className="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border-color)] group-hover:border-[var(--accent)] transition-colors">
