@@ -230,6 +230,11 @@ export const portfolioData: PortfolioData = {
       icon: "linkedin",
     },
     {
+      name: "Son Postum",
+      url: "https://www.linkedin.com/posts/cemyildizcy_ai-yapayzeka-datascience-share-7464714102226046976-BkR8/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAADeq6q4BkfbdLN6bNTevEUosu0vZmwgubQI",
+      icon: "linkedin",
+    },
+    {
       name: "GitHub",
       url: "https://github.com/cemyildizcy",
       icon: "github",
