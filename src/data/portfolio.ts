@@ -86,6 +86,28 @@ export const portfolioData: PortfolioData = {
 
   projects: [
     {
+      id: 5,
+      title: "Türkiye Deprem Risk Analizi",
+      description:
+        "USGS veritabanından çekilen 30 yıllık Türkiye deprem verileri (9.300+ kayıt) kullanılarak geliştirilmiş uçtan uca Makine Öğrenmesi pipeline'ı. Gözetimsiz (K-Means) ve Gözetimli (Random Forest, SVM, LR) modeller ile sismik bölge kümeleme ve deprem risk seviyesi tahminleme.",
+      technologies: [
+        "Python",
+        "Pandas",
+        "Scikit-learn",
+        "K-Means Clustering",
+        "Random Forest",
+        "Feature Engineering",
+        "Matplotlib/Seaborn"
+      ],
+      githubUrl: "https://github.com/cemyildizcy/turkey-earthquake-risk-analysis",
+      highlights: [
+        "30 yıllık (1994-2025) gerçek veri analizi",
+        "K-Means ile 4 sismik bölge tespiti",
+        "Random Forest ile %84.7 doğruluk oranlı risk tahmini",
+        "Feature Importance analizi ile sismik belirleyicilerin tespiti"
+      ],
+    },
+    {
       id: 1,
       title: "SleepInfo",
       description:
@@ -231,7 +253,7 @@ export const portfolioData: PortfolioData = {
     },
     {
       name: "Son Postum",
-      url: "https://www.linkedin.com/posts/cemyildizcy_ai-yapayzeka-datascience-share-7464714102226046976-BkR8/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAADeq6q4BkfbdLN6bNTevEUosu0vZmwgubQI",
+      url: "https://www.linkedin.com/feed/update/urn:li:activity:7465489993902411776/",
       icon: "linkedin",
     },
     {
