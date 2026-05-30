@@ -2,6 +2,8 @@
 title: "Local LLM Limitlerine Son: 9Router ve Hermes Agent ile Kendi Sınırsız Yapay Zeka Asistanınızı Kurun"
 date: "2026-05-30"
 tags: ["AI", "Hermes Agent", "9Router", "LLM", "Open Source", "Tutorial"]
+readTime: "4 dk"
+coverEmoji: "🤖"
 description: "Ücretsiz API anahtarlarınızı tek bir havuzda toplayıp limitlere takılmadan, doğrudan Telegram veya terminal üzerinden kullanabileceğiniz kendi asistanınızı nasıl kuracağınızı anlatıyorum."
 ---
 
