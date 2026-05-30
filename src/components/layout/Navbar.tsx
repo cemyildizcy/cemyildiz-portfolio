@@ -22,12 +22,12 @@ const ThemeToggle = () => (
 );
 
 const NAV_LINKS = [
-  { label: 'Hakkımda', href: '#hakkimda' },
-  { label: 'Projeler', href: '#projeler' },
-  { label: 'Yetenekler', href: '#yetenekler' },
-  { label: 'Eğitim', href: '#egitim' },
+  { label: 'Hakkımda', href: '/#hakkimda' },
+  { label: 'Projeler', href: '/#projeler' },
+  { label: 'Yetenekler', href: '/#yetenekler' },
+  { label: 'Eğitim', href: '/#egitim' },
   { label: 'Blog', href: '/blog' },
-  { label: 'İletişim', href: '#iletisim' },
+  { label: 'İletişim', href: '/#iletisim' },
 ];
 
 export const Navbar = () => {
@@ -48,7 +48,7 @@ export const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="#" className="flex-shrink-0 font-bold text-xl tracking-tighter text-[var(--text-primary)]">
+          <Link href="/" className="flex-shrink-0 font-bold text-xl tracking-tighter text-[var(--text-primary)]">
             CY
           </Link>
           
