@@ -10,19 +10,19 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://cemyildiz.net"),
   title: {
-    default: "Cem Yıldız — Veri Bilimi & Full-Stack Developer",
+    default: "Cem Yıldız — Veri Bilimi & Makine Öğrenimi",
     template: "%s | Cem Yıldız",
   },
   description:
-    "Veri bilimi, makine öğrenimi ve full-stack web geliştirme üzerine çalışan yazılımcı. Python, React, FastAPI, XGBoost ve modern web teknolojileriyle projeler geliştiriyorum.",
+    "Veri bilimi, makine öğrenimi ve derin öğrenme üzerine çalışan yazılımcı. Python, Scikit-learn, TensorFlow, XGBoost ve modern veri bilimi araçlarıyla projeler geliştiriyorum.",
   keywords: [
     "Cem Yıldız",
     "veri bilimi",
     "makine öğrenimi",
-    "full-stack developer",
+    "derin öğrenme",
     "Python",
-    "React",
-    "Next.js",
+    "Scikit-learn",
+    "TensorFlow",
     "portfolio",
   ],
   authors: [{ name: "Cem Yıldız" }],
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: "https://cemyildiz.net",
     siteName: "Cem Yıldız",
-    title: "Cem Yıldız — Veri Bilimi & Full-Stack Developer",
+    title: "Cem Yıldız — Veri Bilimi & Makine Öğrenimi",
     description:
-      "Veri bilimi, makine öğrenimi ve full-stack web geliştirme üzerine çalışan yazılımcı.",
+      "Veri bilimi, makine öğrenimi ve derin öğrenme üzerine çalışan yazılımcı.",
     images: [
       {
         url: "/og-image.png",
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cem Yıldız — Veri Bilimi & Full-Stack Developer",
+    title: "Cem Yıldız — Veri Bilimi & Makine Öğrenimi",
     description:
-      "Veri bilimi, makine öğrenimi ve full-stack web geliştirme.",
+      "Veri bilimi, makine öğrenimi ve derin öğrenme.",
   },
   robots: {
     index: true,
@@ -62,7 +62,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Cem Yıldız",
   url: "https://cemyildiz.net",
-  jobTitle: "Veri Bilimi & Full-Stack Developer",
+  jobTitle: "Veri Bilimi & Makine Öğrenimi",
   alumniOf: {
     "@type": "CollegeOrUniversity",
     name: "Eskişehir Osmangazi Üniversitesi",
