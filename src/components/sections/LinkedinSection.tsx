@@ -6,9 +6,9 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 // Bu ID'leri kendi LinkedIn gönderilerinden alabilirsin
 // LinkedIn postunda sağ üstten "Gönderiyi yerleştir" (Embed this post) deyip URL içindeki activity ID'yi kopyalayabilirsin
 const linkedinPosts = [
-  "7465489993902411776", // Post 1 - Deprem Analizi
-  "7463283782419238912", // Post 2 - LSTM Finans
-  "7459681621911375873"  // Post 3 - SleepInfo
+  "7467981878382465024", // Post 1 - Öğrenci Performans Analizi (W5)
+  "7465489993902411776", // Post 2 - Deprem Analizi
+  "7463283782419238912", // Post 3 - LSTM Finans
 ];
 
 export const LinkedinSection = () => {

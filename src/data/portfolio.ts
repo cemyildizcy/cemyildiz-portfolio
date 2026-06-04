@@ -86,6 +86,30 @@ export const portfolioData: PortfolioData = {
 
   projects: [
     {
+      id: 6,
+      title: "Öğrenci Alışkanlıkları ve Akademik Başarı Analizi",
+      description:
+        "1.000 öğrencinin günlük alışkanlıklarını (çalışma, uyku, sosyal medya, Netflix) analiz ederek akademik başarıyı tahminleyen uçtan uca ML pipeline'ı. Feature Engineering, K-Means kümeleme, DBSCAN anomali tespiti ve SVM/Random Forest sınıflandırma.",
+      technologies: [
+        "Python",
+        "Pandas",
+        "Scikit-learn",
+        "SVM",
+        "Random Forest",
+        "K-Means",
+        "DBSCAN",
+        "Feature Engineering",
+        "Matplotlib/Seaborn",
+      ],
+      githubUrl: "https://github.com/cemyildizcy/ogrenci-performans",
+      highlights: [
+        "SVM ile %81 doğruluk oranı",
+        "K-Means ile 4 öğrenci profili tespiti",
+        "DBSCAN ile aykırı öğrenci anomali tespiti",
+        "Feature Importance: Derse katılım > Çalışma saati",
+      ],
+    },
+    {
       id: 5,
       title: "Türkiye Deprem Risk Analizi",
       description:
@@ -253,7 +277,7 @@ export const portfolioData: PortfolioData = {
     },
     {
       name: "Son Postum",
-      url: "https://www.linkedin.com/feed/update/urn:li:activity:7465489993902411776/",
+      url: "https://www.linkedin.com/feed/update/urn:li:activity:7467981878382465024/",
       icon: "linkedin",
     },
     {
