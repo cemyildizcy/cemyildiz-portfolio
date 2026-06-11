@@ -86,6 +86,31 @@ export const portfolioData: PortfolioData = {
 
   projects: [
     {
+      id: 7,
+      title: "2026 Dünya Kupası AI Simülatörü",
+      description:
+        "2026 FIFA Dünya Kupası'nın 48 takımlı yeni formatını veri bilimiyle simüle eden uçtan uca proje. EA FC 25 oyuncu verileri, StatsBomb Open Data, FIFA/ELO benzeri takım gücü ve Poisson xG modeliyle 10.000 Monte Carlo turnuva simülasyonu çalıştırır.",
+      technologies: [
+        "Python",
+        "Pandas",
+        "NumPy",
+        "Poisson Model",
+        "Monte Carlo Simulation",
+        "StatsBomb",
+        "Plotly",
+        "Streamlit",
+        "Feature Engineering",
+      ],
+      liveUrl: "https://wc2026-ai-simulator.streamlit.app",
+      githubUrl: "https://github.com/cemyildizcy/wc2026-ai-simulator",
+      highlights: [
+        "48 takımlı 2026 formatı ve 104 maçlık turnuva akışı",
+        "10.000 Monte Carlo simülasyonu ile şampiyonluk olasılıkları",
+        "EA FC 25 + StatsBomb + FIFA/ELO feature birleşimi",
+        "Türkçe Streamlit dashboard ve skor dağılımı analizi",
+      ],
+    },
+    {
       id: 6,
       title: "Öğrenci Alışkanlıkları ve Akademik Başarı Analizi",
       description:
@@ -277,7 +302,7 @@ export const portfolioData: PortfolioData = {
     },
     {
       name: "Son Postum",
-      url: "https://www.linkedin.com/feed/update/urn:li:activity:7467981878382465024/",
+      url: "https://www.linkedin.com/feed/update/urn:li:activity:7470769047601664000/",
       icon: "linkedin",
     },
     {
