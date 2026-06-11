@@ -1,0 +1,123 @@
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { getProjectBySlug, projectCaseStudies } from '@/data/projectHelpers';
+
+export function generateStaticParams() {
+  return projectCaseStudies.map((project) => ({ slug: project.slug }));
+}
+
+type ProjectPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: ProjectPageProps) {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
+  if (!project) return {};
+  return {
+    title: `${project.title} | Cem Yıldız`,
+    description: project.description,
+  };
+}
+
+export default async function ProjectCaseStudyPage({ params }: ProjectPageProps) {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
+  if (!project) notFound();
+
+  const problem = buildProblem(project.title);
+  const method = buildMethod(project.technologies);
+
+  return (
+    <main className="min-h-screen bg-[var(--bg)] text-[var(--text-primary)] pt-28">
+      <section className="border-b border-[var(--border-color)]">
+        <div className="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
+          <Link href="/#projeler" className="text-sm font-semibold text-[var(--accent)]">← Projelere dön</Link>
+          <div className="mt-10 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+            <div>
+              <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">{project.category}</p>
+              <h1 className="mt-4 max-w-5xl text-balance text-5xl font-semibold tracking-[-0.05em] sm:text-7xl">
+                {project.title}
+              </h1>
+              <p className="mt-7 max-w-3xl text-pretty text-lg leading-8 text-[var(--text-secondary)]">
+                {project.description}
+              </p>
+            </div>
+            <aside className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-6">
+              <p className="text-sm text-[var(--text-secondary)]">Öne çıkan sonuç</p>
+              <p className="mt-3 text-2xl font-semibold tracking-tight">{project.result}</p>
+              <div className="mt-8 grid gap-3">
+                {project.liveUrl && <Link href={project.liveUrl} target="_blank" className="rounded-full bg-[var(--text-primary)] px-5 py-3 text-center text-sm font-semibold text-[var(--bg)]">Canlı demo / dashboard</Link>}
+                {project.githubUrl && <Link href={project.githubUrl} target="_blank" className="rounded-full border border-[var(--border-color)] px-5 py-3 text-center text-sm font-semibold">GitHub reposu</Link>}
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-5 px-6 py-12 sm:grid-cols-3 lg:px-8">
+        <InfoCard label="Dönem" value={project.timeline} />
+        <InfoCard label="Stack" value={`${project.technologies.length} teknoloji`} />
+        <InfoCard label="Format" value="Case study" />
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-8">
+        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--panel)] p-8">
+            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Problem</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight">Neyi çözmeye çalıştı?</h2>
+            <p className="mt-5 leading-8 text-[var(--text-secondary)]">{problem}</p>
+          </div>
+          <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-8">
+            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Yaklaşım</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight">Veriden çıktıya giden yol</h2>
+            <p className="mt-5 leading-8 text-[var(--text-secondary)]">{method}</p>
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-8">
+            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Highlights</p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {project.highlights.map((item) => (
+                <div key={item} className="rounded-2xl border border-[var(--border-color)] bg-[var(--bg)] p-5 text-sm leading-6 text-[var(--text-secondary)]">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--panel)] p-8">
+            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Tech stack</p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {project.technologies.map((tech) => (
+                <span key={tech} className="rounded-full border border-[var(--border-color)] bg-[var(--surface)] px-3 py-1 text-sm text-[var(--text-secondary)]">{tech}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function InfoCard({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-[1.5rem] border border-[var(--border-color)] bg-[var(--surface)] p-6">
+      <p className="text-sm text-[var(--text-secondary)]">{label}</p>
+      <p className="mt-2 text-2xl font-semibold tracking-tight">{value}</p>
+    </div>
+  );
+}
+
+function buildProblem(title: string) {
+  if (title.includes('Dünya Kupası')) return 'Tek maç tahmini yerine tüm turnuvayı baştan sona olasılık temelli modellemek gerekiyordu. Takım gücü, güncel ELO, kadro kalitesi, grup yapısı ve eleme ağacı aynı model içinde birleşti.';
+  if (title.includes('Öğrenci')) return 'Öğrenci başarısını sadece sınav sonucuyla değil, günlük alışkanlıklar ve davranış sinyalleriyle açıklamak gerekiyordu.';
+  if (title.includes('Deprem')) return 'Türkiye’deki deprem verisini anlaşılır risk segmentlerine ayırıp, bölgesel paternleri makine öğrenmesiyle görünür hale getirmek gerekiyordu.';
+  if (title.includes('Sleep')) return 'Uyku kalitesini etkileyen faktörleri modelleyip kullanıcıya anlaşılır ve aksiyona dönük öneri sunmak gerekiyordu.';
+  return 'Ham veriyi veya ürün fikrini anlaşılır, ölçülebilir ve paylaşılabilir bir çıktıya dönüştürmek hedeflendi.';
+}
+
+function buildMethod(technologies: string[]) {
+  const top = technologies.slice(0, 4).join(', ');
+  return `Projede önce veri yapısı incelendi, ardından temizleme, feature engineering ve modelleme adımları kuruldu. Ana araçlar: ${top}. Çıktı tarafında README, görselleştirme, demo veya canlı ürün bağlantısı ile proje sunulabilir hale getirildi.`;
+}

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const NAV_LINKS = [
+  { label: 'Hakkımda', href: '/about' },
   { label: 'Projeler', href: '/#projeler' },
   { label: 'Yaklaşım', href: '/#yaklasim' },
   { label: 'Paylaşımlar', href: '/#paylasimlar' },
