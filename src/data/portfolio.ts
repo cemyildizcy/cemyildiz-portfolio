@@ -302,7 +302,7 @@ export const portfolioData: PortfolioData = {
     },
     {
       name: "Son Postum",
-      url: "https://www.linkedin.com/feed/update/urn:li:activity:7470769047601664000/",
+      url: "https://www.linkedin.com/posts/cemyildizcy_datascience-machinelearning-python-ugcPost-7470769047601664000-OO0G/",
       icon: "linkedin",
     },
     {
