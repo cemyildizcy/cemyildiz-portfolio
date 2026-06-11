@@ -100,6 +100,10 @@ function getLinkedinPostId(id: number) {
   if (id === 7) return 'ugcPost:7470769047601664000'; // W6 WC2026
   if (id === 6) return 'activity:7467981878382465024'; // W5 Öğrenci
   if (id === 5) return 'activity:7465489993902411776'; // W4 Deprem
+  // Not: E-Ticaret Churn (id: 3) LSTM Finance'e (W3) bağlanacak. ID 3'ü W3 kabul ediyoruz.
+  if (id === 3) return 'ugcPost:7463283781307863041'; // W3 (E-Ticaret Churn / LSTM)
+  if (id === 1) return 'ugcPost:7459681620892192768'; // W2 SleepInfo
+  if (id === 2) return 'activity:7457482069338669056'; // W1 Asteroid
   return undefined;
 }
 function buildNextSteps(project: Project) {
