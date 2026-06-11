@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getProjectBySlug, projectCaseStudies } from '@/data/projectHelpers';
@@ -59,6 +60,14 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-8">
+        {project.visual && (
+          <div className="mb-6 overflow-hidden rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-4">
+            <div className="relative aspect-[16/7] overflow-hidden rounded-[1.5rem] bg-[var(--panel)]">
+              <Image src={project.visual} alt={`${project.title} görsel çıktısı`} fill sizes="(min-width: 1024px) 1120px, 100vw" className="object-cover" />
+            </div>
+          </div>
+        )}
+
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--panel)] p-8">
             <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Problem</p>
@@ -92,8 +101,27 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
             </div>
           </div>
         </div>
+
+        <div className="mt-6 grid gap-6 lg:grid-cols-3">
+          <CaseList title="Çıktılar" items={project.outputs} />
+          <CaseList title="Öğrendiklerim" items={project.learnings} />
+          <CaseList title="Sonraki iyileştirme" items={project.nextSteps} />
+        </div>
       </section>
     </main>
+  );
+}
+
+function CaseList({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-7">
+      <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
+      <div className="mt-5 grid gap-3">
+        {items.map((item) => (
+          <p key={item} className="rounded-2xl border border-[var(--border-color)] bg-[var(--bg)] p-4 text-sm leading-6 text-[var(--text-secondary)]">{item}</p>
+        ))}
+      </div>
+    </div>
   );
 }
 

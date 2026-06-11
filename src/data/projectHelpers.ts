@@ -21,6 +21,10 @@ export const projectCaseStudies = portfolioData.projects.map((project) => ({
   timeline: project.id === 7 ? 'Hafta 6' : `Proje ${project.id}`,
   problem: buildProblem(project),
   approach: buildApproach(project),
+  outputs: buildOutputs(project),
+  learnings: buildLearnings(project),
+  nextSteps: buildNextSteps(project),
+  visual: project.id === 7 ? '/images/projects/wc2026/champion-probabilities.png' : undefined,
 }));
 
 export type ProjectCaseStudy = Project & {
@@ -30,6 +34,10 @@ export type ProjectCaseStudy = Project & {
   timeline: string;
   problem: string;
   approach: string;
+  outputs: string[];
+  learnings: string[];
+  nextSteps: string[];
+  visual?: string;
 };
 
 export function getProjectBySlug(slug: string) {
@@ -67,4 +75,31 @@ function buildApproach(project: Project) {
   if (project.title.includes('Churn')) return 'Müşteri davranış metrikleri Pandas ile temizlenip segmentlere ayrıldı. Churn oranı, risk grupları ve kullanıcı davranış farkları hesaplandı. Çıktı, e-ticaret ekibinin aksiyon alabileceği basit risk analizi formatına dönüştürüldü.';
   if (project.title.includes('Çizgi')) return 'Oyun akışı önce temel mekanikler üzerinden kurgulandı, ardından web arayüzü ve oynanabilir etkileşimler geliştirildi. Amaç hızlı açılan, anlaşılır ve linkle paylaşılabilir bir mini ürün deneyimi oluşturmaktı.';
   return 'Projede veri yapısı incelendi, temizleme ve feature engineering adımları kuruldu. Sonuçlar model, görselleştirme, README ve mümkünse canlı demo ile sunulabilir hale getirildi.';
+}
+
+function buildOutputs(project: Project) {
+  const base = ['GitHub deposu / teknik dokümantasyon', 'README ve proje anlatımı', 'LinkedIn proje paylaşımı'];
+  if (project.id === 7) return ['Türkçe Streamlit dashboard', 'Şampiyonluk ve tur olasılıkları CSV çıktıları', 'Most-likely bracket ve skor dağılımı görselleri', ...base];
+  if (project.liveUrl) return ['Canlı demo / ürün linki', 'Model veya analiz çıktısı', ...base];
+  return ['Model metrikleri ve analiz çıktıları', 'Görselleştirme / rapor akışı', ...base];
+}
+
+function buildLearnings(project: Project) {
+  if (project.id === 7) return ['Turnuva simülasyonunda tek skor değil dağılım göstermek daha doğru.', 'ELO gibi güncel güç sinyalleri model güvenini artırıyor.', 'Dashboard cache yönetimi canlı veri projelerinde kritik.'];
+  if (project.id === 6) return ['Davranış değişkenleri başarı tahmininde tek başına nottan daha açıklayıcı olabilir.', 'Kümeleme, sınıflandırmadan önce veri hikayesini anlamayı kolaylaştırıyor.', 'Feature importance sonuçları proje anlatımını güçlendiriyor.'];
+  if (project.id === 5) return ['Coğrafi veride görselleştirme, model metriği kadar önemli.', 'K-Means risk bölgelerini anlatmak için iyi bir başlangıç sağlıyor.', 'Sismik veride zaman ve derinlik özellikleri sonucu ciddi etkiliyor.'];
+  if (project.title.includes('Sleep')) return ['ML çıktısı kullanıcıya öneri olarak dönünce ürün değeri artıyor.', 'Backend, frontend ve model katmanını birlikte düşünmek gerekiyor.', 'AI koçluk katmanı model sonucunu daha anlaşılır hale getiriyor.'];
+  if (project.title.includes('Asteroid')) return ['API verisini ürüne çevirmek için iyi bir risk skoru şart.', 'OOP yapı veri çekme ve analiz akışını temiz tutuyor.', 'Görseller teknik veriyi hızlı anlaşılır hale getiriyor.'];
+  if (project.title.includes('Churn')) return ['İş problemi tarafında sade segmentler karmaşık modelden daha değerli olabilir.', 'Churn oranı tek başına değil, risk gruplarıyla birlikte okunmalı.', 'Pandas ile hızlı analiz doğru sorularla güçlü içgörü üretebilir.'];
+  return ['Küçük ürünlerde net kullanıcı akışı teknik karmaşıklıktan daha önemli.', 'Paylaşılabilir demo, proje etkisini artırıyor.', 'Basit fikir iyi sunulursa portfolio değeri kazanıyor.'];
+}
+
+function buildNextSteps(project: Project) {
+  if (project.id === 7) return ['Skor gösterimini top-scoreline dağılımıyla zenginleştirmek', 'Kadro sakatlık/form verisi eklemek', 'Dashboard içine senaryo karşılaştırması koymak'];
+  if (project.id === 6) return ['Daha büyük öğrenci veri setiyle tekrar denemek', 'Model açıklanabilirliği için SHAP eklemek', 'Mini dashboard ile sonuçları interaktif yapmak'];
+  if (project.id === 5) return ['Harita katmanını daha interaktif yapmak', 'Güncel USGS verisini otomatik çekmek', 'Bölgesel karşılaştırma paneli eklemek'];
+  if (project.title.includes('Sleep')) return ['Kullanıcı geri bildirimiyle önerileri kişiselleştirmek', 'Model drift takibi eklemek', 'Uyku trend grafikleri geliştirmek'];
+  if (project.title.includes('Asteroid')) return ['API güncellemesini zamanlayıcıya bağlamak', 'Risk alarm eşiği eklemek', 'Dashboard filtrelerini genişletmek'];
+  if (project.title.includes('Churn')) return ['Kampanya önerisi simülasyonu eklemek', 'Daha fazla davranış metriğiyle modeli genişletmek', 'Dashboard ile segmentleri izlenebilir yapmak'];
+  return ['Mobil deneyimi geliştirmek', 'Kullanıcı geri bildirimi toplamak', 'Yeni özellikleri küçük iterasyonlarla eklemek'];
 }

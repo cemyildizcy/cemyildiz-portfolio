@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { portfolioData } from '@/data/portfolio';
 import { projectCaseStudies } from '@/data/projectHelpers';
+import { getAllPosts } from '@/lib/blog';
 
 const featuredProject = projectCaseStudies[0];
 const selectedProjects = projectCaseStudies;
@@ -65,6 +66,8 @@ const latestPosts = [
 ];
 
 export default function Home() {
+  const blogPosts = getAllPosts().slice(0, 3);
+
   return (
     <main className="min-h-screen bg-[var(--bg)] text-[var(--text-primary)]">
       <section className="relative overflow-hidden border-b border-[var(--border-color)] pt-28 pb-20 sm:pt-36 sm:pb-28">
@@ -129,6 +132,9 @@ export default function Home() {
                   <Stat label="Simülasyon" value="10K" />
                   <Stat label="Model" value="xG" />
                 </div>
+                <Link href={`/projects/${featuredProject.slug}`} className="inline-flex w-full justify-center rounded-full bg-[var(--text-primary)] px-5 py-3 text-sm font-semibold text-[var(--bg)] transition hover:opacity-85">
+                  Case study’yi aç →
+                </Link>
               </div>
             </div>
           </aside>
@@ -143,6 +149,22 @@ export default function Home() {
               <p className="mt-2 text-sm text-[var(--text-secondary)]">{metric.label}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="border-b border-[var(--border-color)] py-16">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid gap-5 rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-6 lg:grid-cols-[0.55fr_1.45fr] lg:p-8">
+            <div>
+              <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Şu an</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight">Haftalık veri projelerini case study’ye çeviriyorum.</h2>
+            </div>
+            <div className="grid gap-3 md:grid-cols-3">
+              <MiniCard title="Odak" text="Sports analytics, ML, dashboard" />
+              <MiniCard title="Format" text="GitHub + canlı demo + LinkedIn" />
+              <MiniCard title="Sıradaki hedef" text="Daha güçlü case study anlatımı" />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -218,20 +240,41 @@ export default function Home() {
 
       <section id="yaklasim" className="border-y border-[var(--border-color)] bg-[var(--panel)] py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">DATA LAB</p>
-              <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Çalışma şeklim</h2>
+              <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Çalışma akışım</h2>
             </div>
-            <div className="grid gap-4">
-              {labNotes.map((note) => (
-                <div key={note.title} className="rounded-[1.5rem] border border-[var(--border-color)] bg-[var(--surface)] p-6">
-                  <h3 className="text-xl font-semibold">{note.title}</h3>
-                  <p className="mt-3 leading-7 text-[var(--text-secondary)]">{note.text}</p>
-                </div>
-              ))}
-            </div>
+            <p className="max-w-xl text-[var(--text-secondary)]">Her projeyi aynı net akışla kapatıyorum: veri, model, ürün, paylaşım.</p>
           </div>
+          <div className="grid gap-4 md:grid-cols-4">
+            {['Veriyi temizle', 'Modeli karşılaştır', 'Dashboard/rapor üret', 'Case study olarak paylaş'].map((step, index) => (
+              <div key={step} className="rounded-[1.5rem] border border-[var(--border-color)] bg-[var(--surface)] p-6 transition duration-500 hover:-translate-y-1 hover:border-[var(--accent)]">
+                <p className="font-mono text-sm text-[var(--accent)]">0{index + 1}</p>
+                <h3 className="mt-5 text-xl font-semibold tracking-tight">{step}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+        <div className="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">BLOG</p>
+            <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Son yazılar</h2>
+          </div>
+          <Link href="/blog" className="text-sm font-semibold text-[var(--accent)]">Tüm yazılar →</Link>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {blogPosts.map((post) => (
+            <Link key={post.slug} href={`/blog/${post.slug}`} className="rounded-[1.5rem] border border-[var(--border-color)] bg-[var(--surface)] p-6 transition duration-500 hover:-translate-y-1 hover:border-[var(--accent)]">
+              <p className="text-3xl">{post.coverEmoji}</p>
+              <h3 className="mt-5 text-xl font-semibold tracking-tight">{post.title}</h3>
+              <p className="mt-4 text-sm leading-6 text-[var(--text-secondary)]">{post.excerpt}</p>
+              <p className="mt-6 text-sm font-semibold text-[var(--accent)]">{post.readTime} · Oku →</p>
+            </Link>
+          ))}
         </div>
       </section>
 
