@@ -76,13 +76,13 @@ export default function Home() {
                 <div className="console-line"><span>03</span><strong>Ürüne taşı</strong><em>dashboard → case study → paylaşım</em></div>
               </div>
             </div>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link href="#projeler" className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--text-primary)] px-6 text-sm font-semibold text-[var(--bg)] transition hover:opacity-85">
                 Projeleri gör
               </Link>
-              <Link href={`/${'projects'}/${featuredProject.slug}`} className="inline-flex h-12 items-center justify-center rounded-full border border-[var(--border-color)] bg-[var(--surface)] px-6 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--accent)]">
-                WC2026 case study
-              </Link>
+              <a href="/documents/Cem_Yildiz_CV.pdf" download="Cem_Yildiz_CV.pdf" className="inline-flex h-12 items-center justify-center rounded-full border border-[var(--border-color)] bg-[var(--surface)] px-6 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--accent)]">
+                CV İndir
+              </a>
             </div>
           </div>
 
