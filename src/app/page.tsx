@@ -6,6 +6,24 @@ import { projectCaseStudies } from '@/data/projectHelpers';
 const featuredProject = projectCaseStudies[0];
 const selectedProjects = projectCaseStudies;
 
+const heroRotations = [
+  {
+    eyebrow: '01 · Sports analytics',
+    title: 'Turnuva simülasyonları kuruyorum.',
+    text: 'WC2026 projesinde takım gücü, ELO, oyuncu verisi ve Poisson xG modelini birleştirip 10.000 Monte Carlo turnuvası çalıştırdım.',
+  },
+  {
+    eyebrow: '02 · Machine learning',
+    title: 'Davranıştan tahmin modelleri çıkarıyorum.',
+    text: 'Öğrenci alışkanlıkları, churn ve sağlık verilerinde feature engineering, sınıflandırma ve model açıklanabilirliği üzerine çalışıyorum.',
+  },
+  {
+    eyebrow: '03 · Data product',
+    title: 'Notebook çıktısını canlı ürüne taşıyorum.',
+    text: 'Projeleri README, dashboard, case study, GitHub ve LinkedIn anlatısıyla paylaşılabilir ürün haline getiriyorum.',
+  },
+];
+
 const metrics = [
   { label: 'Yayınlanan proje', value: `${portfolioData.projects.length}+` },
   { label: 'Canlı demo / dashboard', value: '3' },
@@ -73,23 +91,21 @@ export default function Home() {
           </div>
 
           <aside className="grid gap-5">
-            <div className="overflow-hidden rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-4 shadow-2xl shadow-black/10">
-              <div className="grid gap-5 sm:grid-cols-[0.72fr_1fr] lg:grid-cols-1 xl:grid-cols-[0.72fr_1fr]">
-                <div className="relative min-h-80 overflow-hidden rounded-[1.5rem] bg-[var(--panel)]">
-                  <Image src="/images/profile.jpg" alt="Cem Yıldız profil fotoğrafı" fill priority sizes="(min-width: 1280px) 260px, 100vw" className="object-cover" />
-                </div>
-                <div className="flex flex-col justify-between rounded-[1.5rem] bg-[var(--panel)] p-5">
-                  <div>
-                    <p className="text-sm text-[var(--text-secondary)]">Şu an çalıştığım alan</p>
-                                        <h2 className="mt-2 text-2xl font-semibold tracking-tight">Data Science + ML + canlı demo</h2>
-                    <p className="mt-4 leading-7 text-[var(--text-secondary)]">Haftalık proje serisiyle her projeyi GitHub, LinkedIn ve demo çıktısıyla tamamlıyorum.</p>
+            <div className="relative overflow-hidden rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-5 shadow-2xl shadow-black/10">
+              <div className="absolute -right-20 -top-20 h-48 w-48 rounded-full bg-[var(--accent-soft)] blur-3xl" aria-hidden="true" />
+              <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Dönen işler</p>
+              <div className="hero-rotator mt-6 min-h-[15rem]">
+                {heroRotations.map((item, index) => (
+                  <div key={item.title} className="hero-rotator-item rounded-[1.5rem] border border-[var(--border-color)] bg-[var(--panel)] p-6" style={{ animationDelay: `${index * 4}s` }}>
+                    <p className="text-sm text-[var(--text-secondary)]">{item.eyebrow}</p>
+                    <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em]">{item.title}</h2>
+                    <p className="mt-5 leading-7 text-[var(--text-secondary)]">{item.text}</p>
                   </div>
-                  <Link href="#hakkimda" className="mt-6 text-sm font-semibold text-[var(--accent)]">Hakkımda →</Link>
-                </div>
+                ))}
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--panel)] p-5">
+            <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--panel)] p-5 transition duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/10">
               <div className="rounded-[1.5rem] border border-[var(--border-color)] bg-[var(--surface)] p-5">
                 <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4">
                   <div>
@@ -122,17 +138,27 @@ export default function Home() {
       </section>
 
       <section id="hakkimda" className="border-b border-[var(--border-color)] bg-[var(--panel)] py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">About</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Hakkımda</h2>
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:px-8">
+          <div className="relative">
+            <div className="absolute -inset-4 rounded-[2.5rem] bg-[var(--accent-soft)] blur-2xl" aria-hidden="true" />
+            <div className="relative overflow-hidden rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-3">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
+                <Image src="/images/profile.jpg" alt="Cem Yıldız profil fotoğrafı" fill sizes="(min-width: 1024px) 420px, 100vw" className="object-cover object-center" />
+              </div>
+            </div>
           </div>
-          <div className="grid gap-5">
-            <p className="text-pretty text-xl leading-9 text-[var(--text-secondary)]">{portfolioData.about.description}</p>
-            <div className="grid gap-3 sm:grid-cols-3">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">HAKKIMDA</p>
+            <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Veri bilimi öğrenirken ürettiğim işleri yayına taşımayı seviyorum.</h2>
+            <p className="mt-6 text-pretty text-xl leading-9 text-[var(--text-secondary)]">{portfolioData.about.description}</p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
               <MiniCard title="Okul" text="ESOGÜ · MatBil 2. sınıf" />
               <MiniCard title="Odak" text="Data Science, ML, Full-Stack" />
               <MiniCard title="Konum" text="Eskişehir, Türkiye" />
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/about" className="rounded-full bg-[var(--text-primary)] px-5 py-3 text-sm font-semibold text-[var(--bg)]">Detaylı hakkımda</Link>
+              <Link href="#projeler" className="rounded-full border border-[var(--border-color)] px-5 py-3 text-sm font-semibold">Projeleri incele</Link>
             </div>
           </div>
         </div>
@@ -151,7 +177,7 @@ export default function Home() {
 
         <div className="grid gap-5">
           {selectedProjects.map((project, index) => (
-            <article key={project.id} className="group grid gap-6 rounded-[1.75rem] border border-[var(--border-color)] bg-[var(--surface)] p-6 transition hover:-translate-y-0.5 hover:border-[var(--accent)] md:grid-cols-[0.62fr_1.38fr]">
+            <article key={project.id} className="group grid gap-6 rounded-[1.75rem] border border-[var(--border-color)] bg-[var(--surface)] p-6 transition duration-500 hover:-translate-y-1 hover:border-[var(--accent)] hover:shadow-2xl hover:shadow-black/10 md:grid-cols-[0.62fr_1.38fr]">
               <div className="flex flex-col justify-between rounded-[1.25rem] bg-[var(--bg)] p-5">
                 <div>
                   <p className="text-sm text-[var(--text-secondary)]">{String(index + 1).padStart(2, '0')} · {project.category}</p>

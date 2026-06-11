@@ -25,9 +25,6 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
   const project = getProjectBySlug(slug);
   if (!project) notFound();
 
-  const problem = buildProblem(project.title);
-  const method = buildMethod(project.technologies);
-
   return (
     <main className="min-h-screen bg-[var(--bg)] text-[var(--text-primary)] pt-28">
       <section className="border-b border-[var(--border-color)]">
@@ -66,12 +63,12 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
           <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--panel)] p-8">
             <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Problem</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight">Neyi çözmeye çalıştı?</h2>
-            <p className="mt-5 leading-8 text-[var(--text-secondary)]">{problem}</p>
+            <p className="mt-5 leading-8 text-[var(--text-secondary)]">{project.problem}</p>
           </div>
           <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-8">
             <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Yaklaşım</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight">Veriden çıktıya giden yol</h2>
-            <p className="mt-5 leading-8 text-[var(--text-secondary)]">{method}</p>
+            <p className="mt-5 leading-8 text-[var(--text-secondary)]">{project.approach}</p>
           </div>
         </div>
 
@@ -107,17 +104,4 @@ function InfoCard({ label, value }: { label: string; value: string }) {
       <p className="mt-2 text-2xl font-semibold tracking-tight">{value}</p>
     </div>
   );
-}
-
-function buildProblem(title: string) {
-  if (title.includes('Dünya Kupası')) return 'Tek maç tahmini yerine tüm turnuvayı baştan sona olasılık temelli modellemek gerekiyordu. Takım gücü, güncel ELO, kadro kalitesi, grup yapısı ve eleme ağacı aynı model içinde birleşti.';
-  if (title.includes('Öğrenci')) return 'Öğrenci başarısını sadece sınav sonucuyla değil, günlük alışkanlıklar ve davranış sinyalleriyle açıklamak gerekiyordu.';
-  if (title.includes('Deprem')) return 'Türkiye’deki deprem verisini anlaşılır risk segmentlerine ayırıp, bölgesel paternleri makine öğrenmesiyle görünür hale getirmek gerekiyordu.';
-  if (title.includes('Sleep')) return 'Uyku kalitesini etkileyen faktörleri modelleyip kullanıcıya anlaşılır ve aksiyona dönük öneri sunmak gerekiyordu.';
-  return 'Ham veriyi veya ürün fikrini anlaşılır, ölçülebilir ve paylaşılabilir bir çıktıya dönüştürmek hedeflendi.';
-}
-
-function buildMethod(technologies: string[]) {
-  const top = technologies.slice(0, 4).join(', ');
-  return `Projede önce veri yapısı incelendi, ardından temizleme, feature engineering ve modelleme adımları kuruldu. Ana araçlar: ${top}. Çıktı tarafında README, görselleştirme, demo veya canlı ürün bağlantısı ile proje sunulabilir hale getirildi.`;
 }
