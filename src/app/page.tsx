@@ -74,12 +74,21 @@ export default function Home() {
             <p className="mb-5 inline-flex rounded-full border border-[var(--border-color)] bg-[var(--surface)] px-4 py-2 text-sm text-[var(--text-secondary)]">
               Cem Yıldız · Matematik & Bilgisayar Bilimleri · Data Lab
             </p>
-            <h1 className="text-balance text-5xl font-semibold tracking-[-0.05em] text-[var(--text-primary)] sm:text-6xl lg:text-7xl">
-                          Veri projelerini görülebilir ürünlere çeviriyorum.
-                        </h1>
-            <p className="mt-8 max-w-2xl text-pretty text-lg leading-8 text-[var(--text-secondary)]">
-              Python, makine öğrenmesi ve modern web araçlarıyla veri projeleri geliştiriyorum. Amacım sadece model eğitmek değil; fikri veri setinden canlı dashboard'a, case study'den kullanıcıya kadar taşımak.
-            </p>
+            <div className="hero-console mt-8 rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-4 shadow-2xl shadow-black/10">
+              <div className="mb-4 flex items-center justify-between border-b border-[var(--border-color)] pb-3">
+                <div className="flex gap-2">
+                  <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+                  <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
+                  <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+                </div>
+                <span className="text-xs text-[var(--text-secondary)]">cem-data-lab/run</span>
+              </div>
+              <div className="grid gap-3 text-sm sm:text-base">
+                <div className="console-line"><span>01</span><strong>Veriyi oku</strong><em>ham veri → temiz tablo</em></div>
+                <div className="console-line"><span>02</span><strong>Modeli kur</strong><em>feature → deney → metrik</em></div>
+                <div className="console-line"><span>03</span><strong>Ürüne taşı</strong><em>dashboard → case study → paylaşım</em></div>
+              </div>
+            </div>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <Link href="#projeler" className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--text-primary)] px-6 text-sm font-semibold text-[var(--bg)] transition hover:opacity-85">
                 Projeleri gör
