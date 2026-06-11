@@ -4,7 +4,6 @@ import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "next-themes";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { CustomCursor } from "@/components/layout/CustomCursor";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -90,9 +89,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${GeistSans.variable} ${GeistMono.variable} noise antialiased bg-[var(--bg)] text-[var(--text-primary)] min-h-screen`}>
-        <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false}>
-          <CustomCursor />
+      <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased bg-[var(--bg)] text-[var(--text-primary)] min-h-screen`}>
+        <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false}>
           <Navbar />
           <main>{children}</main>
           <Footer />

@@ -9,31 +9,34 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-border: var(--border-color);
-  
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
 :root {
-  --bg: #0a0a0a;
-  --surface: #141414;
-  --card: #1a1a1a;
-  --text-primary: #f5f5f5;
-  --text-secondary: #a3a3a3;
-  --accent: #6366f1;
-  --accent-hover: #818cf8;
-  --border-color: rgba(255, 255, 255, 0.08);
+  --bg: #f4f1ea;
+  --surface: #fbfaf6;
+  --panel: #ebe5da;
+  --card: #fffdf8;
+  --text-primary: #17130e;
+  --text-secondary: #695f52;
+  --accent: #275c4c;
+  --accent-hover: #1f493d;
+  --accent-soft: #d9ebe3;
+  --border-color: rgba(39, 32, 24, 0.13);
 }
 
-[data-theme="light"] {
-  --bg: #ffffff;
-  --surface: #fafafa;
-  --card: #ffffff;
-  --text-primary: #171717;
-  --text-secondary: #525252;
-  --accent: #4f46e5;
-  --accent-hover: #6366f1;
-  --border-color: rgba(0, 0, 0, 0.08);
+[data-theme="dark"] {
+  --bg: #11100d;
+  --surface: #191713;
+  --panel: #211e19;
+  --card: #191713;
+  --text-primary: #f7f1e7;
+  --text-secondary: #b6aa9a;
+  --accent: #7bc4a8;
+  --accent-hover: #9fd9c2;
+  --accent-soft: rgba(123, 196, 168, 0.14);
+  --border-color: rgba(247, 241, 231, 0.12);
 }
 
 html {
@@ -42,69 +45,39 @@ html {
 }
 
 body {
-  background-color: var(--bg);
+  background: var(--bg);
   color: var(--text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
   background-color: var(--accent);
-  color: white;
+  color: var(--bg);
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--text-secondary); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
-section {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+* {
+  box-sizing: border-box;
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-color);
-}
-[data-theme="light"] .glass {
-  background: rgba(255, 255, 255, 0.7);
-}
-
-.grid-bg {
+.lab-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-[data-theme="light"] .grid-bg {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    linear-gradient(var(--border-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+.text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
 
-.noise::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  opacity: 0.015; pointer-events: none; z-index: 9999;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
-
-.link-underline { position: relative; }
-.link-underline::after {
-  content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px;
-  background: var(--accent); transition: width 0.3s ease;
-}
-.link-underline:hover::after { width: 100%; }
