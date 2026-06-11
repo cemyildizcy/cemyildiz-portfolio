@@ -47,23 +47,7 @@ const labNotes = [
   },
 ];
 
-const latestPosts = [
-  {
-    title: '2026 Dünya Kupası AI Simülatörü',
-    meta: 'W6 LinkedIn postu',
-    url: 'https://www.linkedin.com/posts/cemyildizcy_datascience-machinelearning-python-ugcPost-7470769047601664000-OO0G/',
-  },
-  {
-    title: 'Öğrenci Alışkanlıkları ve Akademik Başarı',
-    meta: 'W5 proje postu',
-    url: 'https://www.linkedin.com/feed/update/urn:li:activity:7467981878382465024/',
-  },
-  {
-    title: 'Türkiye Deprem Risk Analizi',
-    meta: 'W4 proje postu',
-    url: 'https://www.linkedin.com/feed/update/urn:li:activity:7465489993902411776/',
-  },
-];
+
 
 export default function Home() {
   const blogPosts = getAllPosts().slice(0, 3);
@@ -278,24 +262,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="paylasimlar" className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-        <div className="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">AÇIKTA ÜRETİM</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Son paylaşımlar</h2>
-          </div>
-          <Link href="https://www.linkedin.com/in/cemyildizcy/" target="_blank" className="text-sm font-semibold text-[var(--accent)]">LinkedIn profilim →</Link>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {latestPosts.map((post) => (
-            <Link key={post.url} href={post.url} target="_blank" className="rounded-[1.5rem] border border-[var(--border-color)] bg-[var(--surface)] p-6 transition hover:border-[var(--accent)]">
-              <p className="text-sm text-[var(--text-secondary)]">{post.meta}</p>
-              <h3 className="mt-4 text-xl font-semibold tracking-tight">{post.title}</h3>
-              <p className="mt-6 text-sm font-semibold text-[var(--accent)]">Gönderiyi oku →</p>
-            </Link>
-          ))}
-        </div>
-      </section>
+      
 
       <section id="iletisim" className="mx-auto max-w-7xl px-6 pb-24 lg:px-8">
         <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--text-primary)] p-8 text-[var(--bg)] sm:p-12">

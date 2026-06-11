@@ -25,6 +25,7 @@ export const projectCaseStudies = portfolioData.projects.map((project) => ({
   learnings: buildLearnings(project),
   nextSteps: buildNextSteps(project),
   visual: project.id === 7 ? '/images/projects/wc2026/champion-probabilities.png' : undefined,
+  linkedinPostId: getLinkedinPostId(project.id),
 }));
 
 export type ProjectCaseStudy = Project & {
@@ -38,6 +39,7 @@ export type ProjectCaseStudy = Project & {
   learnings: string[];
   nextSteps: string[];
   visual?: string;
+  linkedinPostId?: string;
 };
 
 export function getProjectBySlug(slug: string) {
@@ -94,6 +96,12 @@ function buildLearnings(project: Project) {
   return ['Küçük ürünlerde net kullanıcı akışı teknik karmaşıklıktan daha önemli.', 'Paylaşılabilir demo, proje etkisini artırıyor.', 'Basit fikir iyi sunulursa portfolio değeri kazanıyor.'];
 }
 
+function getLinkedinPostId(id: number) {
+  if (id === 7) return 'ugcPost:7470769047601664000'; // W6 WC2026
+  if (id === 6) return 'activity:7467981878382465024'; // W5 Öğrenci
+  if (id === 5) return 'activity:7465489993902411776'; // W4 Deprem
+  return undefined;
+}
 function buildNextSteps(project: Project) {
   if (project.id === 7) return ['Skor gösterimini top-scoreline dağılımıyla zenginleştirmek', 'Kadro sakatlık/form verisi eklemek', 'Dashboard içine senaryo karşılaştırması koymak'];
   if (project.id === 6) return ['Daha büyük öğrenci veri setiyle tekrar denemek', 'Model açıklanabilirliği için SHAP eklemek', 'Mini dashboard ile sonuçları interaktif yapmak'];

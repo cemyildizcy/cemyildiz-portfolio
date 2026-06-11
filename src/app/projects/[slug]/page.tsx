@@ -107,6 +107,31 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
           <CaseList title="Öğrendiklerim" items={project.learnings} />
           <CaseList title="Sonraki iyileştirme" items={project.nextSteps} />
         </div>
+
+        {project.linkedinPostId && (
+          <div className="mt-12 rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-8">
+            <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+              <div>
+                <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">BUILD IN PUBLIC</p>
+                <h2 className="mt-2 text-3xl font-semibold tracking-tight">Proje süreci</h2>
+              </div>
+              <Link href="https://www.linkedin.com/in/cemyildizcy/" target="_blank" className="rounded-full bg-[#0a66c2] px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90">
+                LinkedIn'de takip et
+              </Link>
+            </div>
+            <div className="overflow-hidden rounded-2xl border border-[var(--border-color)] bg-white h-[460px] w-full max-w-3xl mx-auto shadow-sm">
+              <iframe 
+                src={`https://www.linkedin.com/embed/feed/update/urn:li:${project.linkedinPostId}`} 
+                height="100%" 
+                width="100%" 
+                frameBorder="0" 
+                allowFullScreen 
+                title={`${project.title} LinkedIn gönderisi`}
+                className="w-full h-full"
+              ></iframe>
+            </div>
+          </div>
+        )}
       </section>
     </main>
   );

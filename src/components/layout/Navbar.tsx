@@ -7,8 +7,7 @@ const NAV_LINKS = [
   { label: 'Hakkımda', href: '/about' },
   { label: 'Projeler', href: '/#projeler' },
   { label: 'Yaklaşım', href: '/#yaklasim' },
-  { label: 'Paylaşımlar', href: '/#paylasimlar' },
-  { label: 'Blog', href: '/blog' },
+    { label: 'Blog', href: '/blog' },
   { label: 'İletişim', href: '/#iletisim' },
 ];
 
