@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cem Yıldız Portfolio
 
-## Getting Started
+Personal portfolio and data science case-study website for **Cem Yıldız** — a Mathematics & Computer Science student focused on Data Science, Machine Learning, and full-stack AI/data products.
 
-First, run the development server:
+Live: [cemyildiz.net](https://cemyildiz.net)
+
+## Overview
+
+This portfolio is designed as a **Data Lab / case-study showcase**, not a generic link list. Each project is presented with context, methodology, outputs, and learnings so visitors can understand both the technical implementation and the product thinking behind the work.
+
+## Features
+
+- Case-study driven project pages
+- Featured data science and ML projects
+- Responsive modern UI
+- Project storytelling sections
+- Lightweight social/project links
+- Built for deployment on Vercel
+
+## Featured Projects
+
+- **2026 FIFA World Cup AI Simulator** — Poisson xG + Monte Carlo tournament forecasting dashboard
+- **SleepInfo** — AI-powered sleep health predictor with XGBoost, FastAPI, React, Supabase, and Gemini AI
+- **Turkey Earthquake Risk Analysis** — geospatial risk analysis with clustering and ML classification
+- **Student Performance Analysis** — academic success modeling with feature engineering and clustering
+
+## Tech Stack
+
+- **Framework:** Next.js
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Deployment:** Vercel
+- **Content:** project case-study data and custom portfolio sections
+
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+## Purpose
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The goal of this portfolio is to show how I turn datasets and ideas into polished, explainable, and interactive products — combining data science, machine learning, and full-stack development.
