@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { portfolioData } from '@/data/portfolio';
 
 export const metadata = {
-  title: 'Hakkımda | Cem Yıldız',
+  title: 'Hakkımda',
   description: 'Cem Yıldız hakkında: veri bilimi, makine öğrenimi ve full-stack projeler.',
 };
 

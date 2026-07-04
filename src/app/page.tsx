@@ -58,8 +58,17 @@ export default function Home() {
         <div className="absolute inset-0 lab-grid opacity-70" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
           <div className="max-w-3xl">
-            <p className="mb-5 inline-flex rounded-full border border-[var(--border-color)] bg-[var(--surface)] px-4 py-2 text-sm text-[var(--text-secondary)]">
-              Cem Yıldız · Matematik & Bilgisayar Bilimleri · Data Lab
+            <p className="mb-5 inline-flex rounded-full border border-[var(--accent)] bg-[var(--accent-soft)] px-4 py-2 text-sm font-medium text-[var(--accent)]">
+              Veri Bilimi / ML stajı için müsaitim · CV + projeler hazır
+            </p>
+            <h1 className="text-balance text-5xl font-semibold tracking-[-0.06em] sm:text-7xl">
+              Veri bilimi ve makine öğrenimi projelerini canlı ürüne çeviren öğrenci geliştirici.
+            </h1>
+            <p className="mt-6 max-w-2xl text-pretty text-xl leading-9 text-[var(--text-secondary)]">
+              ESOGÜ Matematik ve Bilgisayar Bilimleri 2. sınıf öğrencisiyim. Python, pandas, scikit-learn ve modern web araçlarıyla veri temizlemeden modellemeye, dashboard’dan case study’ye kadar uçtan uca projeler geliştiriyorum.
+            </p>
+            <p className="mt-4 max-w-2xl rounded-2xl border border-[var(--border-color)] bg-[var(--surface)] p-4 text-sm leading-6 text-[var(--text-secondary)]">
+              EN: Data Science / ML intern candidate building end-to-end Python projects: data cleaning, modeling, dashboards, and public case studies.
             </p>
             <div className="hero-console mt-8 rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-4 shadow-2xl shadow-black/10">
               <div className="mb-4 flex items-center justify-between border-b border-[var(--border-color)] pb-3">
@@ -83,6 +92,9 @@ export default function Home() {
               <a href="/documents/Cem_Yildiz_CV.pdf" download="Cem_Yildiz_CV.pdf" className="inline-flex h-12 items-center justify-center rounded-full border border-[var(--border-color)] bg-[var(--surface)] px-6 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--accent)]">
                 CV İndir
               </a>
+              <Link href="mailto:cemyildizcy@hotmail.com?subject=Staj%20F%C4%B1rsat%C4%B1%20-%20Cem%20Y%C4%B1ld%C4%B1z" className="inline-flex h-12 items-center justify-center rounded-full border border-[var(--border-color)] bg-[var(--surface)] px-6 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--accent)]">
+                Staj için mail at
+              </Link>
             </div>
           </div>
 
@@ -140,13 +152,13 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-5 rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-6 lg:grid-cols-[0.55fr_1.45fr] lg:p-8">
             <div>
-              <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Şu an</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight">Haftalık veri projelerini case study’ye çeviriyorum.</h2>
+              <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Şu an açık olduğum alanlar</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight">Veri Bilimi / ML stajı, sports analytics ve dashboard projeleri.</h2>
             </div>
             <div className="grid gap-3 md:grid-cols-3">
-              <MiniCard title="Odak" text="Sports analytics, ML, dashboard" />
-              <MiniCard title="Format" text="GitHub + canlı demo + LinkedIn" />
-              <MiniCard title="Sıradaki hedef" text="Daha güçlü case study anlatımı" />
+              <MiniCard title="Staj odağı" text="Data Science · ML · Python Data Analyst" />
+              <MiniCard title="Kanıt formatı" text="GitHub + canlı demo + case study" />
+              <MiniCard title="Çalışma şekli" text="Veri temizleme → model → dashboard/API" />
             </div>
           </div>
         </div>
@@ -164,12 +176,13 @@ export default function Home() {
           </div>
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">HAKKIMDA</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Veri bilimi öğrenirken ürettiğim işleri yayına taşımayı seviyorum.</h2>
+            <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Model kuran, anlatan ve ürüne çeviren öğrenci.</h2>
             <p className="mt-6 text-pretty text-xl leading-9 text-[var(--text-secondary)]">{portfolioData.about.description}</p>
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              <MiniCard title="Okul" text="ESOGÜ · MatBil 2. sınıf" />
-              <MiniCard title="Odak" text="Data Science, ML, Full-Stack" />
-              <MiniCard title="Konum" text="Eskişehir, Türkiye" />
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              <MiniCard title="Aradığım fırsatlar" text="DS/ML stajı, analytics dashboard, sports analytics" />
+              <MiniCard title="Nasıl çalışıyorum" text="Veri temizleme → feature → model → dashboard/API → case study" />
+              <MiniCard title="Şu an öğreniyorum" text="Time series, deep learning, MLOps basics, model evaluation" />
+              <MiniCard title="Kanıt" text="WC2026, SleepInfo, Churn: canlı/demo/repo/case study" />
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/about" className="rounded-full bg-[var(--text-primary)] px-5 py-3 text-sm font-semibold text-[var(--bg)]">Detaylı hakkımda</Link>
@@ -188,6 +201,18 @@ export default function Home() {
           <p className="max-w-xl text-[var(--text-secondary)]">
             Her proje artık ayrı case study sayfasına bağlanıyor: problem, yaklaşım, stack, sonuç ve linkler tek yerde.
           </p>
+        </div>
+
+        <div className="mb-8 grid gap-4 rounded-[2rem] border border-[var(--border-color)] bg-[var(--panel)] p-6 md:grid-cols-[0.45fr_1.55fr]">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">60 saniyen varsa</p>
+            <h3 className="mt-3 text-2xl font-semibold tracking-tight">Önce bu 3 projeye bak.</h3>
+          </div>
+          <div className="grid gap-3 md:grid-cols-3">
+            <MiniCard title="WC2026" text="Probabilistic sports simulation + dashboard" />
+            <MiniCard title="SleepInfo" text="Full-stack ML product + API/frontend" />
+            <MiniCard title="Churn" text="Business ML + feature engineering" />
+          </div>
         </div>
 
         <div className="grid gap-5">
@@ -219,6 +244,17 @@ export default function Home() {
               </div>
             </article>
           ))}
+        </div>
+
+        <div className="mt-10 rounded-[2rem] border border-[var(--accent)] bg-[var(--accent-soft)] p-8">
+          <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Staj CTA</p>
+          <h3 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight">Veri bilimi stajı, ML projesi veya teknik iş birliği için konuşalım.</h3>
+          <p className="mt-4 max-w-2xl text-[var(--text-secondary)]">CV’mi indirebilir, GitHub projelerimi inceleyebilir veya doğrudan mail atabilirsin.</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a href="/documents/Cem_Yildiz_CV.pdf" download="Cem_Yildiz_CV.pdf" className="rounded-full bg-[var(--text-primary)] px-5 py-3 text-sm font-semibold text-[var(--bg)]">CV indir</a>
+            <Link href="mailto:cemyildizcy@hotmail.com?subject=Staj%20F%C4%B1rsat%C4%B1%20-%20Cem%20Y%C4%B1ld%C4%B1z" className="rounded-full border border-[var(--border-color)] px-5 py-3 text-sm font-semibold">Mail gönder</Link>
+            <Link href="https://www.linkedin.com/in/cemyildizcy/" target="_blank" className="rounded-full border border-[var(--border-color)] px-5 py-3 text-sm font-semibold">LinkedIn’den yaz</Link>
+          </div>
         </div>
       </section>
 
@@ -267,11 +303,11 @@ export default function Home() {
       <section id="iletisim" className="mx-auto max-w-7xl px-6 pb-24 lg:px-8">
         <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--text-primary)] p-8 text-[var(--bg)] sm:p-12">
           <p className="text-sm font-medium uppercase tracking-[0.24em] opacity-70">İLETİŞİM</p>
-          <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">Yeni veri projesi, staj fırsatı veya teknik sohbet için ulaşabilirsin.</h2>
+          <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">Veri bilimi stajı, ML projesi veya teknik iş birliği için konuşalım.</h2>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="mailto:cemyildizcy@hotmail.com" className="rounded-full bg-[var(--bg)] px-5 py-3 text-sm font-semibold text-[var(--text-primary)]">Mail gönder</Link>
-            <Link href="https://github.com/cemyildizcy" target="_blank" className="rounded-full border border-[var(--bg)]/20 px-5 py-3 text-sm font-semibold">GitHub</Link>
-            <Link href="https://www.linkedin.com/in/cemyildizcy/" target="_blank" className="rounded-full border border-[var(--bg)]/20 px-5 py-3 text-sm font-semibold">LinkedIn</Link>
+            <a href="/documents/Cem_Yildiz_CV.pdf" download="Cem_Yildiz_CV.pdf" className="rounded-full bg-[var(--bg)] px-5 py-3 text-sm font-semibold text-[var(--text-primary)]">CV indir</a>
+            <Link href="mailto:cemyildizcy@hotmail.com?subject=Staj%20F%C4%B1rsat%C4%B1%20-%20Cem%20Y%C4%B1ld%C4%B1z" className="rounded-full border border-[var(--bg)]/20 px-5 py-3 text-sm font-semibold text-[var(--bg)] hover:bg-[var(--bg)]/10 transition">Mail gönder</Link>
+            <Link href="https://www.linkedin.com/in/cemyildizcy/" target="_blank" className="rounded-full border border-[var(--bg)]/20 px-5 py-3 text-sm font-semibold text-[var(--bg)] hover:bg-[var(--bg)]/10 transition">LinkedIn</Link>
           </div>
         </div>
       </section>

@@ -69,16 +69,16 @@ export const portfolioData: PortfolioData = {
   hero: {
     name: "Cem Yıldız",
     title: "Veri Bilimi & Makine Öğrenimi",
-    subtitle: "Matematik ve Bilgisayar Bilimleri Öğrencisi",
+    subtitle: "DS / ML Staj Adayı",
     description:
-      "Veri bilimi, makine öğrenimi ve Python tabanlı veri analizi projeleri üzerine yoğunlaşıyor.",
+      "Veri bilimi ve makine öğrenimi projelerini canlı ürüne çeviren öğrenci geliştirici. ESOGÜ Matematik ve Bilgisayar Bilimleri 2. sınıf öğrencisiyim. Python, pandas, scikit-learn ve modern web araçlarıyla veri temizlemeden modellemeye, dashboard'dan case study'ye kadar uçtan uca projeler geliştiriyorum.",
     cta: "Projelerimi Gör",
   },
 
   about: {
     title: "Hakkımda",
     description:
-      "Eskişehir Osmangazi Üniversitesi Matematik ve Bilgisayar Bilimleri bölümü 2. sınıf öğrencisiyim. Veri bilimi, makine öğrenimi ve Python tabanlı veri analizi projeleri üzerine yoğunlaşıyorum. Gerçek dünya problemlerine veri odaklı çözümler üretmeye tutkuyla bağlıyım.",
+      "Eskişehir Osmangazi Üniversitesi Matematik ve Bilgisayar Bilimleri bölümünde okuyorum; Eylül 2026 itibarıyla 3. sınıf öğrencisi olacağım. Veri bilimi ve makine öğrenimini sadece notebook içinde bırakmadan, çalışan dashboard'lara, API'lere ve okunabilir case study'lere dönüştürmeye odaklanıyorum. Son projelerimde Dünya Kupası turnuva simülasyonu, uyku kalitesi tahmini, müşteri churn analizi, deprem risk modelleme ve öğrenci başarı tahmini gibi farklı veri problemleri üzerinde çalıştım. Ortak hedefim aynı: ham veriyi temizlemek, anlamlı özellikler üretmek, modeli doğru metriklerle değerlendirmek ve sonucu teknik olmayan kişilerin de anlayabileceği bir ürüne çevirmek. Şu anda Veri Bilimi, Makine Öğrenimi, Sports Analytics ve dashboard geliştirme alanlarında staj fırsatlarına açığım.",
     location: "Odunpazarı, Eskişehir, Turkey",
     email: "cemyildizcy@hotmail.com",
     phone: "5344630465",
@@ -89,7 +89,7 @@ export const portfolioData: PortfolioData = {
       id: 7,
       title: "2026 Dünya Kupası AI Simülatörü",
       description:
-        "2026 FIFA Dünya Kupası'nın 48 takımlı yeni formatını veri bilimiyle simüle eden uçtan uca proje. EA FC 25 oyuncu verileri, StatsBomb Open Data, FIFA/ELO benzeri takım gücü ve Poisson xG modeliyle 10.000 Monte Carlo turnuva simülasyonu çalıştırır.",
+        "48 takımlı 2026 Dünya Kupası formatını Poisson xG modeli ve 10.000 Monte Carlo simülasyonu ile modelleyen sports analytics projesi. EA FC 25, StatsBomb ve ELO benzeri takım gücü sinyallerini birleştirerek şampiyonluk, tur geçme ve skor dağılımı olasılıklarını Streamlit dashboard'da sunar.",
       technologies: [
         "Python",
         "Pandas",
@@ -108,6 +108,68 @@ export const portfolioData: PortfolioData = {
         "10.000 Monte Carlo simülasyonu ile şampiyonluk olasılıkları",
         "EA FC 25 + StatsBomb + FIFA/ELO feature birleşimi",
         "Türkçe Streamlit dashboard ve skor dağılımı analizi",
+      ],
+    },
+    {
+      id: 1,
+      title: "SleepInfo",
+      description:
+        "Uyku kalitesini tahmin eden full-stack ML platformu. XGBoost, Random Forest ve Gradient Boosting modellerini karşılaştırır; FastAPI backend, React/Vite frontend ve Supabase entegrasyonu ile kullanıcıya tahmin + AI uyku koçluğu sunar.",
+      technologies: [
+        "XGBoost",
+        "Random Forest",
+        "Gradient Boosting",
+        "FastAPI",
+        "React",
+        "Vite",
+        "Supabase",
+        "Vercel",
+        "Render",
+        "Google Gemini 2.5 Flash API",
+      ],
+      liveUrl: "https://sleepinfo.com.tr",
+      highlights: [
+        "%95.3 doğruluk oranı",
+        "AI Uyku Koçluğu",
+        "FastAPI + React/Vite full-stack",
+        "Supabase veritabanı entegrasyonu",
+        "Vercel + Render deployment",
+      ],
+    },
+    {
+      id: 3,
+      title: "E-Ticaret Churn Analizi",
+      description:
+        "E-ticaret müşterilerinde churn riskini analiz eden iş odaklı ML projesi. RFM feature engineering, segmentasyon ve sınıflandırma modelleriyle müşterilerin ayrılma olasılığını yorumlanabilir metriklerle açıklar.",
+      technologies: ["Python", "Pandas", "NumPy", "Scikit-learn", "Feature Engineering"],
+      githubUrl: "https://github.com/cemyildizcy/ecommerce-churn-analysis",
+      highlights: [
+        "%50.85 churn oranı tespiti",
+        "RFM feature engineering",
+        "Risk Segmentasyonu",
+        "Kapsamlı veri analizi",
+      ],
+    },
+    {
+      id: 5,
+      title: "Türkiye Deprem Risk Analizi",
+      description:
+        "USGS veritabanından çekilen 30 yıllık Türkiye deprem verileri (9.300+ kayıt) kullanılarak geliştirilmiş uçtan uca Makine Öğrenmesi pipeline'ı. Gözetimsiz (K-Means) ve Gözetimli (Random Forest, SVM, LR) modeller ile sismik bölge kümeleme ve deprem risk seviyesi tahminleme.",
+      technologies: [
+        "Python",
+        "Pandas",
+        "Scikit-learn",
+        "K-Means Clustering",
+        "Random Forest",
+        "Feature Engineering",
+        "Matplotlib/Seaborn"
+      ],
+      githubUrl: "https://github.com/cemyildizcy/turkey-earthquake-risk-analysis",
+      highlights: [
+        "30 yıllık (1994-2025) gerçek veri analizi",
+        "K-Means ile 4 sismik bölge tespiti",
+        "Random Forest ile %84.7 doğruluk oranlı risk tahmini",
+        "Feature Importance analizi ile sismik belirleyicilerin tespiti"
       ],
     },
     {
@@ -135,54 +197,6 @@ export const portfolioData: PortfolioData = {
       ],
     },
     {
-      id: 5,
-      title: "Türkiye Deprem Risk Analizi",
-      description:
-        "USGS veritabanından çekilen 30 yıllık Türkiye deprem verileri (9.300+ kayıt) kullanılarak geliştirilmiş uçtan uca Makine Öğrenmesi pipeline'ı. Gözetimsiz (K-Means) ve Gözetimli (Random Forest, SVM, LR) modeller ile sismik bölge kümeleme ve deprem risk seviyesi tahminleme.",
-      technologies: [
-        "Python",
-        "Pandas",
-        "Scikit-learn",
-        "K-Means Clustering",
-        "Random Forest",
-        "Feature Engineering",
-        "Matplotlib/Seaborn"
-      ],
-      githubUrl: "https://github.com/cemyildizcy/turkey-earthquake-risk-analysis",
-      highlights: [
-        "30 yıllık (1994-2025) gerçek veri analizi",
-        "K-Means ile 4 sismik bölge tespiti",
-        "Random Forest ile %84.7 doğruluk oranlı risk tahmini",
-        "Feature Importance analizi ile sismik belirleyicilerin tespiti"
-      ],
-    },
-    {
-      id: 1,
-      title: "SleepInfo",
-      description:
-        "AI destekli uyku analiz platformu. XGBoost, Random Forest ve Gradient Boosting modelleri ile %95.3 doğruluk oranına ulaşan uyku kalitesi tahmini. Google Gemini 2.5 Flash API entegrasyonu ile kişiselleştirilmiş AI Uyku Koçluğu.",
-      technologies: [
-        "XGBoost",
-        "Random Forest",
-        "Gradient Boosting",
-        "FastAPI",
-        "React",
-        "Vite",
-        "Supabase",
-        "Vercel",
-        "Render",
-        "Google Gemini 2.5 Flash API",
-      ],
-      liveUrl: "https://sleepinfo.com.tr",
-      highlights: [
-        "%95.3 doğruluk oranı",
-        "AI Uyku Koçluğu",
-        "FastAPI + React/Vite full-stack",
-        "Supabase veritabanı entegrasyonu",
-        "Vercel + Render deployment",
-      ],
-    },
-    {
       id: 2,
       title: "Asteroid Risk Analysis",
       description:
@@ -202,19 +216,6 @@ export const portfolioData: PortfolioData = {
         "Risk Skoru Algoritması",
         "OOP mimari tasarım",
         "Seaborn/Matplotlib görselleştirme",
-      ],
-    },
-    {
-      id: 3,
-      title: "E-Ticaret Churn Analizi",
-      description:
-        "E-ticaret müşteri kayıp analizi projesi. Risk segmentasyonu ve veri analizi ile %50.85 churn oranı tespit edildi.",
-      technologies: ["Python", "Pandas", "NumPy"],
-      githubUrl: "https://github.com/cemyildizcy/ecommerce-churn-analysis",
-      highlights: [
-        "%50.85 churn oranı tespiti",
-        "Risk Segmentasyonu",
-        "Kapsamlı veri analizi",
       ],
     },
     {
@@ -270,7 +271,7 @@ export const portfolioData: PortfolioData = {
       institution: "Eskişehir Osmangazi Üniversitesi",
       degree: "Lisans",
       field: "Matematik ve Bilgisayar Bilimleri",
-      year: "2. sınıf",
+      year: "Eylül 2026 itibarıyla 3. sınıf",
       graduationYear: 2028,
       description:
         "Veri bilimi, makine öğrenimi ve Python tabanlı veri analizi projeleri üzerine yoğunlaşıyor.",

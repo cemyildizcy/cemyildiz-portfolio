@@ -83,20 +83,20 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-8">
-            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Highlights</p>
+            <h2 className="text-xl font-semibold tracking-tight">Öne Çıkanlar</h2>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {project.highlights.map((item) => (
-                <div key={item} className="rounded-2xl border border-[var(--border-color)] bg-[var(--bg)] p-5 text-sm leading-6 text-[var(--text-secondary)]">
-                  {item}
+              {project.highlights.map((h) => (
+                <div key={h} className="rounded-[1.25rem] border border-[var(--border-color)] bg-[var(--panel)] p-5 text-sm text-[var(--text-secondary)]">
+                  {h}
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--panel)] p-8">
-            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[var(--accent)]">Tech stack</p>
+          <div className="rounded-[2rem] border border-[var(--border-color)] bg-[var(--surface)] p-8">
+            <h2 className="text-xl font-semibold tracking-tight">Teknoloji Stack'i</h2>
             <div className="mt-6 flex flex-wrap gap-2">
-              {project.technologies.map((tech) => (
-                <span key={tech} className="rounded-full border border-[var(--border-color)] bg-[var(--surface)] px-3 py-1 text-sm text-[var(--text-secondary)]">{tech}</span>
+              {project.technologies.map((t) => (
+                <span key={t} className="rounded-full border border-[var(--border-color)] bg-[var(--panel)] px-4 py-2 text-sm text-[var(--text-secondary)]">{t}</span>
               ))}
             </div>
           </div>

@@ -51,6 +51,7 @@ function inferCategory(project: Project) {
   if (text.includes('simülatör') || text.includes('monte carlo')) return 'Sports Analytics / Simulation';
   if (text.includes('deprem')) return 'Risk Analytics';
   if (text.includes('uyku') || text.includes('sleep')) return 'Health AI';
+  if (text.includes('öğrenci') || text.includes('habits')) return 'Education Analytics / ML';
   if (text.includes('churn')) return 'Business Analytics';
   if (text.includes('asteroid')) return 'API Data Product';
   if (text.includes('oyun')) return 'Web Product';
