@@ -94,7 +94,7 @@ export const portfolioData: PortfolioData = {
   about: {
     title: "Hakkımda",
     description:
-      "Eskişehir Osmangazi Üniversitesi Matematik ve Bilgisayar Bilimleri bölümünde okuyorum; Eylül 2026 itibarıyla 3. sınıf öğrencisi olacağım. Veri bilimi ve makine öğrenimini sadece notebook içinde bırakmadan, çalışan dashboard'lara, API'lere ve okunabilir case study'lere dönüştürmeye odaklanıyorum. Son projelerimde Dünya Kupası turnuva simülasyonu, uyku kalitesi tahmini, müşteri churn analizi, deprem risk modelleme ve öğrenci başarı tahmini gibi farklı veri problemleri üzerinde çalıştım. Ortak hedefim aynı: ham veriyi temizlemek, anlamlı özellikler üretmek, modeli doğru metriklerle değerlendirmek ve sonucu teknik olmayan kişilerin de anlayabileceği bir ürüne çevirmek.",
+      "Eskişehir Osmangazi Üniversitesi Matematik ve Bilgisayar Bilimleri bölümünde 3. sınıf öğrencisiyim. Veri bilimi ve makine öğrenimini sadece notebook içinde bırakmadan, çalışan dashboard'lara, API'lere ve okunabilir case study'lere dönüştürmeye odaklanıyorum. Son projelerimde Dünya Kupası turnuva simülasyonu, uyku kalitesi tahmini, müşteri churn analizi, deprem risk modelleme ve öğrenci başarı tahmini gibi farklı veri problemleri üzerinde çalıştım. Ortak hedefim aynı: ham veriyi temizlemek, anlamlı özellikler üretmek, modeli doğru metriklerle değerlendirmek ve sonucu teknik olmayan kişilerin de anlayabileceği bir ürüne çevirmek.",
     location: "Odunpazarı, Eskişehir, Turkey",
     email: "cemyildizcy@hotmail.com",
     currentFocus: [
@@ -314,7 +314,7 @@ export const portfolioData: PortfolioData = {
       institution: "Eskişehir Osmangazi Üniversitesi",
       degree: "Lisans",
       field: "Matematik ve Bilgisayar Bilimleri",
-      year: "Eylül 2026 itibarıyla 3. sınıf",
+      year: "3. sınıf",
       graduationYear: 2028,
       description:
         "Veri bilimi, makine öğrenimi ve Python tabanlı veri analizi projeleri üzerine yoğunlaşıyor.",
