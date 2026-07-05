@@ -1,85 +1,262 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Tailwind v4 Theme — bridging CSS vars → Tailwind tokens
+   ============================================================ */
 @theme {
-  --color-background: var(--bg);
+  /* --- Colors (mapped from CSS custom properties) --- */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
   --color-surface: var(--surface);
-  --color-card: var(--card);
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-elevated: var(--surface-elevated);
+
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-soft: var(--text-soft);
+  --color-text-inverse: var(--text-inverse);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
   --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
+  --color-accent-2-soft: var(--accent-2-soft);
+
+  --color-field-green: var(--field-green);
+  --color-data-blue: var(--data-blue);
+  --color-alert-orange: var(--alert-orange);
+
+  --color-console-bg: var(--console-bg);
+  --color-console-surface: var(--console-surface);
+  --color-console-text: var(--console-text);
+  --color-console-muted: var(--console-muted);
+  --color-console-border: var(--console-border);
+  --color-console-accent: var(--console-accent);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  /* legacy aliases so existing Tailwind classes keep working */
+  --color-card: var(--surface);
+  --color-text-primary: var(--text);
+  --color-text-secondary: var(--text-muted);
   --color-accent-hover: var(--accent-hover);
-  --color-border: var(--border-color);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  /* --- Typography --- */
+  --font-sans: var(--font-geist-sans), Inter, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
+
+  /* --- Spacing tokens --- */
+  --spacing-container: 1120px;
+  --spacing-container-wide: 1280px;
 }
 
+/* ============================================================
+   Root — Light theme (editorial warm palette)
+   ============================================================ */
 :root {
-  --bg: #f4f1ea;
-  --surface: #fbfaf6;
-  --panel: #ebe5da;
-  --card: #fffdf8;
-  --text-primary: #17130e;
-  --text-secondary: #695f52;
-  --accent: #275c4c;
-  --accent-hover: #1f493d;
-  --accent-soft: #d9ebe3;
-  --border-color: rgba(39, 32, 24, 0.13);
+  /* base */
+  --background: #f7f1e8;
+  --foreground: #1f2933;
+  --surface: #fffdf8;
+  --surface-muted: #f2eadf;
+  --surface-elevated: #ffffff;
+
+  /* text */
+  --text: #1f2933;
+  --text-muted: #6b7280;
+  --text-soft: #8a8175;
+  --text-inverse: #f8fafc;
+
+  /* borders */
+  --border: #e7dccb;
+  --border-strong: #d8c8b4;
+
+  /* brand / data accents */
+  --accent: #0f766e;
+  --accent-hover: #0d6660;
+  --accent-foreground: #ecfeff;
+  --accent-soft: #d7f2ee;
+  --accent-2: #d97706;
+  --accent-2-soft: #f8dfb6;
+
+  /* sports / data accents */
+  --field-green: #166534;
+  --data-blue: #2563eb;
+  --alert-orange: #f97316;
+
+  /* code / console */
+  --console-bg: #08111f;
+  --console-surface: #0f172a;
+  --console-text: #e5e7eb;
+  --console-muted: #94a3b8;
+  --console-border: #1e293b;
+  --console-accent: #22d3ee;
+
+  /* state */
+  --success: #15803d;
+  --warning: #d97706;
+  --danger: #dc2626;
+
+  /* effects */
+  --shadow-sm: 0 1px 2px rgb(31 41 51 / 0.06);
+  --shadow-md: 0 10px 30px rgb(31 41 51 / 0.08);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  /* layout */
+  --container: 1120px;
+  --container-wide: 1280px;
+  --gutter-mobile: 20px;
+  --gutter-tablet: 32px;
+  --gutter-desktop: 48px;
+
+  /* spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* typography scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+
+  /* ========== BACKWARD-COMPAT ALIASES ==========
+     Old var names used throughout existing components.
+     These map to the new design-system values so
+     existing `var(--old-name)` references keep working.
+     Components will be migrated in a separate task. */
+  --bg: var(--background);
+  --panel: var(--surface-muted);
+  --card: var(--surface);
+  --text-primary: var(--text);
+  --text-secondary: var(--text-muted);
+  --border-color: var(--border);
 }
 
+/* ============================================================
+   Dark theme — console / data-lab feel
+   ============================================================ */
 [data-theme="dark"] {
-  --bg: #11100d;
-  --surface: #191713;
-  --panel: #211e19;
-  --card: #191713;
-  --text-primary: #f7f1e7;
-  --text-secondary: #b6aa9a;
-  --accent: #7bc4a8;
-  --accent-hover: #9fd9c2;
-  --accent-soft: rgba(123, 196, 168, 0.14);
-  --border-color: rgba(247, 241, 231, 0.12);
+  --background: #08111f;
+  --foreground: #e5e7eb;
+  --surface: #0f172a;
+  --surface-muted: #111c2e;
+  --surface-elevated: #142033;
+
+  --text: #e5e7eb;
+  --text-muted: #94a3b8;
+  --text-soft: #64748b;
+  --text-inverse: #08111f;
+
+  --border: #1e293b;
+  --border-strong: #334155;
+
+  --accent: #22d3ee;
+  --accent-hover: #3de0f5;
+  --accent-foreground: #06202a;
+  --accent-soft: #0e3b47;
+  --accent-2: #a3e635;
+  --accent-2-soft: #293b16;
+
+  --field-green: #22c55e;
+  --data-blue: #60a5fa;
+  --alert-orange: #fb923c;
+
+  --console-bg: #020617;
+  --console-surface: #0f172a;
+  --console-text: #e5e7eb;
+  --console-muted: #94a3b8;
+  --console-border: #334155;
+  --console-accent: #22d3ee;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.25);
+  --shadow-md: 0 16px 40px rgb(0 0 0 / 0.28);
+
+  /* backward-compat aliases — dark overrides */
+  --bg: var(--background);
+  --panel: var(--surface-muted);
+  --card: var(--surface);
+  --text-primary: var(--text);
+  --text-secondary: var(--text-muted);
+  --border-color: var(--border);
 }
 
+/* ============================================================
+   Base styles
+   ============================================================ */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
 }
 
 body {
-  background: var(--bg);
-  color: var(--text-primary);
+  background: var(--background);
+  color: var(--text);
   font-family: var(--font-sans);
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
   background-color: var(--accent);
-  color: var(--bg);
+  color: var(--accent-foreground);
 }
 
 * {
   box-sizing: border-box;
 }
 
+/* ============================================================
+   Utility classes
+   ============================================================ */
+.text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
+
+/* ============================================================
+   Layout — lab-grid background pattern
+   ============================================================ */
 .lab-grid {
   background-image:
-    linear-gradient(var(--border-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: linear-gradient(to bottom, black, transparent 78%);
 }
 
-.text-balance { text-wrap: balance; }
-.text-pretty { text-wrap: pretty; }
-
+/* ============================================================
+   Console / workflow card
+   ============================================================ */
 .hero-console {
   animation: console-enter 700ms ease-out both;
 }
 
 .console-line {
   align-items: center;
-  border: 1px solid var(--border-color);
-  border-radius: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   display: grid;
   gap: 0.75rem;
   grid-template-columns: auto 1fr;
@@ -88,7 +265,7 @@ body {
 }
 
 .console-line:hover {
-  background: var(--panel);
+  background: var(--surface-muted);
   border-color: var(--accent);
   transform: translateX(6px);
 }
@@ -96,7 +273,7 @@ body {
 .console-line span {
   color: var(--accent);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--text-xs);
 }
 
 .console-line strong {
@@ -105,16 +282,14 @@ body {
 }
 
 .console-line em {
-  color: var(--text-secondary);
+  color: var(--text-muted);
   font-style: normal;
   grid-column: 2;
 }
 
-@keyframes console-enter {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+/* ============================================================
+   Hero rotator (workflow card step cycling)
+   ============================================================ */
 .hero-rotator {
   position: relative;
 }
@@ -127,16 +302,46 @@ body {
   transform: translateY(18px) scale(0.98);
 }
 
+/* ============================================================
+   Keyframes
+   ============================================================ */
+@keyframes console-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes hero-rotate {
-  0% { opacity: 0; transform: translateY(18px) scale(0.98); }
-  7% { opacity: 1; transform: translateY(0) scale(1); }
-  28% { opacity: 1; transform: translateY(0) scale(1); }
-  35% { opacity: 0; transform: translateY(-18px) scale(0.98); }
+  0%   { opacity: 0; transform: translateY(18px) scale(0.98); }
+  7%   { opacity: 1; transform: translateY(0) scale(1); }
+  28%  { opacity: 1; transform: translateY(0) scale(1); }
+  35%  { opacity: 0; transform: translateY(-18px) scale(0.98); }
   100% { opacity: 0; transform: translateY(-18px) scale(0.98); }
 }
 
+/* Section reveal — used by Framer Motion AnimatedSection */
+@keyframes section-reveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade in (page transition) */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Subtle card hover lift */
+@keyframes card-lift {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-3px); }
+}
+
+/* ============================================================
+   Reduced motion — accessibility guard
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

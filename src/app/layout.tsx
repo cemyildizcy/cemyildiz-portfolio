@@ -9,20 +9,21 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://cemyildiz.net"),
   title: {
-    default: "Cem Yıldız — Veri Bilimi & Makine Öğrenimi",
+    default: "Cem Yıldız — Veri Bilimi, ML & Spor Analitiği",
     template: "%s | Cem Yıldız",
   },
   description:
-    "Veri bilimi, makine öğrenimi ve derin öğrenme üzerine çalışan yazılımcı. Python, Scikit-learn, TensorFlow, XGBoost ve modern veri bilimi araçlarıyla projeler geliştiriyorum.",
+    "Matematik & Bilgisayar Bilimleri öğrencisiyim. Python, makine öğrenmesi ve Next.js ile spor analitiği ve etkileşimli dashboard projeleri geliştiriyorum.",
   keywords: [
     "Cem Yıldız",
     "veri bilimi",
     "makine öğrenimi",
-    "derin öğrenme",
+    "spor analitiği",
+    "sports analytics",
     "Python",
-    "Scikit-learn",
-    "TensorFlow",
+    "dashboard",
     "portfolio",
+    "ESOGÜ",
   ],
   authors: [{ name: "Cem Yıldız" }],
   creator: "Cem Yıldız",
@@ -31,9 +32,9 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: "https://cemyildiz.net",
     siteName: "Cem Yıldız",
-    title: "Cem Yıldız — Veri Bilimi & Makine Öğrenimi",
+    title: "Cem Yıldız — Veri Bilimi, ML & Spor Analitiği",
     description:
-      "Veri bilimi, makine öğrenimi ve derin öğrenme üzerine çalışan yazılımcı.",
+      "Veriyi projeye, projeyi anlatılabilir ürüne çeviriyorum. DS/ML ve spor analitiği projeleri.",
     images: [
       {
         url: "/og-image.png",
@@ -45,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cem Yıldız — Veri Bilimi & Makine Öğrenimi",
+    title: "Cem Yıldız — Veri Bilimi, ML & Spor Analitiği",
     description:
-      "Veri bilimi, makine öğrenimi ve derin öğrenme.",
+      "Veriyi projeye, projeyi anlatılabilir ürüne çeviriyorum.",
   },
   robots: {
     index: true,
@@ -61,11 +62,20 @@ const jsonLd = {
   "@type": "Person",
   name: "Cem Yıldız",
   url: "https://cemyildiz.net",
-  jobTitle: "Veri Bilimi & Makine Öğrenimi",
+  jobTitle: "Veri Bilimi & Spor Analitiği",
+  description:
+    "ESOGÜ Matematik & Bilgisayar Bilimleri öğrencisi. Veri bilimi, makine öğrenmesi ve spor analitiği projeleri geliştiriyor.",
   alumniOf: {
     "@type": "CollegeOrUniversity",
     name: "Eskişehir Osmangazi Üniversitesi",
   },
+  knowsAbout: [
+    "Data Science",
+    "Machine Learning",
+    "Sports Analytics",
+    "Python",
+    "Dashboard Development",
+  ],
   sameAs: [
     "https://www.linkedin.com/in/cemyildizcy/",
     "https://github.com/cemyildizcy",
@@ -89,7 +99,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased bg-[var(--bg)] text-[var(--text-primary)] min-h-screen`}>
+      <body className="antialiased min-h-screen bg-background text-text">
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false}>
           <Navbar />
           <main>{children}</main>

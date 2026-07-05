@@ -1,4 +1,6 @@
 // Portfolio data for Cem Yıldız
+// Updated with UX design spec copy and editorial tone.
+// Brand-strategist copy will be integrated when available (t_f6ccf64e).
 
 export interface Project {
   id: number;
@@ -9,6 +11,10 @@ export interface Project {
   githubUrl?: string;
   highlights: string[];
   image?: string;
+  /** Whether this project is prominently featured */
+  featured: boolean;
+  /** Display order — lower number = shown first */
+  order: number;
 }
 
 export interface Skill {
@@ -43,13 +49,16 @@ export interface PortfolioData {
     subtitle: string;
     description: string;
     cta: string;
+    /** Eyebrow line above hero title */
+    eyebrow: string;
   };
   about: {
     title: string;
     description: string;
     location: string;
     email: string;
-    phone: string;
+    /** Current focus areas shown as tags/chips */
+    currentFocus: string[];
   };
   projects: Project[];
   skills: Skill[];
@@ -58,30 +67,42 @@ export interface PortfolioData {
     title: string;
     description: string;
     email: string;
-    phone: string;
-    location: string;
   };
   navigation: NavItem[];
   socialLinks: SocialLink[];
+  /** Workflow steps for hero visual card */
+  workflow: { step: number; label: string; detail: string }[];
+  /** Section heading copy */
+  sectionCopy: {
+    projects: { title: string; subtitle: string };
+    blog: { title: string; subtitle: string };
+    contact: { title: string; description: string };
+  };
 }
 
 export const portfolioData: PortfolioData = {
   hero: {
     name: "Cem Yıldız",
-    title: "Veri Bilimi & Makine Öğrenimi",
-    subtitle: "DS / ML Staj Adayı",
+    eyebrow: "ESOGÜ Mat-Bil · Veri Bilimi · Spor Analitiği",
+    title: "Veriyi projeye, projeyi anlatılabilir ürüne çeviriyorum.",
+    subtitle: "DS / ML · Spor Analitiği",
     description:
-      "Veri bilimi ve makine öğrenimi projelerini canlı ürüne çeviren öğrenci geliştirici. ESOGÜ Matematik ve Bilgisayar Bilimleri 2. sınıf öğrencisiyim. Python, pandas, scikit-learn ve modern web araçlarıyla veri temizlemeden modellemeye, dashboard'dan case study'ye kadar uçtan uca projeler geliştiriyorum.",
-    cta: "Projelerimi Gör",
+      "Matematik & Bilgisayar Bilimleri öğrencisiyim. Python, makine öğrenmesi ve Next.js ile spor analitiği ve etkileşimli dashboard projeleri geliştiriyorum.",
+    cta: "Projeleri gör",
   },
 
   about: {
     title: "Hakkımda",
     description:
-      "Eskişehir Osmangazi Üniversitesi Matematik ve Bilgisayar Bilimleri bölümünde okuyorum; Eylül 2026 itibarıyla 3. sınıf öğrencisi olacağım. Veri bilimi ve makine öğrenimini sadece notebook içinde bırakmadan, çalışan dashboard'lara, API'lere ve okunabilir case study'lere dönüştürmeye odaklanıyorum. Son projelerimde Dünya Kupası turnuva simülasyonu, uyku kalitesi tahmini, müşteri churn analizi, deprem risk modelleme ve öğrenci başarı tahmini gibi farklı veri problemleri üzerinde çalıştım. Ortak hedefim aynı: ham veriyi temizlemek, anlamlı özellikler üretmek, modeli doğru metriklerle değerlendirmek ve sonucu teknik olmayan kişilerin de anlayabileceği bir ürüne çevirmek. Şu anda Veri Bilimi, Makine Öğrenimi, Sports Analytics ve dashboard geliştirme alanlarında staj fırsatlarına açığım.",
+      "Eskişehir Osmangazi Üniversitesi Matematik ve Bilgisayar Bilimleri bölümünde okuyorum; Eylül 2026 itibarıyla 3. sınıf öğrencisi olacağım. Veri bilimi ve makine öğrenimini sadece notebook içinde bırakmadan, çalışan dashboard'lara, API'lere ve okunabilir case study'lere dönüştürmeye odaklanıyorum. Son projelerimde Dünya Kupası turnuva simülasyonu, uyku kalitesi tahmini, müşteri churn analizi, deprem risk modelleme ve öğrenci başarı tahmini gibi farklı veri problemleri üzerinde çalıştım. Ortak hedefim aynı: ham veriyi temizlemek, anlamlı özellikler üretmek, modeli doğru metriklerle değerlendirmek ve sonucu teknik olmayan kişilerin de anlayabileceği bir ürüne çevirmek.",
     location: "Odunpazarı, Eskişehir, Turkey",
     email: "cemyildizcy@hotmail.com",
-    phone: "5344630465",
+    currentFocus: [
+      "Model evaluation",
+      "Dashboard design",
+      "Case-study writing",
+      "Sports analytics",
+    ],
   },
 
   projects: [
@@ -109,6 +130,9 @@ export const portfolioData: PortfolioData = {
         "EA FC 25 + StatsBomb + FIFA/ELO feature birleşimi",
         "Türkçe Streamlit dashboard ve skor dağılımı analizi",
       ],
+      image: "/images/projects/wc2026/champion-probabilities.png",
+      featured: true,
+      order: 1,
     },
     {
       id: 1,
@@ -135,13 +159,21 @@ export const portfolioData: PortfolioData = {
         "Supabase veritabanı entegrasyonu",
         "Vercel + Render deployment",
       ],
+      featured: true,
+      order: 2,
     },
     {
       id: 3,
       title: "E-Ticaret Churn Analizi",
       description:
         "E-ticaret müşterilerinde churn riskini analiz eden iş odaklı ML projesi. RFM feature engineering, segmentasyon ve sınıflandırma modelleriyle müşterilerin ayrılma olasılığını yorumlanabilir metriklerle açıklar.",
-      technologies: ["Python", "Pandas", "NumPy", "Scikit-learn", "Feature Engineering"],
+      technologies: [
+        "Python",
+        "Pandas",
+        "NumPy",
+        "Scikit-learn",
+        "Feature Engineering",
+      ],
       githubUrl: "https://github.com/cemyildizcy/ecommerce-churn-analysis",
       highlights: [
         "%50.85 churn oranı tespiti",
@@ -149,6 +181,8 @@ export const portfolioData: PortfolioData = {
         "Risk Segmentasyonu",
         "Kapsamlı veri analizi",
       ],
+      featured: false,
+      order: 3,
     },
     {
       id: 5,
@@ -162,15 +196,18 @@ export const portfolioData: PortfolioData = {
         "K-Means Clustering",
         "Random Forest",
         "Feature Engineering",
-        "Matplotlib/Seaborn"
+        "Matplotlib/Seaborn",
       ],
-      githubUrl: "https://github.com/cemyildizcy/turkey-earthquake-risk-analysis",
+      githubUrl:
+        "https://github.com/cemyildizcy/turkey-earthquake-risk-analysis",
       highlights: [
         "30 yıllık (1994-2025) gerçek veri analizi",
         "K-Means ile 4 sismik bölge tespiti",
         "Random Forest ile %84.7 doğruluk oranlı risk tahmini",
-        "Feature Importance analizi ile sismik belirleyicilerin tespiti"
+        "Feature Importance analizi ile sismik belirleyicilerin tespiti",
       ],
+      featured: false,
+      order: 4,
     },
     {
       id: 6,
@@ -195,6 +232,8 @@ export const portfolioData: PortfolioData = {
         "DBSCAN ile aykırı öğrenci anomali tespiti",
         "Feature Importance: Derse katılım > Çalışma saati",
       ],
+      featured: false,
+      order: 5,
     },
     {
       id: 2,
@@ -217,6 +256,8 @@ export const portfolioData: PortfolioData = {
         "OOP mimari tasarım",
         "Seaborn/Matplotlib görselleştirme",
       ],
+      featured: false,
+      order: 6,
     },
     {
       id: 4,
@@ -231,6 +272,8 @@ export const portfolioData: PortfolioData = {
         "REST API altyapısı",
         "Vibe Coding yaklaşımı",
       ],
+      featured: false,
+      order: 7,
     },
   ],
 
@@ -280,18 +323,14 @@ export const portfolioData: PortfolioData = {
 
   contact: {
     title: "İletişim",
-    description: "Benimle iletişime geçmekten çekinmeyin.",
+    description: "Bir proje, staj veya fikir konuşalım.",
     email: "cemyildizcy@hotmail.com",
-    phone: "5344630465",
-    location: "Odunpazarı, Eskişehir, Turkey",
   },
 
   navigation: [
-    { label: "Ana Sayfa", href: "#hero" },
-    { label: "Hakkımda", href: "#about" },
     { label: "Projeler", href: "#projects" },
-    { label: "Yetenekler", href: "#skills" },
-    { label: "Eğitim", href: "#education" },
+    { label: "Blog", href: "/blog" },
+    { label: "Hakkımda", href: "/about" },
     { label: "İletişim", href: "#contact" },
   ],
 
@@ -299,11 +338,6 @@ export const portfolioData: PortfolioData = {
     {
       name: "LinkedIn",
       url: "https://www.linkedin.com/in/cemyildizcy/",
-      icon: "linkedin",
-    },
-    {
-      name: "Son Postum",
-      url: "https://www.linkedin.com/posts/cemyildizcy_datascience-machinelearning-python-ugcPost-7470769047601664000-OO0G/",
       icon: "linkedin",
     },
     {
@@ -317,4 +351,40 @@ export const portfolioData: PortfolioData = {
       icon: "mail",
     },
   ],
+
+  workflow: [
+    {
+      step: 1,
+      label: "Veriyi oku",
+      detail: "ham veri → temiz tablo",
+    },
+    {
+      step: 2,
+      label: "Modeli kur",
+      detail: "feature → deney → metrik",
+    },
+    {
+      step: 3,
+      label: "Ürüne taşı",
+      detail: "dashboard → case study → paylaşım",
+    },
+  ],
+
+  sectionCopy: {
+    projects: {
+      title: "Seçili projeler",
+      subtitle:
+        "Notebook değil; problem, veri, model ve çıktısıyla anlatılan işler.",
+    },
+    blog: {
+      title: "Notlar / Yazılar",
+      subtitle:
+        "Projelerde öğrendiklerimi, veri temizleme notlarını ve spor analitiği denemelerini burada topluyorum.",
+    },
+    contact: {
+      title: "Bir proje, staj veya fikir konuşalım.",
+      description:
+        "Yeni projeler, staj fırsatları veya veri bilimi hakkında konuşmak isterseniz yazın.",
+    },
+  },
 };
