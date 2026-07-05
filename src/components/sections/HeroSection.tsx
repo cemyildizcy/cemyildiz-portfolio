@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { portfolioData } from '@/data/portfolio';
+import { Download } from 'lucide-react';
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa6';
 
 const workflowSteps = portfolioData.workflow;
@@ -84,6 +85,15 @@ export function HeroSection() {
             >
               {portfolioData.hero.cta}
             </Link>
+            <a
+              href="/documents/Cem_Yildiz_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 text-sm font-semibold text-text transition hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              <Download className="h-4 w-4" aria-hidden="true" />
+              CV
+            </a>
             <a
               href="https://github.com/cemyildizcy"
               target="_blank"

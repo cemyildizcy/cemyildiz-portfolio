@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { portfolioData } from '@/data/portfolio';
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa6';
-import { Mail, MapPin, GraduationCap, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, GraduationCap, ArrowRight, Download } from 'lucide-react';
 
 export const metadata = {
   title: 'Hakkımda | Cem Yıldız',
@@ -61,6 +61,15 @@ export default function AboutPage() {
               >
                 Projeler
                 <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+              <Link
+                href="/documents/Cem_Yildiz_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-[var(--radius-sm)] border border-border-strong px-5 py-2.5 text-sm font-semibold transition-all hover:border-accent hover:-translate-y-0.5"
+              >
+                <Download className="h-3.5 w-3.5" />
+                CV görüntüle
               </Link>
               <Link
                 href={`mailto:${portfolioData.about.email}`}

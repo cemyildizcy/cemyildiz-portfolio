@@ -1,7 +1,7 @@
 'use client';
 
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
-import { Mail } from 'lucide-react';
+import { Download, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa6';
 
 export function ContactSection() {
@@ -40,6 +40,15 @@ export function ContactSection() {
               >
                 <FaLinkedinIn className="h-4 w-4" aria-hidden="true" />
                 LinkedIn&apos;de yaz
+              </a>
+              <a
+                href="/documents/Cem_Yildiz_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-text-inverse/20 px-6 text-sm font-semibold text-text-inverse transition hover:bg-text-inverse/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                <Download className="h-4 w-4" aria-hidden="true" />
+                CV görüntüle
               </a>
               <a
                 href="https://github.com/cemyildizcy"
