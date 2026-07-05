@@ -1,126 +1,58 @@
 'use client';
 
-import { useState } from 'react';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
-import { SectionHeading } from '@/components/ui/SectionHeading';
-import { portfolioData } from '@/data/portfolio';
 import { Mail } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '@/components/icons/BrandIcons';
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa6';
 
 export function ContactSection() {
-  const [status, setStatus] = useState<'idle' | 'success'>('idle');
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const message = formData.get('message');
-    
-    window.location.href = `mailto:${portfolioData.contact?.email || 'cemyildizcy@hotmail.com'}?subject=${encodeURIComponent(`Portfolyo İletişim: ${name}`)}&body=${encodeURIComponent(`Gönderen: ${name} (${email})\n\nMesaj:\n${message}`)}`;
-    
-    setStatus('success');
-    setTimeout(() => setStatus('idle'), 3000);
-    (e.target as HTMLFormElement).reset();
-  };
-
   return (
-    <section id="iletisim" className="py-24" style={{ backgroundColor: 'var(--bg)' }}>
-      <div className="container mx-auto px-4 max-w-5xl">
-        <SectionHeading title={portfolioData.contact?.title || 'İletişim'} subtitle="Benimle İletişime Geçin" />
-        
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          {/* Left Column: Info */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-medium text-[var(--text-primary)] mb-3">
-                  Birlikte Çalışalım
-                </h3>
-                <p className="text-[var(--text-secondary)] leading-relaxed">
-                  {portfolioData.contact?.description || "Yeni projeler veya fırsatlar hakkında konuşmak için her zaman hazırım. Bana ulaşmaktan çekinmeyin."}
-                </p>
-              </div>
+    <section
+      id="contact"
+      className="py-20 sm:py-24 md:py-[96px]"
+    >
+      <div className="mx-auto max-w-[var(--container)] px-[var(--gutter-mobile)] sm:px-[var(--gutter-tablet)] lg:px-[var(--gutter-desktop)]">
+        <ScrollReveal>
+          <div className="rounded-[var(--radius-lg)] bg-text p-8 text-text-inverse sm:p-12">
+            <p className="font-mono text-xs uppercase tracking-widest opacity-70">
+              İletişim
+            </p>
+            <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
+              Bir proje, staj veya fikir konuşalım.
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-relaxed opacity-80">
+              Birlikte çalışabileceğimiz bir fikriniz varsa, staj fırsatı sunmak
+              istiyorsanız veya sadece merhaba demek isterseniz — yazın.
+            </p>
 
-              <div className="space-y-4">
-                <a href={`mailto:${portfolioData.contact?.email || 'cemyildizcy@hotmail.com'}`} className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors p-4 rounded-xl border border-transparent hover:border-[var(--border-color)] bg-[var(--surface)]/50 hover:bg-[var(--surface)]">
-                  <div className="bg-[var(--surface)] p-3 rounded-full text-[var(--accent)] border border-[var(--border-color)]">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <span className="font-medium text-[var(--text-primary)]">{portfolioData.contact?.email || 'cemyildizcy@hotmail.com'}</span>
-                </a>
-
-                {portfolioData.socialLinks?.find(s => s.name === 'LinkedIn')?.url && (
-                  <a href={portfolioData.socialLinks.find(s => s.name === 'LinkedIn')?.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors p-4 rounded-xl border border-transparent hover:border-[var(--border-color)] bg-[var(--surface)]/50 hover:bg-[var(--surface)]">
-                    <div className="bg-[var(--surface)] p-3 rounded-full text-[var(--accent)] border border-[var(--border-color)]">
-                      <LinkedinIcon className="w-5 h-5" />
-                    </div>
-                    <span className="font-medium text-[var(--text-primary)]">LinkedIn</span>
-                  </a>
-                )}
-
-                {portfolioData.socialLinks?.find(s => s.name === 'GitHub')?.url && (
-                  <a href={portfolioData.socialLinks.find(s => s.name === 'GitHub')?.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors p-4 rounded-xl border border-transparent hover:border-[var(--border-color)] bg-[var(--surface)]/50 hover:bg-[var(--surface)]">
-                    <div className="bg-[var(--surface)] p-3 rounded-full text-[var(--accent)] border border-[var(--border-color)]">
-                      <GithubIcon className="w-5 h-5" />
-                    </div>
-                    <span className="font-medium text-[var(--text-primary)]">GitHub</span>
-                  </a>
-                )}
-              </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="mailto:cemyildizcy@hotmail.com"
+                className="inline-flex h-11 items-center gap-2 rounded-full bg-background px-6 text-sm font-semibold text-text transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                <Mail className="h-4 w-4" aria-hidden="true" />
+                Mail at
+              </a>
+              <a
+                href="https://linkedin.com/in/cemyildizcy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-text-inverse/20 px-6 text-sm font-semibold text-text-inverse transition hover:bg-text-inverse/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                <FaLinkedinIn className="h-4 w-4" aria-hidden="true" />
+                LinkedIn&apos;de yaz
+              </a>
+              <a
+                href="https://github.com/cemyildizcy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-text-inverse/20 px-6 text-sm font-semibold text-text-inverse transition hover:bg-text-inverse/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                <FaGithub className="h-4 w-4" aria-hidden="true" />
+                GitHub&apos;da aç
+              </a>
             </div>
-          </ScrollReveal>
-
-          {/* Right Column: Form */}
-          <ScrollReveal direction="up" delay={0.2}>
-            <div className="glass bg-[var(--card)]/80 backdrop-blur-md border border-[var(--border-color)] p-8 rounded-2xl shadow-lg">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-[var(--text-secondary)] mb-2">İsim</label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    name="name"
-                    required 
-                    className="w-full bg-[var(--surface)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all"
-                    placeholder="Adınız Soyadınız"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-[var(--text-secondary)] mb-2">E-posta</label>
-                  <input 
-                    type="email" 
-                    id="email"
-                    name="email" 
-                    required 
-                    className="w-full bg-[var(--surface)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all"
-                    placeholder="ornek@email.com"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-[var(--text-secondary)] mb-2">Mesaj</label>
-                  <textarea 
-                    id="message" 
-                    name="message"
-                    required 
-                    rows={4}
-                    className="w-full bg-[var(--surface)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all resize-none"
-                    placeholder="Mesajınız..."
-                  />
-                </div>
-
-                <button 
-                  type="submit" 
-                  className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white font-medium rounded-xl px-6 py-3.5 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg)]"
-                >
-                  {status === 'success' ? 'Mesaj gönderildi!' : 'Mesaj Gönder'}
-                </button>
-              </form>
-            </div>
-          </ScrollReveal>
-        </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

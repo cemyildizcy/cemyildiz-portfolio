@@ -1,68 +1,73 @@
 'use client';
 
+import Image from 'next/image';
+import Link from 'next/link';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { portfolioData } from '@/data/portfolio';
-import Image from 'next/image';
 
-const stats = [
-  { value: "2+", label: "Yıl Deneyim" },
-  { value: "10+", label: "Proje" },
-  { value: "4+", label: "Sertifika" },
-  { value: "100%", label: "Motivasyon" }
+const aboutPreview =
+  "ESOGÜ'de Matematik & Bilgisayar Bilimleri okuyorum. Veriyle başlayıp çalışan bir arayüze kadar götürdüğüm projeleri seviyorum. Spor analitiği tarafında model, simülasyon ve dashboard fikirleri ilgimi çekiyor.";
+
+const currentFocusItems = [
+  'Model evaluation',
+  'Dashboard design',
+  'Case-study writing',
+  'Sports analytics',
 ];
 
 export function AboutSection() {
   return (
-    <section id="hakkimda" className="py-24 px-4 bg-[var(--bg)]">
-      <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <SectionHeading title={portfolioData.about.title} />
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-            
-            <ScrollReveal direction="right" delay={0.1}>
-              <div className="relative w-full aspect-square max-w-sm mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-tr from-[var(--accent)] to-[var(--accent-hover)] rounded-3xl opacity-20 blur-2xl"></div>
-                <div className="relative h-full w-full rounded-3xl overflow-hidden border border-[var(--border-color)] bg-[var(--surface)] shadow-2xl">
-                  <Image 
-                    src="/images/profile.jpg" 
-                    alt="Cem Yıldız" 
-                    fill
-                    className="object-cover object-center hover:scale-105 transition-transform duration-700"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    priority
-                  />
-                </div>
+    <section
+      id="about"
+      className="border-y border-border bg-surface-muted py-20 sm:py-24 md:py-[96px]"
+    >
+      <div className="mx-auto grid max-w-[var(--container)] gap-10 px-[var(--gutter-mobile)] sm:px-[var(--gutter-tablet)] lg:grid-cols-[5fr_7fr] lg:items-center lg:gap-16 lg:px-[var(--gutter-desktop)]">
+        {/* ─── Photo ─── */}
+        <ScrollReveal direction="up">
+          <div className="relative mx-auto max-w-[320px] lg:max-w-none">
+            <div className="overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface p-2">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-md)]">
+                <Image
+                  src="/images/profile.jpg"
+                  alt="Cem Yıldız profil fotoğrafı"
+                  fill
+                  sizes="(min-width: 1024px) 360px, 280px"
+                  className="object-cover object-center"
+                />
               </div>
-            </ScrollReveal>
-
-            <ScrollReveal direction="left" delay={0.2}>
-              <div className="space-y-6 text-[var(--text-secondary)] text-lg leading-relaxed">
-                <p>{portfolioData.about.description}</p>
-                <div className="pt-6 border-t border-[var(--border-color)]">
-                   <p className="font-medium text-[var(--text-primary)] mb-2">🎓 Eskişehir Osmangazi Üniversitesi</p>
-                   <p className="text-sm">Matematik ve Bilgisayar Bilimleri (2028)</p>
-                </div>
-              </div>
-            </ScrollReveal>
-            
+            </div>
           </div>
+        </ScrollReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {stats.map((stat, index) => (
-              <div 
-                key={index} 
-                className="bg-[var(--card)] border border-[var(--border-color)] rounded-xl p-6 text-center backdrop-blur-sm"
+        {/* ─── Text ─── */}
+        <ScrollReveal direction="up" delay={0.1}>
+          <div>
+            <SectionHeading title="Hakkımda" align="left" />
+
+            <p className="text-lg leading-[1.65] text-text-muted">
+              {aboutPreview}
+            </p>
+
+            {/* Current focus chips */}
+            <div className="mt-6 flex flex-wrap gap-2">
+              {currentFocusItems.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-text"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-8">
+              <Link
+                href="/about"
+                className="inline-flex h-11 items-center justify-center rounded-full border border-border px-6 text-sm font-semibold text-text transition hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
-                <div className="text-3xl font-bold text-[var(--accent)] mb-2 font-geist">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-[var(--text-secondary)] font-medium">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
+                Detaylı hakkımda →
+              </Link>
+            </div>
           </div>
         </ScrollReveal>
       </div>
