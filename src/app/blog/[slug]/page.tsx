@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
+import { ViewCounter } from '@/components/blog/ViewCounter';
 import { ArrowLeft } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -164,6 +165,8 @@ export default async function BlogPostPage({
               </time>
               <span aria-hidden="true">·</span>
               <span>{post.readTime} okuma</span>
+              <span aria-hidden="true">·</span>
+              <ViewCounter slug={post.slug} />
             </div>
 
             {post.tags.length > 0 && (
