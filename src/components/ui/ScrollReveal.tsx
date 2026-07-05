@@ -28,12 +28,12 @@ export function ScrollReveal({
   const initial = (() => {
     switch (direction) {
       case 'left':
-        return { opacity: 0, x: -20, y: 0 };
+        return { opacity: 1, x: -12, y: 0 };
       case 'right':
-        return { opacity: 0, x: 20, y: 0 };
+        return { opacity: 1, x: 12, y: 0 };
       case 'up':
       default:
-        return { opacity: 0, x: 0, y: 12 };
+        return { opacity: 1, x: 0, y: 8 };
     }
   })();
 
@@ -42,7 +42,7 @@ export function ScrollReveal({
       ref={ref}
       initial={initial}
       animate={isInView ? { opacity: 1, x: 0, y: 0 } : initial}
-      transition={{ duration: 0.4, ease: 'easeOut', delay }}
+      transition={{ duration: 0.35, ease: 'easeOut', delay }}
       className={className}
     >
       {children}
