@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -18,25 +18,31 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const prefersReducedMotion = useReducedMotion();
 
-  const getInitialVariants = () => {
+  // Reduced motion → render immediately, no transform
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
+  const initial = (() => {
     switch (direction) {
       case 'left':
-        return { opacity: 0, x: -50, y: 0 };
+        return { opacity: 0, x: -20, y: 0 };
       case 'right':
-        return { opacity: 0, x: 50, y: 0 };
+        return { opacity: 0, x: 20, y: 0 };
       case 'up':
       default:
-        return { opacity: 0, y: 50, x: 0 };
+        return { opacity: 0, x: 0, y: 12 };
     }
-  };
+  })();
 
   return (
     <motion.div
       ref={ref}
-      initial={getInitialVariants()}
-      animate={isInView ? { opacity: 1, x: 0, y: 0 } : getInitialVariants()}
-      transition={{ duration: 0.6, ease: "easeOut", delay }}
+      initial={initial}
+      animate={isInView ? { opacity: 1, x: 0, y: 0 } : initial}
+      transition={{ duration: 0.4, ease: 'easeOut', delay }}
       className={className}
     >
       {children}

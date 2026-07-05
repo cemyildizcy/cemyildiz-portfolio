@@ -1,38 +1,81 @@
 import Link from 'next/link';
+import { Mail } from 'lucide-react';
+import { FaGithub, FaLinkedinIn, FaInstagram, FaXTwitter } from 'react-icons/fa6';
+
+const SOCIAL_LINKS = [
+  {
+    label: 'GitHub',
+    href: 'https://github.com/cemyildizcy',
+    icon: FaGithub,
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/cemyildizcy/',
+    icon: FaLinkedinIn,
+  },
+  {
+    label: 'Instagram',
+    href: 'https://instagram.com/cemyildizcy',
+    icon: FaInstagram,
+  },
+  {
+    label: 'X',
+    href: 'https://x.com/cemyildizcy',
+    icon: FaXTwitter,
+  },
+];
 
 export const Footer = () => {
   return (
-    <footer className="border-t border-[var(--border-color)] bg-[var(--bg)] mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between">
-        <p className="text-[var(--text-secondary)] text-sm text-center md:text-left mb-4 md:mb-0">
-          © 2026 Cem Yıldız. Tüm hakları saklıdır.
-        </p>
-        
-        <div className="flex items-center space-x-6">
-          <Link 
-            href="https://github.com/cemyildizcy" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-          >
-            <span className="sr-only">GitHub</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-            </svg>
-          </Link>
-          <Link 
-            href="https://www.linkedin.com/in/cemyildizcy/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-          >
-            <span className="sr-only">LinkedIn</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-              <rect x="2" y="9" width="4" height="12"></rect>
-              <circle cx="4" cy="4" r="2"></circle>
-            </svg>
-          </Link>
+    <footer className="mt-auto border-t border-border bg-background">
+      <div className="mx-auto max-w-[var(--container)] px-[var(--gutter-mobile)] md:px-[var(--gutter-tablet)] lg:px-[var(--gutter-desktop)] py-12 md:py-16">
+        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+          {/* Left — bio */}
+          <div className="max-w-sm">
+            <p className="text-base font-semibold text-text">Cem Yıldız</p>
+            <p className="mt-2 text-sm leading-relaxed text-text-muted">
+              Matematik &amp; Bilgisayar Bilimleri öğrencisi. Veri bilimi,
+              makine öğrenmesi ve spor analitiği projeleri geliştiriyorum.
+            </p>
+          </div>
+
+          {/* Right — links */}
+          <div className="flex flex-col items-start gap-4 md:items-end">
+            {/* Social icons */}
+            <div className="flex items-center gap-3">
+              {SOCIAL_LINKS.map((social) => (
+                <Link
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="grid h-9 w-9 place-items-center rounded-full border border-border text-text-muted transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                >
+                  <social.icon className="h-[16px] w-[16px]" />
+                </Link>
+              ))}
+            </div>
+
+            {/* Email */}
+            <Link
+              href="mailto:cem@cemyildiz.net"
+              className="flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+            >
+              <Mail className="h-4 w-4" strokeWidth={2} />
+              cem@cemyildiz.net
+            </Link>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-8 border-t border-border pt-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-text-soft">
+            © {new Date().getFullYear()} Cem Yıldız. Tüm hakları saklıdır.
+          </p>
+          <p className="text-xs text-text-soft">
+            Next.js &amp; Tailwind CSS ile geliştirildi.
+          </p>
         </div>
       </div>
     </footer>

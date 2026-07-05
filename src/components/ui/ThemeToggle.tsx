@@ -3,6 +3,7 @@
 import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { Sun, Moon } from 'lucide-react';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -13,10 +14,10 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className="rounded-full p-2 backdrop-blur-md bg-[var(--surface)]/60 border border-[var(--border-color)]"
-        aria-label="Toggle theme"
+        className="grid h-9 w-9 place-items-center rounded-full border border-border bg-surface/60 backdrop-blur-sm"
+        aria-label="Tema değiştir"
       >
-        <div className="h-5 w-5" />
+        <div className="h-[18px] w-[18px]" />
       </button>
     );
   }
@@ -26,53 +27,24 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="rounded-full p-2 backdrop-blur-md bg-[var(--surface)]/60 border border-[var(--border-color)] hover:border-[var(--accent)] transition-colors cursor-pointer"
-      aria-label="Toggle theme"
+      className="grid h-9 w-9 place-items-center rounded-full border border-border bg-surface/60 backdrop-blur-sm transition-colors hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background cursor-pointer"
+      aria-label={isDark ? 'Açık temaya geç' : 'Koyu temaya geç'}
     >
       <AnimatePresence mode="wait" initial={false}>
-        <motion.div
+        <motion.span
           key={isDark ? 'sun' : 'moon'}
           initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
           animate={{ rotate: 0, opacity: 1, scale: 1 }}
           exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          transition={{ duration: 0.2, ease: 'easeInOut' }}
+          className="flex items-center justify-center"
         >
           {isDark ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-5 w-5 text-[var(--text-primary)]"
-            >
-              <circle cx="12" cy="12" r="5" />
-              <line x1="12" y1="1" x2="12" y2="3" />
-              <line x1="12" y1="21" x2="12" y2="23" />
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-              <line x1="1" y1="12" x2="3" y2="12" />
-              <line x1="21" y1="12" x2="23" y2="12" />
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-            </svg>
+            <Sun className="h-[18px] w-[18px] text-text" strokeWidth={2} />
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-5 w-5 text-[var(--text-primary)]"
-            >
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
+            <Moon className="h-[18px] w-[18px] text-text" strokeWidth={2} />
           )}
-        </motion.div>
+        </motion.span>
       </AnimatePresence>
     </button>
   );
