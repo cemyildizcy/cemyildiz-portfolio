@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { portfolioData } from '@/data/portfolio';
+import { portfolioData, type Skill } from '@/data/portfolio';
 import { Code, Brain, Wrench } from 'lucide-react';
 
 const getCategoryIcon = (categoryName: string = '') => {
@@ -25,7 +25,7 @@ export const SkillsSection = () => {
         
         <ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolioData.skills.map((category: any, index: number) => (
+            {portfolioData.skills.map((category: Skill, index: number) => (
               <motion.div
                 key={index}
                 whileHover={{ 

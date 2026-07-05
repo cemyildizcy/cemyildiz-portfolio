@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'framer-motion';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { projectCaseStudies, getFeaturedProjects } from '@/data/projectHelpers';
@@ -9,7 +8,6 @@ import { ExternalLink } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa6';
 
 export function ProjectsSection() {
-  const prefersReducedMotion = useReducedMotion();
   const featured = getFeaturedProjects();
   const rest = projectCaseStudies.filter((p) => !p.featured);
 

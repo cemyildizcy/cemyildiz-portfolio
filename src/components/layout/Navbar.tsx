@@ -21,7 +21,8 @@ export const Navbar = () => {
 
   // Close mobile menu on route change
   useEffect(() => {
-    setMobileOpen(false);
+    const id = window.requestAnimationFrame(() => setMobileOpen(false));
+    return () => window.cancelAnimationFrame(id);
   }, [pathname]);
 
   // Track scroll for border
@@ -59,10 +60,12 @@ export const Navbar = () => {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex" aria-label="Ana navigasyon">
           {NAV_LINKS.map((link) => {
+            const hrefWithoutHash = link.href.replace(/#.*$/, '');
             const isActive =
-              link.href === '/'
+              !link.href.includes('#') &&
+              (link.href === '/'
                 ? pathname === '/'
-                : pathname.startsWith(link.href.replace(/#.*$/, ''));
+                : pathname.startsWith(hrefWithoutHash));
 
             return (
               <Link

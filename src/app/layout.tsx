@@ -102,7 +102,7 @@ export default function RootLayout({
       <body className="antialiased min-h-screen bg-background text-text">
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false}>
           <Navbar />
-          <main>{children}</main>
+          {children}
           <Footer />
         </ThemeProvider>
       </body>

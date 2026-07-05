@@ -3,7 +3,7 @@
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { portfolioData } from '@/data/portfolio';
-import { GraduationCap, MapPin, Calendar } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 export function EducationSection() {
   return (

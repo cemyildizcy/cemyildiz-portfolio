@@ -8,6 +8,16 @@ export interface GitHubRepo {
   homepage: string | null;
 }
 
+interface GitHubApiRepo {
+  name: string;
+  description: string | null;
+  language: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  html_url: string;
+  homepage: string | null;
+}
+
 export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
   try {
     const res = await fetch(
@@ -20,9 +30,9 @@ export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
       return [];
     }
 
-    const data = await res.json();
+    const data = (await res.json()) as GitHubApiRepo[];
 
-    return data.map((repo: any) => ({
+    return data.map((repo) => ({
       name: repo.name,
       description: repo.description,
       language: repo.language,
