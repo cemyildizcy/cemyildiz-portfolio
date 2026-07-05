@@ -52,7 +52,7 @@ interface ProjectCardProps {
   featured?: boolean;
 }
 
-function ProjectCard({ project, featured = false }: ProjectCardProps) {
+function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className="group flex h-full flex-col rounded-[var(--radius-lg)] border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-[3px] hover:border-accent hover:shadow-[var(--shadow-md)] md:p-7">
       {/* Category + title */}
@@ -66,19 +66,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
         {project.description}
       </p>
 
-      {/* Tech badges */}
-      <div className="mt-4 flex flex-wrap gap-2">
-        {project.technologies.slice(0, featured ? 5 : 4).map((tech) => (
-          <span
-            key={tech}
-            className="rounded-full border border-border bg-surface-muted px-3 py-1 text-xs text-text-muted"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
 
-      {/* Links */}
       <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-border pt-4 text-sm">
         <Link
           href={`/projects/${project.slug}`}

@@ -25,8 +25,8 @@ function inferCategory(project: Project): string {
   const text =
     `${project.title} ${project.description} ${project.technologies.join(' ')}`.toLowerCase();
 
-  if (text.includes('simülatör') || text.includes('monte carlo') || text.includes('sports'))
-    return 'Sports Analytics / Simulation';
+  if (text.includes('simülatör') || text.includes('monte carlo'))
+    return 'Simulation / Modeling';
   if (text.includes('deprem') || text.includes('earthquake'))
     return 'Risk Analytics';
   if (text.includes('uyku') || text.includes('sleep'))

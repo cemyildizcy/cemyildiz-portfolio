@@ -9,17 +9,15 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://cemyildiz.net"),
   title: {
-    default: "Cem Yıldız — Veri Bilimi, ML & Spor Analitiği",
+    default: "Cem Yıldız — Veri Bilimi & Makine Öğrenimi",
     template: "%s | Cem Yıldız",
   },
   description:
-    "Matematik & Bilgisayar Bilimleri öğrencisiyim. Python, makine öğrenmesi ve Next.js ile spor analitiği ve etkileşimli dashboard projeleri geliştiriyorum.",
+    "ESOGÜ Matematik & Bilgisayar Bilimleri 3. sınıf öğrencisiyim. Veri bilimi, makine öğrenimi ve web tabanlı ürünler geliştiriyorum.",
   keywords: [
     "Cem Yıldız",
     "veri bilimi",
     "makine öğrenimi",
-    "spor analitiği",
-    "sports analytics",
     "Python",
     "dashboard",
     "portfolio",
@@ -32,9 +30,9 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: "https://cemyildiz.net",
     siteName: "Cem Yıldız",
-    title: "Cem Yıldız — Veri Bilimi, ML & Spor Analitiği",
+    title: "Cem Yıldız — Veri Bilimi & Makine Öğrenimi",
     description:
-      "Veriyi projeye, projeyi anlatılabilir ürüne çeviriyorum. DS/ML ve spor analitiği projeleri.",
+      "Veriyi projeye, projeyi anlatılabilir ürüne çeviriyorum. Veri bilimi ve makine öğrenimi projeleri.",
     images: [
       {
         url: "/og-image.png",
@@ -46,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cem Yıldız — Veri Bilimi, ML & Spor Analitiği",
+    title: "Cem Yıldız — Veri Bilimi & Makine Öğrenimi",
     description:
       "Veriyi projeye, projeyi anlatılabilir ürüne çeviriyorum.",
   },
@@ -62,9 +60,9 @@ const jsonLd = {
   "@type": "Person",
   name: "Cem Yıldız",
   url: "https://cemyildiz.net",
-  jobTitle: "Veri Bilimi & Spor Analitiği",
+  jobTitle: "Veri Bilimi & Makine Öğrenimi",
   description:
-    "ESOGÜ Matematik & Bilgisayar Bilimleri öğrencisi. Veri bilimi, makine öğrenmesi ve spor analitiği projeleri geliştiriyor.",
+    "ESOGÜ Matematik & Bilgisayar Bilimleri 3. sınıf öğrencisi. Veri bilimi, makine öğrenimi ve web tabanlı ürünler geliştiriyor.",
   alumniOf: {
     "@type": "CollegeOrUniversity",
     name: "Eskişehir Osmangazi Üniversitesi",
@@ -72,7 +70,6 @@ const jsonLd = {
   knowsAbout: [
     "Data Science",
     "Machine Learning",
-    "Sports Analytics",
     "Python",
     "Dashboard Development",
   ],
@@ -100,7 +97,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased min-h-screen bg-background text-text">
-        <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false}>
+        <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false}>
           <Navbar />
           {children}
           <Footer />

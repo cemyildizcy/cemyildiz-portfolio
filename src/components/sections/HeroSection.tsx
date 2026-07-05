@@ -150,7 +150,7 @@ export function HeroSection() {
         animate="visible"
         className="mx-auto mt-12 grid max-w-[var(--container)] grid-cols-2 gap-3 px-[var(--gutter-mobile)] sm:grid-cols-4 sm:px-[var(--gutter-tablet)] lg:px-[var(--gutter-desktop)]"
       >
-        {['2. sınıf / ESOGÜ Mat-Bil', 'Python + ML', 'Sports analytics', 'Next.js dashboards'].map(
+        {['3. sınıf / ESOGÜ Mat-Bil', 'Python + ML', 'Veri bilimi', 'Next.js projeleri'].map(
           (label) => (
             <div
               key={label}

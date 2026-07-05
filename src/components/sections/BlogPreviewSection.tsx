@@ -17,7 +17,7 @@ export function BlogPreviewSection() {
         <div className="mb-12 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <SectionHeading
             title="Notlar / Yazılar"
-            subtitle="Projelerde öğrendiklerimi, veri temizleme notlarını ve spor analitiği denemelerimi burada topluyorum."
+            subtitle="Projelerde öğrendiklerimi, veri temizleme notlarını ve makine öğrenimi denemelerimi burada topluyorum."
             align="left"
           />
           <Link

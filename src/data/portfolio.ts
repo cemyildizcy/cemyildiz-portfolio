@@ -83,11 +83,11 @@ export interface PortfolioData {
 export const portfolioData: PortfolioData = {
   hero: {
     name: "Cem Yıldız",
-    eyebrow: "ESOGÜ Mat-Bil · Veri Bilimi · Spor Analitiği",
+    eyebrow: "ESOGÜ Mat-Bil · 3. sınıf · Veri Bilimi",
     title: "Veriyi projeye, projeyi anlatılabilir ürüne çeviriyorum.",
-    subtitle: "DS / ML · Spor Analitiği",
+    subtitle: "Veri Bilimi / ML",
     description:
-      "Matematik & Bilgisayar Bilimleri öğrencisiyim. Python, makine öğrenmesi ve Next.js ile spor analitiği ve etkileşimli dashboard projeleri geliştiriyorum.",
+      "ESOGÜ Matematik & Bilgisayar Bilimleri 3. sınıf öğrencisiyim. Python, makine öğrenimi ve web tabanlı ürünler geliştiriyorum.",
     cta: "Projeleri gör",
   },
 
@@ -101,7 +101,7 @@ export const portfolioData: PortfolioData = {
       "Model evaluation",
       "Dashboard design",
       "Case-study writing",
-      "Sports analytics",
+      "ML projects",
     ],
   },
 
@@ -110,7 +110,7 @@ export const portfolioData: PortfolioData = {
       id: 7,
       title: "2026 Dünya Kupası AI Simülatörü",
       description:
-        "48 takımlı 2026 Dünya Kupası formatını Poisson xG modeli ve 10.000 Monte Carlo simülasyonu ile modelleyen sports analytics projesi. EA FC 25, StatsBomb ve ELO benzeri takım gücü sinyallerini birleştirerek şampiyonluk, tur geçme ve skor dağılımı olasılıklarını Streamlit dashboard'da sunar.",
+        "48 takımlı 2026 Dünya Kupası formatını Poisson modeli ve 10.000 Monte Carlo simülasyonu ile modelleyen proje. Takım gücü sinyallerini birleştirerek şampiyonluk, tur geçme ve skor dağılımı olasılıklarını Streamlit dashboard'da sunar.",
       technologies: [
         "Python",
         "Pandas",
@@ -379,7 +379,7 @@ export const portfolioData: PortfolioData = {
     blog: {
       title: "Notlar / Yazılar",
       subtitle:
-        "Projelerde öğrendiklerimi, veri temizleme notlarını ve spor analitiği denemelerini burada topluyorum.",
+        "Projelerde öğrendiklerimi, veri temizleme notlarını ve makine öğrenimi denemelerini burada topluyorum.",
     },
     contact: {
       title: "Bir proje, staj veya fikir konuşalım.",

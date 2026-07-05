@@ -25,7 +25,7 @@ export interface SocialLink {
 
 /** Project category for filtering and visual treatment */
 export type ProjectCategory =
-  | "Sports Analytics / Simulation"
+  | "Simulation / Modeling"
   | "Health AI"
   | "Business Analytics"
   | "Risk Analytics"

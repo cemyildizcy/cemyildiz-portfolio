@@ -34,8 +34,8 @@ export const Footer = () => {
           <div className="max-w-sm">
             <p className="text-base font-semibold text-text">Cem Yıldız</p>
             <p className="mt-2 text-sm leading-relaxed text-text-muted">
-              Matematik &amp; Bilgisayar Bilimleri öğrencisi. Veri bilimi,
-              makine öğrenmesi ve spor analitiği projeleri geliştiriyorum.
+              ESOGÜ Matematik &amp; Bilgisayar Bilimleri 3. sınıf öğrencisi.
+              Veri bilimi, makine öğrenimi ve web tabanlı projeler geliştiriyorum.
             </p>
           </div>
 

@@ -6,13 +6,13 @@ import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 
 const aboutPreview =
-  "ESOGÜ'de Matematik & Bilgisayar Bilimleri okuyorum. Veriyle başlayıp çalışan bir arayüze kadar götürdüğüm projeleri seviyorum. Spor analitiği tarafında model, simülasyon ve dashboard fikirleri ilgimi çekiyor.";
+  "ESOGÜ Matematik & Bilgisayar Bilimleri 3. sınıf öğrencisiyim. Veriyle başlayıp çalışan bir arayüze kadar götürdüğüm projeleri seviyorum.";
 
 const currentFocusItems = [
   'Model evaluation',
   'Dashboard design',
   'Case-study writing',
-  'Sports analytics',
+  'ML projects',
 ];
 
 export function AboutSection() {

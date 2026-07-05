@@ -7,7 +7,7 @@ import { Mail, MapPin, GraduationCap, ArrowRight } from 'lucide-react';
 export const metadata = {
   title: 'Hakkımda | Cem Yıldız',
   description:
-    'Cem Yıldız — ESOGÜ Mat-Bil öğrencisi. Veri bilimi, makine öğrenimi ve spor analitiği.',
+    'Cem Yıldız — ESOGÜ Mat-Bil 3. sınıf öğrencisi. Veri bilimi ve makine öğrenimi.',
 };
 
 export default function AboutPage() {

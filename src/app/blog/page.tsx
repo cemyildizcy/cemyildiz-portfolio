@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 export const metadata = {
   title: 'Yazılar / Notlar | Cem Yıldız',
   description:
-    'Projelerde öğrendiklerimi, veri temizleme notlarını ve spor analitiği denemelerimi burada topluyorum.',
+    'Projelerde öğrendiklerimi, veri temizleme notlarını ve makine öğrenimi denemelerimi burada topluyorum.',
 };
 
 export default function BlogPage() {
@@ -20,8 +20,8 @@ export default function BlogPage() {
             Yazılar / Notlar
           </h1>
           <p className="mt-4 text-base leading-relaxed text-text-muted md:text-lg">
-            Projelerde öğrendiklerimi, veri temizleme notlarını ve spor
-            analitiği denemelerimi burada topluyorum.
+            Projelerde öğrendiklerimi, veri temizleme notlarını ve makine
+            öğrenimi denemelerimi burada topluyorum.
           </p>
         </div>
       </section>
