@@ -23,22 +23,30 @@ export async function generateMetadata({
   };
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 /* ── Minimal markdown → HTML renderer ────────────────────── */
 function renderMarkdown(content: string): string {
   let html = content;
 
   // Code blocks — console style
   html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (_, _lang, code) => {
-    return `<pre class="rounded-[var(--radius-md)] border border-[var(--console-border)] bg-[var(--console-bg)] p-5 overflow-x-auto my-6 text-sm leading-relaxed"><code class="text-[var(--console-text)] font-mono">${code
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .trim()}</code></pre>`;
+    return `<pre class="rounded-[var(--radius-md)] border border-[var(--console-border)] bg-[var(--console-bg)] p-5 overflow-x-auto my-6 text-sm leading-relaxed"><code class="text-[var(--console-text)] font-mono">${escapeHtml(
+      code.trim(),
+    )}</code></pre>`;
   });
 
   // Inline code
   html = html.replace(
     /`([^`]+)`/g,
-    '<code class="rounded bg-[var(--surface-muted)] border border-[var(--border)] px-1.5 py-0.5 text-sm font-mono text-[var(--accent)]">$1</code>',
+    (_, code) => `<code class="rounded bg-[var(--surface-muted)] border border-[var(--border)] px-1.5 py-0.5 text-sm font-mono text-[var(--accent)]">${escapeHtml(code)}</code>`,
   );
 
   // Headers
