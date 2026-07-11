@@ -37,17 +37,28 @@ function escapeHtml(value: string): string {
 function renderMarkdown(content: string): string {
   let html = content;
 
-  // Code blocks — console style
+  // Code blocks — extract and replace with placeholders so later regex
+  // passes (headers, paragraphs, lists) don't corrupt code content.
+  const codeBlocks: string[] = [];
   html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (_, _lang, code) => {
-    return `<pre class="rounded-[var(--radius-md)] border border-[var(--console-border)] bg-[var(--console-bg)] p-5 overflow-x-auto my-6 text-sm leading-relaxed"><code class="text-[var(--console-text)] font-mono">${escapeHtml(
+    const rendered = `<pre class="rounded-[var(--radius-md)] border border-[var(--console-border)] bg-[var(--console-bg)] p-5 overflow-x-auto my-6 text-sm leading-relaxed"><code class="text-[var(--console-text)] font-mono">${escapeHtml(
       code.trim(),
     )}</code></pre>`;
+    const idx = codeBlocks.length;
+    codeBlocks.push(rendered);
+    return `%%CODEBLOCK_${idx}%%`;
   });
 
-  // Inline code
+  // Inline code — also protect from later transformations
+  const inlineCode: string[] = [];
   html = html.replace(
     /`([^`]+)`/g,
-    (_, code) => `<code class="rounded bg-[var(--surface-muted)] border border-[var(--border)] px-1.5 py-0.5 text-sm font-mono text-[var(--accent)]">${escapeHtml(code)}</code>`,
+    (_, code) => {
+      const rendered = `<code class="rounded bg-[var(--surface-muted)] border border-[var(--border)] px-1.5 py-0.5 text-sm font-mono text-[var(--accent)]">${escapeHtml(code)}</code>`;
+      const idx = inlineCode.length;
+      inlineCode.push(rendered);
+      return `%%INLINECODE_${idx}%%`;
+    },
   );
 
   // Headers
@@ -119,6 +130,16 @@ function renderMarkdown(content: string): string {
     /^(?!<[hudloptca])((?!^\s*$).+)$/gm,
     '<p class="text-[var(--text-muted)] leading-[1.75] mb-4">$1</p>',
   );
+
+  // Restore inline code placeholders
+  inlineCode.forEach((code, idx) => {
+    html = html.replace(`%%INLINECODE_${idx}%%`, code);
+  });
+
+  // Restore code block placeholders
+  codeBlocks.forEach((block, idx) => {
+    html = html.replace(`%%CODEBLOCK_${idx}%%`, block);
+  });
 
   return html;
 }
