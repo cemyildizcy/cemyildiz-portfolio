@@ -1,6 +1,6 @@
 ---
 title: "Vektör Veritabanları ve Embedding Tabanlı Arama: Nasıl Çalışır, Ne Zaman Kullanılır?"
-date: "2025-07-11"
+date: "2026-07-11"
 tags: ["vektör veritabanı", "embedding", "similarity search", "AI", "veri bilimi"]
 readTime: "12 dk"
 coverEmoji: "🔍"
