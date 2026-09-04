@@ -83,11 +83,11 @@ export interface PortfolioData {
 export const portfolioData: PortfolioData = {
   hero: {
     name: "Cem Yıldız",
-    eyebrow: "ESOGÜ Mat-Bil · 3. sınıf · Veri Bilimi",
-    title: "Veriyi projeye, projeyi anlatılabilir ürüne çeviriyorum.",
-    subtitle: "Veri Bilimi / ML",
+    eyebrow: "ESOGÜ Mat-Bil · 3. sınıf · Uygulamalı ML & Veri Mühendisliği",
+    title: "Olasılıksal modelleme ve veri bilimini uçtan uca çalışan ürünlere dönüştürüyorum.",
+    subtitle: "Applied ML & Systems",
     description:
-      "ESOGÜ Matematik & Bilgisayar Bilimleri 3. sınıf öğrencisiyim. Python, makine öğrenimi ve web tabanlı ürünler geliştiriyorum.",
+      "ESOGÜ Matematik & Bilgisayar Bilimleri öğrencisiyim. Monte Carlo simülasyonları, sızıntısız makine öğrenmesi boru hatları ve modern full-stack mimariler geliştiriyorum.",
     cta: "Projeleri gör",
   },
 
