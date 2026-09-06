@@ -3,12 +3,14 @@ import AxeBuilder from "@axe-core/playwright";
 
 const routes = ["gundem-ai", "wc2026-ai-simulator", "sleepinfo"];
 
-test("ana sayfa Türkçe içerik ve belge dili sunar", async ({ page }) => {
+test("ana sayfa Cem'i ve çalışma yönünü açık Türkçeyle tanıtır", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("lang", "tr");
-  await expect(page.getByRole("heading", { name: "İddianın yanına kanıtı koyarım." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Matematikten yapay zekâ ürünlerine." })).toBeVisible();
+  await expect(page.getByText("ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim.")).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Ana gezinme" })).toBeVisible();
-  await expect(page).toHaveTitle(/Kanıt defteri/);
+  await expect(page).toHaveTitle(/Cem Yıldız \| Yapay zekâ projeleri/);
+  await expect(page.getByText(/kanıt defteri|iddia/i)).toHaveCount(0);
 });
 
 test("sekmeler roving tabindex ve klavye seçimi uygular", async ({ page }) => {
@@ -31,14 +33,17 @@ test("sekmeler roving tabindex ve klavye seçimi uygular", async ({ page }) => {
 for (const slug of routes) {
   test(`${slug} Türkçe vaka sayfasını taşma olmadan gösterir`, async ({ page }) => {
     await page.goto(`/work/${slug}`);
-    await expect(page.getByRole("heading", { name: "Soru" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Problem" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Ne yaptım?" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Yapay zekânın katkısı" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Ne öğrendim, sınırlar neler?" })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   });
 }
 
 test("404 Türkçe açıklama ve dönüş bağlantısı sunar", async ({ page }) => {
   await page.goto("/olmayan-sayfa");
-  await expect(page.getByRole("heading", { name: "Bu not masada değil." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Bu sayfa bulunamadı." })).toBeVisible();
   await expect(page.getByRole("link", { name: "Ana sayfaya dön" })).toBeVisible();
 });
 
@@ -47,6 +52,26 @@ test("sitemap üç vaka rotasını içerir", async ({ request }) => {
   expect(response.ok()).toBeTruthy();
   const body = await response.text();
   for (const slug of routes) expect(body).toContain(`/work/${slug}`);
+});
+
+test("temel kişisel içerik ve doğrulanmış dış bağlantılar görünür", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByAltText("Cem Yıldız profil fotoğrafı")).toBeVisible();
+  await expect(page.getByRole("link", { name: /CV.*indir/i }).first()).toHaveAttribute("href", "/documents/Cem_Yildiz_CV.pdf");
+  await expect(page.getByRole("heading", { name: "Eğitim" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "2026 Dünya Kupası AI Simülatörü" })).toHaveAttribute("href", /7470769047601664000/);
+  await expect(page.getByRole("link", { name: "Tüm yazılar" })).toHaveAttribute("href", "/blog");
+});
+
+test("seçilmiş blog yazıları tam sayfalar ve sitemap girdileri sunar", async ({ page, request }) => {
+  await page.goto("/blog");
+  await expect(page.getByRole("heading", { name: "Seçilmiş yazılar" })).toBeVisible();
+  const article = page.getByRole("link", { name: /Makine Öğrenmesinde Veri Sızıntısı/ });
+  await expect(article).toBeVisible();
+  await article.click();
+  await expect(page.getByText("Problem: model hangi bilgiyi ne zaman bilebilir?")).toBeVisible();
+  const sitemap = await (await request.get("/sitemap.xml")).text();
+  expect(sitemap).toContain("/blog/makine-ogrenmesinde-veri-sizintisi");
 });
 
 test("ana sayfada ciddi erişilebilirlik ihlali veya yatay taşma yoktur", async ({ page }) => {

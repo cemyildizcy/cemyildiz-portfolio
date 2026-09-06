@@ -1,0 +1,4 @@
+import Link from "next/link";
+import { getAllPosts } from "@/lib/blog";
+export const metadata={title:"Seçilmiş yazılar | Cem Yıldız",description:"Makine öğrenmesi yolculuğundan seçilmiş teknik notlar."};
+export default function Blog(){const posts=getAllPosts();return <main className="content-page"><header className="page-intro"><p className="margin-note">Öğrenme günlüğü / seçki</p><h1>Seçilmiş yazılar</h1><p>Her günlük not değil; projelerimde tekrar dönüp baktığım üç temel konu.</p></header><section className="writing-list" aria-label="Yazılar">{posts.map(post=><article key={post.slug}><p><time dateTime={post.date}>{new Date(`${post.date}T00:00:00`).toLocaleDateString("tr-TR")}</time> · {post.readTime}</p><h2><Link href={`/blog/${post.slug}`}>{post.title}</Link></h2><p>{post.description}</p><div>{post.tags.map(tag=><span key={tag}>{tag}</span>)}</div></article>)}</section></main>}

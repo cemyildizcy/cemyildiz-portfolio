@@ -6,8 +6,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://cemyildiz.net"),
-  title: { default: "Cem Yıldız | Kanıt defteri", template: "%s | Cem Yıldız" },
-  description: "Cem Yıldız'ın seçili makine öğrenmesi projelerini, katkılarını, sınırlarını ve yapay zekânın rolünü belgelediği kanıt defteri.",
+  title: { default: "Cem Yıldız | Yapay zekâ projeleri", template: "%s | Cem Yıldız" },
+  description: "ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisi Cem Yıldız'ın makine öğrenmesi yolculuğu ve yapay zekâ destekli ürün projeleri.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
