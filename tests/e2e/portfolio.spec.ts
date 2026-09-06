@@ -74,6 +74,21 @@ test("seçilmiş blog yazıları tam sayfalar ve sitemap girdileri sunar", async
   expect(sitemap).toContain("/blog/makine-ogrenmesinde-veri-sizintisi");
 });
 
+test("cross-validation yazısı kod, tablo ve kaynak bağlantılarını biçimli gösterir", async ({ page }) => {
+  await page.goto("/blog/cross-validation-stratejisi-nasil-secilir");
+  await expect(page.getByRole("heading", { name: "Cross-validation stratejisi nasıl seçilir?" })).toBeVisible();
+  await expect(page.locator("pre code.language-python")).toHaveCount(7);
+  await expect(page.locator("pre code").first()).toContainText("results = cross_validate(\n    model,");
+  await expect(page.locator("table")).toHaveCount(1);
+  await expect(page.locator("table tbody tr")).toHaveCount(5);
+  const source = page.getByRole("link", { name: "scikit-learn: Cross-validation" });
+  await expect(source).toHaveAttribute(
+    "href",
+    "https://scikit-learn.org/stable/modules/cross_validation.html",
+  );
+  await expect(source).toHaveAttribute("rel", "noopener noreferrer");
+});
+
 test("ana sayfada ciddi erişilebilirlik ihlali veya yatay taşma yoktur", async ({ page }) => {
   await page.goto("/");
   const results = await new AxeBuilder({ page }).analyze();

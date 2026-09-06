@@ -27,12 +27,17 @@ Bir uyku kalitesi veri setinde her katılımcının tek kaydı varsa satır bazl
 
 `KFold`, veriyi yaklaşık eşit büyüklükte parçalara böler. Her turda bir parça doğrulama, kalanlar eğitim için kullanılır.
 
-```
-python
+```python
 from sklearn.model_selection import KFold, cross_validate
 cv = KFold(n_splits=5, shuffle=True, random_state=42)
-results = cross_validate(    model, X, y, cv=cv,    scoring=["accuracy", "f1_macro"],    return_train_score=True,)
-
+results = cross_validate(
+    model,
+    X,
+    y,
+    cv=cv,
+    scoring=["accuracy", "f1_macro"],
+    return_train_score=True,
+)
 ```
 
 Bu yöntem için kritik varsayım, satırların yaklaşık bağımsız ve aynı veri üretim sürecinden gelmesidir. Tablo sınıfa göre sıralanmışsa `shuffle=False` bazı doğrulama bölümlerinde tek sınıf bırakabilir. `shuffle=True` sıralama etkisini azaltır; zaman veya grup bağımlılığını çözmez.
@@ -43,11 +48,9 @@ Regresyon problemlerinde bağımsız satırlar varsa KFold çoğu zaman iyi bir 
 
 Sınıflandırmada pozitif sınıf az olduğunda rastgele bir bölüme çok az pozitif örnek düşebilir. `StratifiedKFold`, sınıf oranlarını mümkün olduğunca korur.
 
-```
-python
+```python
 from sklearn.model_selection import StratifiedKFold
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
 ```
 
 Diyelim 1.000 örneğin 50 tanesi pozitif.
@@ -62,12 +65,17 @@ scikit-learn dokümantasyonu stratification yöntemini istatistiksel bir çözü
 
 Bir hastanın birden fazla muayenesi, bir müşterinin çok sayıda işlemi veya aynı maçtan üretilen birkaç satır varsa örnekler bağımsız değildir. Amaç yeni varlıklara genellemekse aynı grubu eğitim ve doğrulama tarafında tutmamalıyız.
 
-```
-python
+```python
 from sklearn.model_selection import GroupKFold, cross_validate
 cv = GroupKFold(n_splits=5)
-results = cross_validate(    model, X, y, groups=patient_id,    cv=cv, scoring="roc_auc",)
-
+results = cross_validate(
+    model,
+    X,
+    y,
+    groups=patient_id,
+    cv=cv,
+    scoring="roc_auc",
+)
 ```
 
 `GroupKFold`, her grubu doğrulama setinde tam bir kez kullanır.
@@ -82,11 +90,9 @@ Bu yöntem grupları çakıştırmaz ve sınıf oranlarını birbirine yakın tu
 
 Zaman bağımlı veride rastgele split çoğu zaman fazla iyimser sonuç üretir. Eğitim seti doğrulama döneminden sonraki kayıtları içerdiğinde deney, gerçek kullanım sırasını tersine çevirir.
 
-```
-python
+```python
 from sklearn.model_selection import TimeSeriesSplit
 cv = TimeSeriesSplit(n_splits=5, test_size=30, gap=7)
-
 ```
 
 Bu örnekte her doğrulama bölümü 30 örnektir. Eğitim sonu ile doğrulama başlangıcı arasında 7 örneklik boşluk vardır. `gap`, gecikmeli hedeflerde veya sınır çevresindeki örneklerin birbirine çok benzediği durumlarda işe yarayabilir.
@@ -100,29 +106,11 @@ Tüm geçmişin geçerli olduğu bir problemde genişleyen pencere kullanılabil
 ## Kısa seçim tablosu
 
 | Veri yapısı | Uygun başlangıç | Temel kontrol |
-
-|---
-
-|---
-
-|---|
-
-| Bağımsız regresyon satırları |
-
-`KFold` | Hedef dağılımı ve sıralama |
-
-| Bağımsız sınıflandırma satırları | `StratifiedKFold` |
-
-Her bölümdeki sınıf sayısı |
-
-| Aynı kişiye veya nesneye ait tekrarlar |
-
-`GroupKFold` | Train ve validation grup kesişimi |
-
-| Grup yapısı ve dengesiz sınıflar | `StratifiedGroupKFold`
-
-| Grup çakışması ve sınıf oranı |
-
+| --- | --- | --- |
+| Bağımsız regresyon satırları | `KFold` | Hedef dağılımı ve sıralama |
+| Bağımsız sınıflandırma satırları | `StratifiedKFold` | Her bölümdeki sınıf sayısı |
+| Aynı kişiye veya nesneye ait tekrarlar | `GroupKFold` | Train ve validation grup kesişimi |
+| Grup yapısı ve dengesiz sınıflar | `StratifiedGroupKFold` | Grup çakışması ve sınıf oranı |
 | Zamanla sıralı tahmin | `TimeSeriesSplit` | Eğitim tarihinin doğrulamadan önce kalması |
 
 Bazı problemlerde grup ve zaman kısıtı birlikte bulunur. Farklı mağazaların haftalık satışlarını tahmin ederken hem geleceği eğitimde kullanmamak hem de yeni mağaza senaryosunu ayrı değerlendirmek gerekebilir. Hazır bir splitter iş kuralını karşılamıyorsa tarih ve grup indekslerini üreten özel bir doğrulama döngüsü daha dürüsttür.
@@ -133,18 +121,20 @@ Split nesnesi kodda hata vermeden çalışabilir ve yine de iş kuralını bozab
 
 Grup ayrımı için:
 
-```
-python
-for train_idx, valid_idx in cv.split(X, y, groups):    train_groups = set(groups.iloc[train_idx])    valid_groups = set(groups.iloc[valid_idx])    assert train_groups.isdisjoint(valid_groups)
-
+```python
+for train_idx, valid_idx in cv.split(X, y, groups):
+    train_groups = set(groups.iloc[train_idx])
+    valid_groups = set(groups.iloc[valid_idx])
+    assert train_groups.isdisjoint(valid_groups)
 ```
 
 Zaman ayrımı için:
 
-```
-python
-for train_idx, valid_idx in cv.split(X):    train_end = dates.iloc[train_idx].max()    valid_start = dates.iloc[valid_idx].min()    assert train_end < valid_start
-
+```python
+for train_idx, valid_idx in cv.split(X):
+    train_end = dates.iloc[train_idx].max()
+    valid_start = dates.iloc[valid_idx].min()
+    assert train_end < valid_start
 ```
 
 Bu kontroller birkaç satır sürer. Yanlış bir doğrulama düzeniyle yapılan saatlerce hiperparametre aramasından daha ucuzdur.
@@ -161,12 +151,21 @@ Aynı cross-validation skoruyla hem hiperparametre seçip hem performans raporla
 
 Nested cross-validation bu iki işi ayırır. İç döngü hiperparametreleri seçer, dış döngü seçilen tüm süreci daha önce görülmemiş bölümde değerlendirir.
 
-```
-python
+```python
 from sklearn.model_selection import GridSearchCV, cross_validate
-search = GridSearchCV(    model,    {"logisticregression__C": [0.01, 0.1, 1, 10]},    cv=inner_cv,    scoring="roc_auc",)
-results = cross_validate(    search, X, y, cv=outer_cv, scoring="roc_auc")
-
+search = GridSearchCV(
+    model,
+    {"logisticregression__C": [0.01, 0.1, 1, 10]},
+    cv=inner_cv,
+    scoring="roc_auc",
+)
+results = cross_validate(
+    search,
+    X,
+    y,
+    cv=outer_cv,
+    scoring="roc_auc",
+)
 ```
 
 Nested CV hesaplama maliyetini artırır. Her küçük denemede şart değildir. Model ailesi ve hiperparametreler yoğun biçimde aranıyorsa veya yayınlanacak skorun tarafsız olması gerekiyorsa güçlü bir seçenektir.
@@ -187,38 +186,9 @@ Bağımsız satırlarda KFold veya StratifiedKFold yeterli olabilir. Tekrarlanan
 
 ## Kaynaklar
 
-1. [
-
-scikit-learn: Cross-validation](https://
-
-scikit-learn.org/stable/modules/cross_validation.html)
-
-2. [
-
-scikit-learn: GroupKFold](https://
-
-scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html)
-
-3. [
-
-scikit-learn: StratifiedGroupKFold](https://
-
-scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedGroupKFold.html)
-
-4. [
-
-scikit-learn: TimeSeriesSplit](https://
-
-scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html)
-
-5. [
-
-scikit-learn: Nested versus non-nested cross-validation](https://
-
-scikit-learn.org/stable/auto_examples/model_selection/plot_nested_cross_validation_iris.html)
-
-6. [
-
-scikit-learn: Common pitfalls](https://
-
-scikit-learn.org/stable/common_pitfalls.html)
+1. [scikit-learn: Cross-validation](https://scikit-learn.org/stable/modules/cross_validation.html)
+2. [scikit-learn: GroupKFold](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html)
+3. [scikit-learn: StratifiedGroupKFold](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedGroupKFold.html)
+4. [scikit-learn: TimeSeriesSplit](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html)
+5. [scikit-learn: Nested versus non-nested cross-validation](https://scikit-learn.org/stable/auto_examples/model_selection/plot_nested_cross_validation_iris.html)
+6. [scikit-learn: Common pitfalls](https://scikit-learn.org/stable/common_pitfalls.html)
