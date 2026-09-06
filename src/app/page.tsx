@@ -1,17 +1,2 @@
-import { HeroSection } from '@/components/sections/HeroSection';
-import { ProjectsSection } from '@/components/sections/ProjectsSection';
-import { AboutSection } from '@/components/sections/AboutSection';
-import { BlogPreviewSection } from '@/components/sections/BlogPreviewSection';
-import { ContactSection } from '@/components/sections/ContactSection';
-
-export default function Home() {
-  return (
-    <main>
-      <HeroSection />
-      <ProjectsSection />
-      <AboutSection />
-      <BlogPreviewSection />
-      <ContactSection />
-    </main>
-  );
-}
+import Link from "next/link";import { EvidenceDesk } from "@/components/EvidenceDesk";
+export default function Home(){return <main><section className="hero"><div className="hero-copy"><p className="margin-note">Cem Yıldız / Eskişehir / learning in public</p><h1>I keep the evidence next to the claim.</h1><p className="lede">Mathematics and Computer Science student at ESOGU, learning machine learning and moving toward deep learning. I use AI as a production partner, then show where my decisions end and its assistance begins.</p><div className="hero-actions"><Link href="#work">Open the working files</Link><Link href="mailto:cemyildizcy@hotmail.com">Start a conversation</Link></div></div><div className="desk-map" aria-label="A map of Cem's current practice"><span className="pin one">question</span><span className="pin two">evidence</span><span className="pin three">revision</span><div className="thread"/><p>Not a stack inventory.<br/>A record of decisions.</p></div></section><EvidenceDesk/><section id="now" className="now"><h2>What is open on the desk now?</h2><div className="now-grid"><p><strong>Learning</strong> Strengthening statistics and classical ML foundations before treating deep learning as a title.</p><p><strong>Building</strong> GündemAI as a traceable information-reading experiment.</p><p><strong>Method</strong> Small projects, explicit assumptions, public evidence, and AI assistance named rather than hidden.</p></div></section><section id="about" className="about"><h2>The short version.</h2><p>I am Cem Yıldız, an ESOGU Mathematics and Computer Science student in Eskişehir. I learn by turning questions into inspectable projects. This site is intentionally incomplete: it changes when the evidence changes.</p><div className="contact-links"><a href="https://github.com/cemyildizcy">GitHub</a><a href="https://www.linkedin.com/in/cemyildizcy/">LinkedIn</a><a href="mailto:cemyildizcy@hotmail.com">Email</a></div></section></main>}
