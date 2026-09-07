@@ -89,6 +89,22 @@ test("cross-validation yazısı kod, tablo ve kaynak bağlantılarını biçimli
   await expect(source).toHaveAttribute("rel", "noopener noreferrer");
 });
 
+
+test("kalibrasyon yazısı kod, tablo ve kaynak bağlantılarını biçimli gösterir", async ({ page }) => {
+  await page.goto("/blog/siniflandirici-kalibrasyonu-predict-proba-guvenilirligi");
+  await expect(page.getByRole("heading", { name: "Sınıflandırıcı kalibrasyonu: predict_proba çıktısı ne kadar güvenilir?" })).toBeVisible();
+  await expect(page.locator("pre code.language-python")).toHaveCount(4);
+  await expect(page.locator("pre code").first()).toContainText("from sklearn.calibration import calibration_curve");
+  await expect(page.locator("table")).toHaveCount(1);
+  await expect(page.locator("table tbody tr")).toHaveCount(5);
+  const source = page.getByRole("link", { name: "scikit-learn: Probability calibration" });
+  await expect(source).toHaveAttribute(
+    "href",
+    "https://scikit-learn.org/stable/modules/calibration.html",
+  );
+  await expect(source).toHaveAttribute("rel", "noopener noreferrer");
+});
+
 test("ana sayfada ciddi erişilebilirlik ihlali veya yatay taşma yoktur", async ({ page }) => {
   await page.goto("/");
   const results = await new AxeBuilder({ page }).analyze();

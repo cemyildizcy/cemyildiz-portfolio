@@ -82,3 +82,50 @@ value = "<unsafe>"
     expect(html).not.toContain('href="javascript:');
   });
 });
+
+const calibrationPath = path.join(
+  process.cwd(),
+  "content/blog/siniflandirici-kalibrasyonu-predict-proba-guvenilirligi.md",
+);
+const calibrationArticle = fs.readFileSync(calibrationPath, "utf8").replace(/\r\n?/g, "\n");
+
+describe("calibration article Markdown quality", () => {
+  it("uses language-qualified fences without collapsed Python statements", () => {
+    expect(calibrationArticle).not.toMatch(/^\`\`\`\s*\npython$/m);
+    expect(calibrationArticle).not.toMatch(/[^\n]\n\`\`\`python/g);
+    expect(calibrationArticle.match(/^\`\`\`python$/gm)).toHaveLength(4);
+    expect(calibrationArticle).toContain("from sklearn.calibration import calibration_curve");
+    expect(calibrationArticle).toContain("from sklearn.metrics import brier_score_loss");
+  });
+
+  it("keeps the comparison table as one valid five-column Markdown table", () => {
+    const rows = calibrationArticle
+      .split("\n")
+      .filter((line) => line.startsWith("| ") && line.endsWith(" |"));
+
+    expect(rows).toContain("| Model türü | Tipik bozulma | Önerilen kalibrasyon | Asgari doğrulama boyutu | Temel risk |");
+    expect(calibrationArticle).toContain("| --- | --- | --- | --- | --- |");
+    expect(rows).toHaveLength(7);
+    for (const row of rows) expect(row.split("|")).toHaveLength(7);
+  });
+
+  it("keeps every source link on one line with a complete HTTPS URL", () => {
+    const sources = calibrationArticle
+      .split("\n")
+      .filter((line) => /^\d+\. \[/.test(line));
+
+    expect(sources).toHaveLength(6);
+    for (const source of sources) {
+      expect(source).toMatch(/^\d+\. \[[^\]]+\]\(https:\/\/[^\s)]+\)$/);
+    }
+    expect(calibrationArticle).not.toMatch(/\]\(https:\/\/\s*$/m);
+  });
+
+  it("renders safe HTML without unescaped tags or broken blocks", () => {
+    const html = renderMarkdown(calibrationArticle);
+    expect(html).toContain('<pre><code class="language-python">');
+    expect(html).toContain("<table><thead><tr>");
+    expect(html).toContain('<a href="https://scikit-learn.org/stable/modules/calibration.html" rel="noopener noreferrer">scikit-learn: Probability calibration</a>');
+    expect(html).toContain('<a href="https://arxiv.org/abs/1706.04599" rel="noopener noreferrer">Guo et al. (2017): On Calibration of Modern Neural Networks</a>');
+  });
+});
