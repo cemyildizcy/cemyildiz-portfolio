@@ -1,5 +1,19 @@
 # Verification reports
 
+AI Review Desk Task 6 verification run on 2026-09-12:
+
+- `npm run lint` — passed, 0 errors and 0 warnings.
+- `npx tsc --noEmit` — passed.
+- `npm test` — passed, 10 files and 136 tests.
+- `npm run build` — passed; `/ai-inceleme-masasi` prerendered and `/api/review/runs` compiled.
+- `npm run test:e2e` — passed, 42 tests across desktop Chromium and a 390px mobile Chromium viewport.
+- `npm audit` — failed with 2 moderate `@vitest/mocker` path-traversal vulnerabilities. npm offers only the breaking `vitest@5.0.0` fix via `npm audit fix --force`; dependency upgrade deferred outside Task 6 scope.
+- Golden deterministic harness — passed 6/6 scenarios, 6/6 displayed citations grounded, 0 unsupported definitive verdicts. Status remains **BLOCKED / PREVIEW ONLY** because no real candidate quick and balanced models were benchmarked. Full evidence: `reports/ai-review-desk-eval.md`.
+
+No deployment or push was performed.
+
+---
+
 Corrective blog formatting run on 2026-09-06:
 
 - `npm run lint` — passed, 0 errors.

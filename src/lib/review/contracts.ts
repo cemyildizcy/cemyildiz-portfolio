@@ -14,6 +14,7 @@ export const REJECTION_CODES = [
   "locator_mismatch",
   "unsafe_url",
   "unsupported_component",
+  "semantic_mismatch",
   "duplicate_finding",
   "oversized_field",
 ] as const;

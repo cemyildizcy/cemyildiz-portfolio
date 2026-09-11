@@ -146,7 +146,11 @@ export async function runReviewStream(
 
         // 4. Process each role output, verify citations, and emit events
         for (const output of roleOutputs) {
-          emit(createEvent("role.completed", output));
+          emit(createEvent("role.completed", {
+            role: output.role,
+            summary: "Rol tamamlandı.",
+            findings: [],
+          }));
 
           for (const finding of output.findings) {
             const verificationResult = verifier.verifyFinding(

@@ -97,6 +97,42 @@ describe("Review Orchestrator - runReviewStream", () => {
     expect(completedEvent.type).toBe("run.completed");
   });
 
+  it("never emits raw provider role or finding summaries through SSE", async () => {
+    const maliciousRoleSummary = "<script>role-summary-leak</script>";
+    const maliciousFindingSummary = "<img src=x onerror=finding-summary-leak> opposite conclusion";
+    const provider: ReviewModelProvider = {
+      async executeRole({ role }) {
+        return {
+          role,
+          summary: maliciousRoleSummary,
+          findings:
+            role === "researcher"
+              ? [{
+                  findingId: "f-adversarial-summary",
+                  propositionId: "prop-ml-1",
+                  stance: "supports" as const,
+                  summary: maliciousFindingSummary,
+                  citations: [{
+                    sourceId: "src-ml-guo-2017",
+                    url: "https://arxiv.org/abs/1706.04599v2",
+                    quote: "We discover that modern neural networks, unlike those from a decade ago, are poorly calibrated.",
+                    locator: "Abstract, arXiv v2 landing page",
+                  }],
+                }]
+              : [],
+        };
+      },
+    };
+
+    const stream = await runReviewStream(validRequest, { provider });
+    const rawSse = await new Response(stream).text();
+
+    expect(rawSse).not.toContain(maliciousRoleSummary);
+    expect(rawSse).not.toContain(maliciousFindingSummary);
+    expect(rawSse).toContain("Rol tamamlandı");
+    expect(rawSse).toContain("Modern sinir ağlarının zayıf kalibre edilebilmesi");
+  });
+
   it("executes all three roles in parallel", async () => {
     const callTimes: Record<string, { start: number; end: number }> = {};
     const delay = 40;

@@ -1,0 +1,253 @@
+
+> cemyildiz-portfolio@0.1.0 test
+> vitest run --run src/lib/review/citations.test.ts src/lib/review/editor.test.ts src/lib/review/run.test.ts src/components/review-desk/SafeReviewRenderer.test.tsx
+
+
+[1m[46m RUN [49m[22m [36mv3.2.7 [39m[90mC:/Users/cemyi/Documents/cemyildiz-portfolio[39m
+
+ [31m❯[39m src/components/review-desk/SafeReviewRenderer.test.tsx [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 17[2mms[22m[39m
+[31m   [31m×[31m SafeReviewRenderer[2m > [22mdoes not render raw provider role summaries[39m[32m 15[2mms[22m[39m
+[31m     → expected '<div class="review-results-flow"><sec…' not to contain 'role-provider-summary-leak'[39m
+   [32m✓[39m SafeReviewRenderer[2m > [22mrenders only server-owned finding presentation text[32m 1[2mms[22m[39m
+ [31m❯[39m src/lib/review/editor.test.ts [2m([22m[2m25 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 18[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Verdict Truth Table[2m > [22mreturns 'supported' when all material propositions have at least one verified supporting finding[32m 1[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Verdict Truth Table[2m > [22mreturns 'supported' when material propositions are supported even with extra context findings[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Verdict Truth Table[2m > [22mreturns 'revise' if any material proposition has a contradicted finding, even if all have support[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Verdict Truth Table[2m > [22mreturns 'revise' if any material proposition has a contradicted finding with no supporting findings[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Verdict Truth Table[2m > [22mreturns 'insufficient_evidence' when only a subset of material propositions has support[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Verdict Truth Table[2m > [22mreturns 'insufficient_evidence' when there are no findings at all[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Verdict Truth Table[2m > [22mreturns 'insufficient_evidence' when material propositions only have context findings[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Verdict Truth Table[2m > [22mignores non-material propositions when evaluating complete support[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Deduplication & Collection[2m > [22mdeduplicates findings by propositionId + stance + quote[32m 1[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Deduplication & Collection[2m > [22mnormalizes quote whitespace and characters when detecting duplicates[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Deduplication & Collection[2m > [22mkeeps findings distinct if stance differs[32m 1[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Deduplication & Collection[2m > [22mcollects unique source IDs from findings in sorted order[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Deduplication & Collection[2m > [22mcollects unique rejectedFindingIds combining input rejections and duplicates[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Deduplication & Collection[2m > [22mcaps collected sourceIds and rejectedFindingIds at 50 elements[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Deduplication & Collection[2m > [22mtreats citations order invariantly when deduplicating findings[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Canonical Result Hash[2m > [22mcomputes a deterministic 64-character lowercase hex SHA-256 hash[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Canonical Result Hash[2m > [22mproduces distinct hashes when any parameter changes[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Turkish Summary Generator[2m > [22mgenerates deterministic Turkish summary for 'supported'[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Turkish Summary Generator[2m > [22mgenerates deterministic Turkish summary for 'revise'[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - Turkish Summary Generator[2m > [22mgenerates deterministic Turkish summary for 'insufficient_evidence'[32m 0[2mms[22m[39m
+[31m   [31m×[31m Deterministic Editor - compileReview[2m > [22mrequires every atomic Claim 3 proposition before a supported verdict[39m[32m 9[2mms[22m[39m
+[31m     → expected 'insufficient_evidence' to be 'supported' // Object.is equality[39m
+   [32m✓[39m Deterministic Editor - compileReview[2m > [22mcompiles a review run into a valid RunReceipt with 'Son kontrol: Cem.'[32m 1[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - compileReview[2m > [22mhandles duplicate findings by moving duplicates to rejectedFindingIds[32m 1[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - compileReview[2m > [22mdefaults resultSource to 'live' and generates valid ISO completedAt if omitted[32m 0[2mms[22m[39m
+   [32m✓[39m Deterministic Editor - compileReview[2m > [22mrespects explicit resultSource such as 'cache' or 'fallback_cache'[32m 0[2mms[22m[39m
+ [31m❯[39m src/lib/review/citations.test.ts [2m([22m[2m26 tests[22m[2m | [22m[31m4 failed[39m[2m)[22m[32m 34[2mms[22m[39m
+   [32m✓[39m Corpus and SHA-256 integrity[2m > [22mcomputes stable SHA-256 checksums across runs[32m 2[2mms[22m[39m
+   [32m✓[39m Corpus and SHA-256 integrity[2m > [22mnormalizes whitespace and line breaks when hashing excerpts[32m 0[2mms[22m[39m
+   [32m✓[39m Corpus and SHA-256 integrity[2m > [22mverifies integrity of all loaded claims and excerpts[32m 1[2mms[22m[39m
+   [32m✓[39m Corpus and SHA-256 integrity[2m > [22mdetects corrupted excerpt or checksum mismatch[32m 1[2mms[22m[39m
+   [32m✓[39m Server-only corpus lookup and claim records[2m > [22mcontains exactly three claims, with all claims approved for review[32m 0[2mms[22m[39m
+   [32m✓[39m Server-only corpus lookup and claim records[2m > [22mall three claims have verified public sources with valid HTTPS URLs, locators, and checksums[32m 1[2mms[22m[39m
+   [32m✓[39m Server-only corpus lookup and claim records[2m > [22mlooks up individual corpus sources by claim and source ID[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Draft case execution restriction[2m > [22mrefuses to execute verification on draft claim and throws DraftClaimError[32m 1[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Draft case execution restriction[2m > [22mrefuses to execute batch verification on draft claim[32m 0[2mms[22m[39m
+[31m   [31m×[31m CitationVerifier - Grounded verification and rejection codes[2m > [22mreplaces an opposite HTML-like provider summary with reviewed presentation text[39m[32m 14[2mms[22m[39m
+[31m     → expected '<img src=x onerror=alert(1)> Yüksek d…' to be 'Modern sinir ağlarının zayıf kalibre …' // Object.is equality[39m
+[31m   [31m×[31m CitationVerifier - Grounded verification and rejection codes[2m > [22muses a fixed safe label instead of a rejected provider summary[39m[32m 2[2mms[22m[39m
+[31m     → expected '<script>alert(\'rejected\')</script> …' to be 'Sağlayıcı bulgusu güvenli doğrulama k…' // Object.is equality[39m
+[31m   [31m×[31m CitationVerifier - Grounded verification and rejection codes[2m > [22mrejects the truncated sklearn quote as a semantic mismatch[39m[32m 2[2mms[22m[39m
+[31m     → expected false to be true // Object.is equality[39m
+[31m   [31m×[31m CitationVerifier - Grounded verification and rejection codes[2m > [22msplits Claim 3 role, editor, and human-control evidence into atomic propositions[39m[32m 2[2mms[22m[39m
+[31m     → expected [ 'prop-portfolio-1', …(1) ] to deeply equal [ 'prop-portfolio-roles', …(3) ][39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22maccepts a fully grounded finding for approved claim-1[32m 1[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22mrejects unknown source with code unknown_source[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22mrejects empty or whitespace-only quote with code missing_quote[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22mrejects fabricated or mismatched quote with code quote_mismatch[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22mrejects a verbatim citation when its stance inverts the reviewed semantic mapping[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22mrejects a verbatim quote mapped to a different proposition[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22maccepts verbatim quote despite whitespace and curly quote variation[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22mrejects locator outside bounds with code locator_mismatch[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22mrejects unsafe or mismatched source URL with code unsafe_url[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22mrejects findings tied to unknown proposition with code unsupported_component[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22mrejects oversized fields with code oversized_field[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22mrejects duplicate findings with code duplicate_finding[32m 0[2mms[22m[39m
+   [32m✓[39m CitationVerifier - Grounded verification and rejection codes[2m > [22mbatch verification separates verified findings from rejected findings[32m 0[2mms[22m[39m
+ [31m❯[39m src/lib/review/run.test.ts [2m([22m[2m8 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 103[2mms[22m[39m
+   [32m✓[39m Review Orchestrator - runReviewStream[2m > [22mstreams a complete verified review for claim-1 in quick mode[32m 13[2mms[22m[39m
+[31m   [31m×[31m Review Orchestrator - runReviewStream[2m > [22mnever emits raw provider role or finding summaries through SSE[39m[32m 18[2mms[22m[39m
+[31m     → expected 'id: 1\nevent: run.started\ndata: {"co…' not to contain '<script>role-summary-leak</script>'[39m
+   [32m✓[39m Review Orchestrator - runReviewStream[2m > [22mexecutes all three roles in parallel[32m 51[2mms[22m[39m
+   [32m✓[39m Review Orchestrator - runReviewStream[2m > [22mpropagates AbortSignal and cancels execution[32m 16[2mms[22m[39m
+   [32m✓[39m Review Orchestrator - runReviewStream[2m > [22msafely handles and maps invalid role output from provider[32m 1[2mms[22m[39m
+   [32m✓[39m Review Orchestrator - runReviewStream[2m > [22mfilters out ungrounded citations and includes only verified findings[32m 1[2mms[22m[39m
+   [32m✓[39m Review Orchestrator - runReviewStream[2m > [22mreturns unavailable error event for draft claim (claim-2)[32m 0[2mms[22m[39m
+   [32m✓[39m Review Orchestrator - runReviewStream[2m > [22mreturns unavailable error event for unapproved mode (balanced)[32m 0[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 7 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/lib/review/citations.test.ts[2m > [22mCitationVerifier - Grounded verification and rejection codes[2m > [22mreplaces an opposite HTML-like provider summary with reviewed presentation text
+[31m[1mAssertionError[22m: expected '<img src=x onerror=alert(1)> Yüksek d…' to be 'Modern sinir ağlarının zayıf kalibre …' // Object.is equality[39m
+
+Expected: [32m"[7mModern sinir ağlarının zayıf kalibre edilebilmesi, doğruluğun tek başına güvenilirlik kanıtı olmadığını gösteri[27mr."[39m
+Received: [31m"[7m<img src=x onerror=alert(1)> Yüksek doğruluk güvenilirliği kesin kanıtla[27mr."[39m
+
+[36m [2m❯[22m src/lib/review/citations.test.ts:[2m164:28[22m[39m
+    [90m162| [39m
+    [90m163| [39m    [34mexpect[39m(result[33m.[39mverified)[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;[39m
+    [90m164| [39m    [34mexpect[39m(result[33m.[39msummary)[33m.[39m[34mtoBe[39m(
+    [90m   | [39m                           [31m^[39m
+    [90m165| [39m      "Modern sinir ağlarının zayıf kalibre edilebilmesi, doğruluğun t…
+    [90m166| [39m    )[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/lib/review/citations.test.ts[2m > [22mCitationVerifier - Grounded verification and rejection codes[2m > [22muses a fixed safe label instead of a rejected provider summary
+[31m[1mAssertionError[22m: expected '<script>alert(\'rejected\')</script> …' to be 'Sağlayıcı bulgusu güvenli doğrulama k…' // Object.is equality[39m
+
+Expected: [32m"[7mSağlayıcı bulgusu güvenli doğrulama kurallarını geçeme[27mdi[7m.[27m"[39m
+Received: [31m"[7m<script>alert('rejected')</script> karşıt id[27mdi[7ma[27m"[39m
+
+[36m [2m❯[22m src/lib/review/citations.test.ts:[2m182:28[22m[39m
+    [90m180| [39m    if (!isRejectedFinding(result)) throw new Error("Expected rejected…
+    [90m181| [39m
+    [90m182| [39m    expect(result.summary).toBe("Sağlayıcı bulgusu güvenli doğrulama k…
+    [90m   | [39m                           [31m^[39m
+    [90m183| [39m    [34mexpect[39m(result[33m.[39msummary)[33m.[39mnot[33m.[39m[34mtoContain[39m(maliciousSummary)[33m;[39m
+    [90m184| [39m    [34mexpect[39m(result[33m.[39msummary)[33m.[39mnot[33m.[39m[34mtoContain[39m([32m"<script"[39m)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/lib/review/citations.test.ts[2m > [22mCitationVerifier - Grounded verification and rejection codes[2m > [22mrejects the truncated sklearn quote as a semantic mismatch
+[31m[1mAssertionError[22m: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m src/lib/review/citations.test.ts:[2m203:39[22m[39m
+    [90m201| [39m    })[33m;[39m
+    [90m202| [39m
+    [90m203| [39m    [34mexpect[39m([34misRejectedFinding[39m(result))[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;[39m
+    [90m   | [39m                                      [31m^[39m
+    [90m204| [39m    if (!isRejectedFinding(result)) throw new Error("Expected rejected…
+    [90m205| [39m    [34mexpect[39m(result[33m.[39mcode)[33m.[39m[34mtoBe[39m([32m"semantic_mismatch"[39m)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/lib/review/citations.test.ts[2m > [22mCitationVerifier - Grounded verification and rejection codes[2m > [22msplits Claim 3 role, editor, and human-control evidence into atomic propositions
+[31m[1mAssertionError[22m: expected [ 'prop-portfolio-1', …(1) ] to deeply equal [ 'prop-portfolio-roles', …(3) ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  [[22m
+[32m-   "prop-portfolio-roles",[39m
+[32m-   "prop-portfolio-editor",[39m
+[32m-   "prop-portfolio-human-control",[39m
+[31m+   "prop-portfolio-1",[39m
+[2m    "prop-portfolio-2",[22m
+[2m  ][22m
+
+[36m [2m❯[22m src/lib/review/citations.test.ts:[2m212:28[22m[39m
+    [90m210| [39m    const propositionIds = claim?.propositions.map((proposition) => pr…
+    [90m211| [39m
+    [90m212| [39m    [34mexpect[39m(propositionIds)[33m.[39m[34mtoEqual[39m([
+    [90m   | [39m                           [31m^[39m
+    [90m213| [39m      [32m"prop-portfolio-roles"[39m[33m,[39m
+    [90m214| [39m      [32m"prop-portfolio-editor"[39m[33m,[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/lib/review/editor.test.ts[2m > [22mDeterministic Editor - compileReview[2m > [22mrequires every atomic Claim 3 proposition before a supported verdict
+[31m[1mAssertionError[22m: expected 'insufficient_evidence' to be 'supported' // Object.is equality[39m
+
+Expected: [32m"supported"[39m
+Received: [31m"insufficient_evidence"[39m
+
+[36m [2m❯[22m src/lib/review/editor.test.ts:[2m422:30[22m[39m
+    [90m420| [39m      verifiedFindings[33m:[39m findings[33m,[39m
+    [90m421| [39m    })[33m;[39m
+    [90m422| [39m    [34mexpect[39m(complete[33m.[39mverdict)[33m.[39m[34mtoBe[39m([32m"supported"[39m)[33m;[39m
+    [90m   | [39m                             [31m^[39m
+    [90m423| [39m  })[33m;[39m
+    [90m424| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/lib/review/run.test.ts[2m > [22mReview Orchestrator - runReviewStream[2m > [22mnever emits raw provider role or finding summaries through SSE
+[31m[1mAssertionError[22m: expected 'id: 1\nevent: run.started\ndata: {"co…' not to contain '<script>role-summary-leak</script>'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- <script>role-summary-leak</script>[39m
+[31m+ id: 1[39m
+[31m+ event: run.started[39m
+[31m+ data: {"contractVersion":"1","runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","sequence":1,"timestamp":"2026-09-11T22:27:12.057Z","type":"run.started","payload":{"claimId":"claim-1","mode":"quick"}}[39m
+[31m+[39m
+[31m+ id: 2[39m
+[31m+ event: run.status[39m
+[31m+ data: {"contractVersion":"1","runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","sequence":2,"timestamp":"2026-09-11T22:27:12.057Z","type":"run.status","payload":{"status":"researching","message":"Bağımsız roller kanıt paketini inceliyor..."}}[39m
+[31m+[39m
+[31m+ id: 3[39m
+[31m+ event: role.completed[39m
+[31m+ data: {"contractVersion":"1","runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","sequence":3,"timestamp":"2026-09-11T22:27:12.059Z","type":"role.completed","payload":{"role":"researcher","summary":"<script>role-summary-leak</script>","findings":[{"findingId":"f-adversarial-summary","propositionId":"prop-ml-1","stance":"supports","summary":"<img src=x onerror=finding-summary-leak> opposite conclusion","citations":[{"sourceId":"src-ml-guo-2017","url":"https://arxiv.org/abs/1706.04599v2","quote":"We discover that modern neural networks, unlike those from a decade ago, are poorly calibrated.","locator":"Abstract, arXiv v2 landing page"}]}]}}[39m
+[31m+[39m
+[31m+ id: 4[39m
+[31m+ event: finding.verified[39m
+[31m+ data: {"contractVersion":"1","runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","sequence":4,"timestamp":"2026-09-11T22:27:12.059Z","type":"finding.verified","payload":{"finding":{"findingId":"f-adversarial-summary","propositionId":"prop-ml-1","stance":"supports","summary":"<img src=x onerror=finding-summary-leak> opposite conclusion","citations":[{"sourceId":"src-ml-guo-2017","url":"https://arxiv.org/abs/1706.04599v2","quote":"We discover that modern neural networks, unlike those from a decade ago, are poorly calibrated.","locator":"Abstract, arXiv v2 landing page"}],"verified":true}}}[39m
+[31m+[39m
+[31m+ id: 5[39m
+[31m+ event: role.completed[39m
+[31m+ data: {"contractVersion":"1","runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","sequence":5,"timestamp":"2026-09-11T22:27:12.059Z","type":"role.completed","payload":{"role":"skeptic","summary":"<script>role-summary-leak</script>","findings":[]}}[39m
+[31m+[39m
+[31m+ id: 6[39m
+[31m+ event: role.completed[39m
+[31m+ data: {"contractVersion":"1","runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","sequence":6,"timestamp":"2026-09-11T22:27:12.059Z","type":"role.completed","payload":{"role":"verifier","summary":"<script>role-summary-leak</script>","findings":[]}}[39m
+[31m+[39m
+[31m+ id: 7[39m
+[31m+ event: run.status[39m
+[31m+ data: {"contractVersion":"1","runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","sequence":7,"timestamp":"2026-09-11T22:27:12.059Z","type":"run.status","payload":{"status":"editing","message":"Bulgular derleniyor ve editoryal karar oluşturuluyor..."}}[39m
+[31m+[39m
+[31m+ id: 8[39m
+[31m+ event: run.verdict[39m
+[31m+ data: {"contractVersion":"1","runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","sequence":8,"timestamp":"2026-09-11T22:27:12.059Z","type":"run.verdict","payload":{"verdict":"insufficient_evidence","summary":"İnceleme tamamlandı: Yayımlamak için yetersiz kanıt. Temel önermelerin tümü doğrulanmış kaynaklarla temellendirilemedi (1 doğrulanmış bulgu)."}}[39m
+[31m+[39m
+[31m+ id: 9[39m
+[31m+ event: run.receipt[39m
+[31m+ data: {"contractVersion":"1","runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","sequence":9,"timestamp":"2026-09-11T22:27:12.059Z","type":"run.receipt","payload":{"receipt":{"runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","claimId":"claim-1","mode":"quick","verdict":"insufficient_evidence","durationMs":2,"resultSource":"live","sourceIds":["src-ml-guo-2017"],"rejectedFindingIds":[],"resultHash":"9468f6918276123d4c435ed1e8f7b6f63df141254dc199881f7a997c75f4c7fd","completedAt":"2026-09-11T22:27:12.059Z","humanReviewLabel":"Son kontrol: Cem."}}}[39m
+[31m+[39m
+[31m+ id: 10[39m
+[31m+ event: run.completed[39m
+[31m+ data: {"contractVersion":"1","runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","sequence":10,"timestamp":"2026-09-11T22:27:12.059Z","type":"run.completed","payload":{"receipt":{"runId":"9b12ca16-3ce7-4d25-a66b-9782fc0775ee","claimId":"claim-1","mode":"quick","verdict":"insufficient_evidence","durationMs":2,"resultSource":"live","sourceIds":["src-ml-guo-2017"],"rejectedFindingIds":[],"resultHash":"9468f6918276123d4c435ed1e8f7b6f63df141254dc199881f7a997c75f4c7fd","completedAt":"2026-09-11T22:27:12.059Z","humanReviewLabel":"Son kontrol: Cem."}}}[39m
+[31m+[39m
+[31m+[39m
+
+[36m [2m❯[22m src/lib/review/run.test.ts:[2m130:24[22m[39m
+    [90m128| [39m    [35mconst[39m rawSse [33m=[39m [35mawait[39m [35mnew[39m [33mResponse[39m(stream)[33m.[39m[34mtext[39m()[33m;[39m
+    [90m129| [39m
+    [90m130| [39m    [34mexpect[39m(rawSse)[33m.[39mnot[33m.[39m[34mtoContain[39m(maliciousRoleSummary)[33m;[39m
+    [90m   | [39m                       [31m^[39m
+    [90m131| [39m    [34mexpect[39m(rawSse)[33m.[39mnot[33m.[39m[34mtoContain[39m(maliciousFindingSummary)[33m;[39m
+    [90m132| [39m    [34mexpect[39m(rawSse)[33m.[39m[34mtoContain[39m([32m"Rol tamamlandı"[39m)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/components/review-desk/SafeReviewRenderer.test.tsx[2m > [22mSafeReviewRenderer[2m > [22mdoes not render raw provider role summaries
+[31m[1mAssertionError[22m: expected '<div class="review-results-flow"><sec…' not to contain 'role-provider-summary-leak'[39m
+
+Expected: [32m"role-provider-summary-leak"[39m
+Received: [31m"<div class="review-results-flow"><section aria-labelledby="role-summaries-heading"><h3 id="role-summaries-heading" class="desk-modes-label">Rol İnceleme Çıktıları</h3><div class="flex flex-col gap-3 mt-2"><article class="role-card"><div class="role-card-header"><span class="role-name-tag">Araştırmacı</span><span class="text-xs text-slate-500 font-mono">0 bulgu bildirildi</span></div><p class="role-summary">&lt;script&gt;role-provider-summary-leak&lt;/script&gt;</p></article></div></section></div>"[39m
+
+[36m [2m❯[22m src/components/review-desk/SafeReviewRenderer.test.tsx:[2m26:22[22m[39m
+    [90m 24| [39m    )[33m;[39m
+    [90m 25| [39m
+    [90m 26| [39m    [34mexpect[39m(html)[33m.[39mnot[33m.[39m[34mtoContain[39m([32m"role-provider-summary-leak"[39m)[33m;[39m
+    [90m   | [39m                     [31m^[39m
+    [90m 27| [39m    [34mexpect[39m(html)[33m.[39mnot[33m.[39m[34mtoContain[39m(maliciousSummary)[33m;[39m
+    [90m 28| [39m    [34mexpect[39m(html)[33m.[39m[34mtoContain[39m([32m"Araştırmacı"[39m)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m4 failed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[31m7 failed[39m[22m[2m | [22m[1m[32m54 passed[39m[22m[90m (61)[39m
+[2m   Start at [22m 01:27:11
+[2m   Duration [22m 1.03s[2m (transform 213ms, setup 0ms, collect 734ms, tests 172ms, environment 1ms, prepare 784ms)[22m

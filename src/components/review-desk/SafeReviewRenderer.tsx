@@ -47,6 +47,7 @@ const REJECTION_EXPLANATIONS: Record<RejectionCode, string> = {
   locator_mismatch: "Belirtilen sayfa veya bölüm konumu kaynakla eşleşmiyor.",
   unsafe_url: "Güvenli olmayan harici bağlantı protokolü.",
   unsupported_component: "Desteklenmeyen veya izin verilmeyen model bileşeni.",
+  semantic_mismatch: "Alıntının önerme veya tutum eşlemesi insan onaylı kanıt haritasıyla uyuşmuyor.",
   duplicate_finding: "Mükerrer bulgu tespit edildi ve derleme sırasında elendi.",
   oversized_field: "Metin uzunluğu izin verilen editoryal sınırları aşıyor.",
 };
@@ -173,10 +174,9 @@ export function SafeReviewRenderer({
                     {ROLE_LABELS[output.role] ?? output.role}
                   </span>
                   <span className="text-xs text-slate-500 font-mono">
-                    {output.findings.length} bulgu bildirildi
+                    Rol tamamlandı
                   </span>
                 </div>
-                <p className="role-summary">{output.summary}</p>
               </article>
             ))}
           </div>

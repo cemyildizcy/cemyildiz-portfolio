@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { VerifiedFinding } from "./contracts";
+import { getClaimById } from "./corpus";
 import {
   collectRejectedFindingIds,
   collectSourceIds,
@@ -395,25 +396,176 @@ describe("Deterministic Editor - Turkish Summary Generator", () => {
 describe("Deterministic Editor - compileReview", () => {
   const validRunId = "11111111-2222-4333-8444-555555555555";
 
+  it("compiles Claim 3 with verified implementation evidence and fixed responsibility label", () => {
+    const claim = getClaimById("claim-3");
+    expect(claim).toBeDefined();
+
+    // Verify compileReview rejects any finding with fabricated or unevidenced summary
+    const findings: VerifiedFinding[] = [
+      makeVerifiedFinding({
+        findingId: "f-roles",
+        propositionId: "prop-portfolio-roles",
+        summary: "Orkestratör araştırmacı, kuşkucu ve doğrulayıcı rollerini ayrı ayrı çalıştırır.",
+        citations: [{
+          sourceId: "src-portfolio-run-8a69913",
+          url: "https://github.com/cemyildizcy/cemyildiz-portfolio/blob/8a6991310633ec1f758c115ef361fd223edb2123/src/lib/review/run.ts",
+          quote: "const roles: RoleName[] = [\"researcher\", \"skeptic\", \"verifier\"];",
+          locator: "src/lib/review/run.ts, lines 110-124",
+        }],
+      }),
+      makeVerifiedFinding({
+        findingId: "f-editor",
+        propositionId: "prop-portfolio-editor",
+        summary: "Editoryal derleme, yalnızca doğrulanmış bulguları deterministik doğruluk tablosu ve özet kurallarıyla birleştirir.",
+        citations: [{
+          sourceId: "src-portfolio-editor-8a69913",
+          url: "https://github.com/cemyildizcy/cemyildiz-portfolio/blob/8a6991310633ec1f758c115ef361fd223edb2123/src/lib/review/editor.ts",
+          quote: "const verdict = computeVerdict({\n    materialPropositionIds,\n    verifiedFindings: deduplicatedFindings,\n  });",
+          locator: "src/lib/review/editor.ts, lines 199-219",
+        }],
+      }),
+      makeVerifiedFinding({
+        findingId: "f-human",
+        propositionId: "prop-portfolio-human-control",
+        summary: "Tamamlanan sonuçlar, son kontrol sorumluluğunu Cem'e atayan sabit “Son kontrol: Cem.” etiketini gösterir.",
+        citations: [{
+          sourceId: "src-portfolio-design-8a69913",
+          url: "https://github.com/cemyildizcy/cemyildiz-portfolio/blob/8a6991310633ec1f758c115ef361fd223edb2123/docs/superpowers/specs/2026-09-11-ai-review-desk-design.md",
+          quote: "Every completed result includes sources, rejected findings, run ID, duration, live/cache status, and the fixed label **“Son kontrol: Cem.”**",
+          locator: "§2 Visible roles and Verdicts",
+        }],
+      }),
+      makeVerifiedFinding({
+        findingId: "f-overbroad",
+        propositionId: "prop-portfolio-2",
+        stance: "contradicts",
+        summary: "Birçok uygulamada retrieval ve bağlam içi örneklerle iyileştirilmiş tek çağrı genellikle yeterlidir.",
+        citations: [{
+          sourceId: "src-portfolio-anthropic-2024",
+          url: "https://www.anthropic.com/engineering/building-effective-agents",
+          quote: "For many applications, however, optimizing single LLM calls with retrieval and in-context examples is usually enough.",
+          locator: "Section: When (and when not) to use agents",
+        }],
+      }),
+    ];
+
+    const compilation = compileReview({
+      runId: validRunId,
+      claimId: "claim-3",
+      mode: "balanced",
+      durationMs: 120,
+      verifiedFindings: findings,
+    });
+
+    expect(compilation.verdict).toBe("revise");
+    expect(compilation.receipt.humanReviewLabel).toBe("Son kontrol: Cem.");
+    expect(compilation.sourceIds).toContain("src-portfolio-editor-8a69913");
+    // Explicit regression check: the human control finding must NOT claim review occurred
+    const humanFinding = compilation.deduplicatedFindings.find((f) => f.propositionId === "prop-portfolio-human-control");
+    expect(humanFinding?.summary).not.toMatch(/kontrolü Cem'e bırakılır|Cem inceledi/i);
+    expect(humanFinding?.summary).toContain("sabit “Son kontrol: Cem.” etiketini gösterir");
+  });
+
+  it("requires every atomic Claim 3 proposition before a supported verdict", () => {
+    const findings = [
+      makeVerifiedFinding({
+        findingId: "f-roles",
+        propositionId: "prop-portfolio-roles",
+        citations: [{
+          sourceId: "src-portfolio-run-8a69913",
+          url: "https://github.com/cemyildizcy/cemyildiz-portfolio/blob/8a6991310633ec1f758c115ef361fd223edb2123/src/lib/review/run.ts",
+          quote: "const roles: RoleName[] = [\"researcher\", \"skeptic\", \"verifier\"];",
+          locator: "src/lib/review/run.ts, lines 110-124",
+        }],
+      }),
+      makeVerifiedFinding({
+        findingId: "f-editor",
+        propositionId: "prop-portfolio-editor",
+        citations: [{
+          sourceId: "src-portfolio-editor-8a69913",
+          url: "https://github.com/cemyildizcy/cemyildiz-portfolio/blob/8a6991310633ec1f758c115ef361fd223edb2123/src/lib/review/editor.ts",
+          quote: "const verdict = computeVerdict({\n    materialPropositionIds,\n    verifiedFindings: deduplicatedFindings,\n  });",
+          locator: "src/lib/review/editor.ts, lines 199-219",
+        }],
+      }),
+      makeVerifiedFinding({
+        findingId: "f-human",
+        propositionId: "prop-portfolio-human-control",
+        citations: [{
+          sourceId: "src-portfolio-design-8a69913",
+          url: "https://github.com/cemyildizcy/cemyildiz-portfolio/blob/8a6991310633ec1f758c115ef361fd223edb2123/docs/superpowers/specs/2026-09-11-ai-review-desk-design.md",
+          quote: "Every completed result includes sources, rejected findings, run ID, duration, live/cache status, and the fixed label **“Son kontrol: Cem.”**",
+          locator: "§2 Visible roles and Verdicts",
+        }],
+      }),
+      makeVerifiedFinding({
+        findingId: "f-overbroad",
+        propositionId: "prop-portfolio-2",
+        citations: [{
+          sourceId: "src-portfolio-anthropic-2024",
+          url: "https://www.anthropic.com/engineering/building-effective-agents",
+          quote: "For many applications, however, optimizing single LLM calls with retrieval and in-context examples is usually enough.",
+          locator: "Section: When (and when not) to use agents",
+        }],
+      }),
+    ];
+
+    const partial = compileReview({
+      runId: validRunId,
+      claimId: "claim-3",
+      mode: "balanced",
+      durationMs: 1,
+      verifiedFindings: findings.slice(0, 1),
+    });
+    expect(partial.verdict).toBe("insufficient_evidence");
+
+    const complete = compileReview({
+      runId: validRunId,
+      claimId: "claim-3",
+      mode: "balanced",
+      durationMs: 1,
+      verifiedFindings: findings,
+    });
+    expect(complete.verdict).toBe("supported");
+    expect(complete.sourceIds).toContain("src-portfolio-editor-8a69913");
+    expect(complete.sourceIds).toContain("src-portfolio-design-8a69913");
+    expect(complete.sourceIds).toContain("src-portfolio-run-8a69913");
+    expect(complete.sourceIds).toContain("src-portfolio-anthropic-2024");
+    expect(complete.receipt.humanReviewLabel).toBe("Son kontrol: Cem.");
+
+    const findingPropositions = complete.deduplicatedFindings.map((f) => f.propositionId);
+    expect(findingPropositions).toEqual([
+      "prop-portfolio-roles",
+      "prop-portfolio-editor",
+      "prop-portfolio-human-control",
+      "prop-portfolio-2",
+    ]);
+
+    const editorFinding = complete.deduplicatedFindings.find((f) => f.propositionId === "prop-portfolio-editor");
+    expect(editorFinding?.citations[0].sourceId).toBe("src-portfolio-editor-8a69913");
+    expect(editorFinding?.citations[0].url).toContain("/src/lib/review/editor.ts");
+    expect(editorFinding?.citations[0].quote).toContain("const verdict = computeVerdict");
+  });
+
   it("compiles a review run into a valid RunReceipt with 'Son kontrol: Cem.'", () => {
     const findings: VerifiedFinding[] = [
       makeVerifiedFinding({
         findingId: "f-1",
         propositionId: "prop-ml-1",
         stance: "supports",
-        citations: [{ sourceId: "src-ml-guo-2017", url: "https://arxiv.org/abs/1706.04599", quote: "q1", locator: "p. 1" }],
+        citations: [{ sourceId: "src-ml-guo-2017", url: "https://arxiv.org/abs/1706.04599v2", quote: "q1", locator: "p. 1" }],
       }),
       makeVerifiedFinding({
         findingId: "f-2",
         propositionId: "prop-ml-2",
         stance: "supports",
-        citations: [{ sourceId: "src-ml-guo-2017", url: "https://arxiv.org/abs/1706.04599", quote: "q2", locator: "p. 2" }],
+        citations: [{ sourceId: "src-ml-guo-2017", url: "https://arxiv.org/abs/1706.04599v2", quote: "q2", locator: "p. 2" }],
       }),
       makeVerifiedFinding({
         findingId: "f-3",
         propositionId: "prop-ml-3",
         stance: "supports",
-        citations: [{ sourceId: "src-ml-scikit-calibration", url: "https://scikit-learn.org/stable/modules/calibration.html", quote: "q3", locator: "Section 1.16" }],
+        citations: [{ sourceId: "src-ml-scikit-calibration", url: "https://scikit-learn.org/1.7/modules/calibration.html", quote: "q3", locator: "Section 1.16" }],
       }),
     ];
 
@@ -447,13 +599,13 @@ describe("Deterministic Editor - compileReview", () => {
       findingId: "f-1",
       propositionId: "prop-ml-1",
       stance: "supports",
-      citations: [{ sourceId: "src-ml-guo-2017", url: "https://arxiv.org/abs/1706.04599", quote: "q1", locator: "p. 1" }],
+      citations: [{ sourceId: "src-ml-guo-2017", url: "https://arxiv.org/abs/1706.04599v2", quote: "q1", locator: "p. 1" }],
     });
     const f1Duplicate = makeVerifiedFinding({
       findingId: "f-dup-1",
       propositionId: "prop-ml-1",
       stance: "supports",
-      citations: [{ sourceId: "src-ml-guo-2017", url: "https://arxiv.org/abs/1706.04599", quote: "q1", locator: "p. 1" }],
+      citations: [{ sourceId: "src-ml-guo-2017", url: "https://arxiv.org/abs/1706.04599v2", quote: "q1", locator: "p. 1" }],
     });
 
     const result = compileReview({

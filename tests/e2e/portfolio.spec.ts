@@ -144,7 +144,7 @@ test("claim-1 ve hızlı mod ile tam akış doğrulanmış bulguları, kararı v
   // Kaynak bağlantısı güvenlik öznitelikleri
   const sourceLink = page.locator("a[data-source-id='src-ml-guo-2017']").first();
   await expect(sourceLink).toBeVisible();
-  await expect(sourceLink).toHaveAttribute("href", "https://arxiv.org/abs/1706.04599");
+  await expect(sourceLink).toHaveAttribute("href", "https://arxiv.org/abs/1706.04599v2");
   await expect(sourceLink).toHaveAttribute("target", "_blank");
   await expect(sourceLink).toHaveAttribute("rel", "noopener noreferrer");
 });

@@ -139,6 +139,8 @@ function verifyLocator(citationLocator: string, source: CorpusSource): boolean {
   return true;
 }
 
+const SAFE_REJECTION_SUMMARY = "Sağlayıcı bulgusu güvenli doğrulama kurallarını geçemedi.";
+
 export class CitationVerifier {
   private readonly seenFindingIds = new Set<string>();
   private readonly seenFingerprints = new Set<string>();
@@ -172,7 +174,7 @@ export class CitationVerifier {
         findingId: finding.findingId,
         propositionId: finding.propositionId,
         role,
-        summary: finding.summary.slice(0, 500),
+        summary: SAFE_REJECTION_SUMMARY,
         code: "oversized_field",
       };
     }
@@ -183,7 +185,7 @@ export class CitationVerifier {
           findingId: finding.findingId,
           propositionId: finding.propositionId,
           role,
-          summary: finding.summary,
+          summary: SAFE_REJECTION_SUMMARY,
           code: "oversized_field",
         };
       }
@@ -199,7 +201,7 @@ export class CitationVerifier {
         findingId: finding.findingId,
         propositionId: finding.propositionId,
         role,
-        summary: finding.summary,
+        summary: SAFE_REJECTION_SUMMARY,
         code: "duplicate_finding",
       };
     }
@@ -211,7 +213,7 @@ export class CitationVerifier {
         findingId: finding.findingId,
         propositionId: finding.propositionId,
         role,
-        summary: finding.summary,
+        summary: SAFE_REJECTION_SUMMARY,
         code: "unsupported_component",
       };
     }
@@ -222,7 +224,7 @@ export class CitationVerifier {
         findingId: finding.findingId,
         propositionId: finding.propositionId,
         role,
-        summary: finding.summary,
+        summary: SAFE_REJECTION_SUMMARY,
         code: "missing_quote",
       };
     }
@@ -234,12 +236,24 @@ export class CitationVerifier {
       }
     }
 
+    const reviewedSummaries = finding.citations.map((citation) => {
+      const source = claim.sources.find((candidate) => candidate.id === citation.sourceId)!;
+      const normalizedQuote = normalizeCorpusText(citation.quote);
+      return source.semanticMappings.find(
+        (mapping) =>
+          mapping.propositionId === finding.propositionId &&
+          mapping.allowedStances.includes(finding.stance) &&
+          normalizeCorpusText(mapping.quote) === normalizedQuote,
+      )!.displaySummary;
+    });
+
     // Record as seen
     this.seenFindingIds.add(finding.findingId);
     this.seenFingerprints.add(fingerprint);
 
     return {
       ...finding,
+      summary: Array.from(new Set(reviewedSummaries)).join(" "),
       verified: true,
     };
   }
@@ -285,7 +299,7 @@ export class CitationVerifier {
         findingId: finding.findingId,
         propositionId: finding.propositionId,
         role,
-        summary: finding.summary,
+        summary: SAFE_REJECTION_SUMMARY,
         code: "unknown_source",
       };
     }
@@ -297,7 +311,7 @@ export class CitationVerifier {
         findingId: finding.findingId,
         propositionId: finding.propositionId,
         role,
-        summary: finding.summary,
+        summary: SAFE_REJECTION_SUMMARY,
         code: "missing_quote",
       };
     }
@@ -308,7 +322,7 @@ export class CitationVerifier {
         findingId: finding.findingId,
         propositionId: finding.propositionId,
         role,
-        summary: finding.summary,
+        summary: SAFE_REJECTION_SUMMARY,
         code: "unsafe_url",
       };
     }
@@ -319,7 +333,7 @@ export class CitationVerifier {
         findingId: finding.findingId,
         propositionId: finding.propositionId,
         role,
-        summary: finding.summary,
+        summary: SAFE_REJECTION_SUMMARY,
         code: "locator_mismatch",
       };
     }
@@ -333,8 +347,25 @@ export class CitationVerifier {
         findingId: finding.findingId,
         propositionId: finding.propositionId,
         role,
-        summary: finding.summary,
+        summary: SAFE_REJECTION_SUMMARY,
         code: "quote_mismatch",
+      };
+    }
+
+    // 6. Reviewed semantic binding: quote, proposition, and stance must agree.
+    const semanticMatch = source.semanticMappings.some(
+      (mapping) =>
+        mapping.propositionId === finding.propositionId &&
+        mapping.allowedStances.includes(finding.stance) &&
+        normalizeCorpusText(mapping.quote) === normalizedQuote,
+    );
+    if (!semanticMatch) {
+      return {
+        findingId: finding.findingId,
+        propositionId: finding.propositionId,
+        role,
+        summary: SAFE_REJECTION_SUMMARY,
+        code: "semantic_mismatch",
       };
     }
 
