@@ -111,3 +111,124 @@ test("ana sayfada ciddi erişilebilirlik ihlali veya yatay taşma yoktur", async
   expect(results.violations.filter((v) => ["serious", "critical"].includes(v.impact ?? ""))).toEqual([]);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
 });
+
+test("ai-inceleme-masasi rotası başlık, editoryal açıklama ve insan denetimi etiketini sunar", async ({ page }) => {
+  await page.goto("/ai-inceleme-masasi");
+  await expect(page).toHaveTitle(/AI İnceleme Masası \| Cem Yıldız/);
+  await expect(page.getByRole("heading", { level: 1, name: "AI İnceleme Masası" })).toBeVisible();
+  await expect(page.getByText("Son kontrol: Cem.")).toBeVisible();
+});
+
+test("vaka ve mod seçimi hipotezi günceller", async ({ page }) => {
+  await page.goto("/ai-inceleme-masasi");
+  await expect(page.getByText("Yüksek doğruluk (accuracy), modelin güvenilir olduğunu kanıtlar mı?")).toBeVisible();
+
+  const claim2Btn = page.getByRole("button", { name: /GündemAI Çok Kaynaklı Habercilik/i });
+  await claim2Btn.click();
+  await expect(page.getByText("Farklı kaynaklar aynı olayı aynı şekilde mi anlatır?")).toBeVisible();
+});
+
+test("claim-1 ve hızlı mod ile tam akış doğrulanmış bulguları, kararı ve makbuzu canlı gösterir", async ({ page }) => {
+  await page.goto("/ai-inceleme-masasi");
+
+  const startBtn = page.getByRole("button", { name: /İncelemeyi Başlat/i });
+  await expect(startBtn).toBeVisible();
+  await startBtn.click();
+
+  // Rollerin ve bulguların akması
+  await expect(page.getByTestId("verdict-badge")).toBeVisible({ timeout: 10000 });
+  await expect(page.getByTestId("verdict-badge")).toContainText("Desteklendi");
+  await expect(page.getByTestId("receipt-card")).toBeVisible();
+  await expect(page.getByTestId("receipt-card")).toContainText("Son kontrol: Cem.");
+
+  // Kaynak bağlantısı güvenlik öznitelikleri
+  const sourceLink = page.locator("a[data-source-id='src-ml-guo-2017']").first();
+  await expect(sourceLink).toBeVisible();
+  await expect(sourceLink).toHaveAttribute("href", "https://arxiv.org/abs/1706.04599");
+  await expect(sourceLink).toHaveAttribute("target", "_blank");
+  await expect(sourceLink).toHaveAttribute("rel", "noopener noreferrer");
+});
+
+test("çalışma esnasında inceleme iptal edilebilir ve sıfırlanabilir", async ({ page }) => {
+  await page.goto("/ai-inceleme-masasi");
+
+  // İptal düğmesini test etmek için akış yanıtını kontrollü beklet
+  await page.route("/api/review/runs", async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    await route.continue().catch(() => {});
+  });
+
+  const startBtn = page.getByRole("button", { name: /İncelemeyi Başlat/i });
+  await startBtn.click();
+
+  const cancelBtn = page.getByRole("button", { name: /İptal Et/i });
+  await expect(cancelBtn).toBeVisible();
+  await cancelBtn.click();
+  await expect(page.getByText(/İnceleme iptal edildi/i).first()).toBeVisible();
+
+  const resetBtn = page.getByRole("button", { name: /Sıfırla/i });
+  await expect(resetBtn).toBeVisible();
+  await resetBtn.click();
+  await expect(page.getByText(/İnceleme sıfırlandı/i)).toBeVisible();
+});
+
+
+test("ai-inceleme-masasi rotasında buton dokunma hedefleri en az 44x44 pikseldir ve yatay taşma yoktur", async ({ page }) => {
+  await page.goto("/ai-inceleme-masasi");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+
+  const buttons = page.locator("button");
+  const count = await buttons.count();
+  expect(count).toBeGreaterThan(0);
+  for (let i = 0; i < count; i++) {
+    const btn = buttons.nth(i);
+    if (await btn.isVisible()) {
+      const box = await btn.boundingBox();
+      if (box) {
+        expect(box.width).toBeGreaterThanOrEqual(44);
+        expect(box.height).toBeGreaterThanOrEqual(44);
+      }
+    }
+  }
+});
+
+test("ai-inceleme-masasi rotasında Axe denetiminde 0 ihlal vardır", async ({ page }) => {
+  await page.goto("/ai-inceleme-masasi");
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
+});
+
+test("klavye ile vaka seçimi ve inceleme başlatma çalışır", async ({ page }) => {
+  await page.goto("/ai-inceleme-masasi");
+
+  // Tab ile vaka butonuna odaklan ve Enter ile seç
+  const claim1Btn = page.getByRole("button", { name: /Model Doğruluğu/i });
+  await claim1Btn.focus();
+  await page.keyboard.press("Enter");
+  await expect(claim1Btn).toHaveAttribute("aria-pressed", "true");
+
+  // İncelemeyi başlat butonuna odaklan ve Space ile tetikle
+  const startBtn = page.getByRole("button", { name: /İncelemeyi Başlat/i });
+  await startBtn.focus();
+  await page.keyboard.press("Space");
+
+  await expect(page.getByTestId("verdict-badge")).toBeVisible({ timeout: 10000 });
+});
+
+test("azaltılmış hareket (prefers-reduced-motion) modunda sayfa sorunsuz yüklenir ve çalışır", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/ai-inceleme-masasi");
+  await expect(page.getByRole("heading", { level: 1, name: "AI İnceleme Masası" })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+});
+
+test("taslak vaka seçildiğinde inceleme başlatılırsa erişilemezlik bildirimi gösterir", async ({ page }) => {
+  await page.goto("/ai-inceleme-masasi");
+  const claim2Btn = page.getByRole("button", { name: /GündemAI Çok Kaynaklı Habercilik/i });
+  await claim2Btn.click();
+
+  const startBtn = page.getByRole("button", { name: /İncelemeyi Başlat/i });
+  await startBtn.click();
+
+  await expect(page.getByText(/Bu iddia veya inceleme modu henüz erişilebilir değil/i).first()).toBeVisible();
+});

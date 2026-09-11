@@ -1,0 +1,803 @@
+/* AI Review Desk - Hybrid 01+02+03 Aesthetic */
+:root {
+  --desk-mat: #173f67;
+  --desk-mat-dark: #102a45;
+  --desk-paper: #f6f3eb;
+  --desk-paper-card: #ffffff;
+  --desk-ink: #172033;
+  --desk-ink-light: #24324d;
+  --desk-muted: #334155;
+  --desk-border: #d3ccc0;
+  --desk-border-dark: #0f2742;
+  --desk-yellow: #ffd447;
+  --desk-yellow-bg: #fef9c3;
+  --desk-navy: #0f2742;
+  --desk-red: #991b1b;
+  --desk-red-bg: #fee2e2;
+  --desk-green: #14532d;
+  --desk-green-bg: #dcfce7;
+  --desk-shadow: 4px 6px 0 rgba(7, 26, 43, 0.45);
+}
+
+.review-desk-page {
+  min-height: calc(100vh - 72px);
+  background-color: var(--desk-mat);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: #ffffff;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.review-desk-shell {
+  max-width: 1320px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Header & Editorial Banner */
+.review-desk-header {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.review-desk-kicker {
+  font-family: var(--font-geist-mono, monospace);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #dbeafe;
+  margin: 0 0 0.5rem;
+}
+
+.review-desk-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.review-desk-title-row h1 {
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: clamp(2.2rem, 5.5vw, 4.4rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: #ffffff;
+}
+
+.review-desk-dek {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #e2e8f0;
+  max-width: 580px;
+  margin: 0;
+}
+
+.review-desk-human-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--desk-yellow);
+  color: var(--desk-ink);
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  border: 2px solid var(--desk-ink);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+}
+
+/* Main Grid: 3 columns */
+.review-desk-grid {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1.4fr) 320px;
+  gap: 1.5rem;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Paper Container base */
+.desk-paper {
+  background-color: var(--desk-paper);
+  color: var(--desk-ink);
+  border: 1px solid var(--desk-border);
+  box-shadow: var(--desk-shadow);
+  border-radius: 2px;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Column 1: Case Tray (01 Tray motif) */
+.desk-tray {
+  padding: 1.25rem;
+}
+
+.desk-tray h2,
+.desk-workbench-sheet h2,
+.desk-ledger h2 {
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--desk-ink);
+  color: var(--desk-ink);
+}
+
+.claim-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.claim-button {
+  width: 100%;
+  min-height: 52px;
+  text-align: left;
+  background: #ffffff;
+  color: var(--desk-ink);
+  border: 2px solid #cbd5e1;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border-radius: 2px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.claim-button:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.claim-button[aria-pressed="true"],
+.claim-button[aria-selected="true"] {
+  background: #fef08a;
+  border: 2px solid var(--desk-ink);
+  border-left: 6px solid var(--desk-navy);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.claim-button-title {
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.claim-button-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--desk-muted);
+}
+
+.status-tag {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.status-tag-approved {
+  background: var(--desk-green-bg);
+  color: var(--desk-green);
+  border: 1px solid #86efac;
+}
+
+.status-tag-draft {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+/* Column 2: Workbench / Central Sheet (01+02 Sheet) */
+.desk-workbench-sheet {
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  min-height: 560px;
+  position: relative;
+  border-top: 6px solid var(--desk-navy);
+}
+
+.sheet-folio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--desk-border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-family: var(--font-geist-mono, monospace);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--desk-muted);
+}
+
+/* Mode Switcher (03 protocol selector) */
+.desk-modes {
+  margin-bottom: 1.5rem;
+}
+
+.desk-modes-label {
+  font-family: var(--font-geist-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--desk-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.desk-modes-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mode-button {
+  flex: 1;
+  min-width: 140px;
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1rem;
+  background: #ffffff;
+  color: var(--desk-ink);
+  border: 2px solid #94a3b8;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.mode-button[aria-pressed="true"] {
+  background: var(--desk-navy);
+  color: #ffffff;
+  border-color: var(--desk-navy);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Hypothesis Card (03 Scientific Hypothesis) */
+.hypothesis-card {
+  background: #ffffff;
+  border: 1px solid var(--desk-border);
+  border-left: 6px solid var(--desk-navy);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.hypothesis-kicker {
+  font-family: var(--font-geist-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #0369a1;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+}
+
+.hypothesis-statement {
+  font-family: Georgia, serif;
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--desk-ink);
+  margin: 0 0 1rem;
+}
+
+.propositions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.proposition-item {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--desk-muted);
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.proposition-item::before {
+  content: "•";
+  position: absolute;
+  left: 0.25rem;
+  color: var(--desk-navy);
+  font-weight: bold;
+}
+
+/* Action Controls */
+.desk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+  min-height: 46px;
+  min-width: 140px;
+  padding: 0.75rem 1.5rem;
+  background: var(--desk-navy);
+  color: #ffffff;
+  border: 2px solid var(--desk-navy);
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  border-radius: 2px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #1e3a8a;
+  border-color: #1e3a8a;
+}
+
+.btn-primary:disabled {
+  background: #64748b;
+  border-color: #64748b;
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.btn-secondary {
+  min-height: 46px;
+  min-width: 120px;
+  padding: 0.75rem 1.25rem;
+  background: #ffffff;
+  color: var(--desk-ink);
+  border: 2px solid var(--desk-ink);
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary:hover {
+  background: #f1f5f9;
+}
+
+.btn-danger {
+  min-height: 46px;
+  min-width: 110px;
+  padding: 0.75rem 1.25rem;
+  background: #ffffff;
+  color: var(--desk-red);
+  border: 2px solid var(--desk-red);
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-danger:hover {
+  background: var(--desk-red-bg);
+}
+
+/* Status Monitor (03 state clarity) */
+.desk-status-monitor {
+  background: #ffffff;
+  border: 1px solid var(--desk-border);
+  padding: 0.85rem 1.15rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 2px;
+}
+
+.status-pulse-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #64748b;
+  flex-shrink: 0;
+}
+
+.status-pulse-dot.running {
+  background: #0284c7;
+  animation: desk-pulse 1.5s infinite ease-in-out;
+}
+
+.status-pulse-dot.completed {
+  background: #16a34a;
+}
+
+.status-pulse-dot.failed {
+  background: #dc2626;
+}
+
+@keyframes desk-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.2); }
+}
+
+.desk-status-text {
+  font-family: var(--font-geist-mono, monospace);
+  font-size: 0.85rem;
+  color: var(--desk-ink);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* SafeReviewRenderer styles */
+.review-results-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+/* Role Card */
+.role-card {
+  background: #ffffff;
+  border: 1px solid var(--desk-border);
+  border-left: 4px solid var(--desk-navy);
+  padding: 1.15rem;
+  border-radius: 2px;
+}
+
+.role-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.role-name-tag {
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--desk-navy);
+  padding: 0.2rem 0.55rem;
+  border-radius: 2px;
+}
+
+.role-summary {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--desk-ink);
+  margin: 0 0 0.75rem;
+}
+
+/* Findings */
+.findings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.finding-item {
+  background: #fafaf9;
+  border: 1px solid #e2e8f0;
+  padding: 0.85rem 1rem;
+  border-radius: 2px;
+}
+
+.finding-stance-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+  margin-bottom: 0.4rem;
+}
+
+.finding-stance-supports {
+  background: var(--desk-green-bg);
+  color: var(--desk-green);
+  border: 1px solid #86efac;
+}
+
+.finding-stance-contradicts {
+  background: var(--desk-red-bg);
+  color: var(--desk-red);
+  border: 1px solid #fca5a5;
+}
+
+.finding-stance-context {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.finding-quote {
+  font-style: italic;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid #94a3b8;
+  background: #f1f5f9;
+  font-size: 0.88rem;
+  color: var(--desk-ink);
+}
+
+.source-citation-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0369a1;
+  text-decoration: underline;
+  margin-top: 0.4rem;
+}
+
+.source-citation-link:hover {
+  color: #0284c7;
+}
+
+/* Rejected Finding Card (02 Editorial Strike) */
+.rejected-finding-card {
+  background: #fff5f5;
+  border: 1px solid #fecaca;
+  border-left: 5px solid var(--desk-red);
+  padding: 1rem 1.15rem;
+  border-radius: 2px;
+}
+
+.rejected-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: var(--desk-red);
+  color: #ffffff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.rejected-quote {
+  text-decoration: line-through;
+  text-decoration-color: var(--desk-red);
+  text-decoration-thickness: 2px;
+  font-weight: 600;
+  color: #7f1d1d;
+  display: block;
+  margin: 0.35rem 0;
+}
+
+.rejection-reason {
+  font-size: 0.82rem;
+  color: #991b1b;
+  margin: 0.4rem 0 0;
+}
+
+/* Final Verdict Card */
+.verdict-card {
+  background: #ffffff;
+  border: 2px solid var(--desk-ink);
+  padding: 1.5rem;
+  border-radius: 2px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.15);
+}
+
+.verdict-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.verdict-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+}
+
+.verdict-supported {
+  background: var(--desk-green-bg);
+  color: var(--desk-green);
+  border: 2px solid var(--desk-green);
+}
+
+.verdict-revise {
+  background: #ffedd5;
+  color: #7c2d12;
+  border: 2px solid #7c2d12;
+}
+
+.verdict-insufficient {
+  background: var(--desk-red-bg);
+  color: var(--desk-red);
+  border: 2px solid var(--desk-red);
+}
+
+.verdict-summary {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--desk-ink);
+  margin: 0;
+}
+
+/* Receipt Card (01 receipt stamp) */
+.receipt-card {
+  background: #ffffff;
+  border: 1px dashed var(--desk-ink);
+  padding: 1.25rem;
+  border-radius: 2px;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+}
+
+.receipt-title {
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.4rem;
+}
+
+.receipt-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.4rem;
+}
+
+.receipt-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.receipt-label {
+  color: var(--desk-muted);
+  font-weight: 600;
+}
+
+.receipt-val {
+  font-family: var(--font-geist-mono, monospace);
+  color: var(--desk-ink);
+  word-break: break-all;
+}
+
+.receipt-stamp {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  text-align: center;
+  background: var(--desk-yellow);
+  color: var(--desk-ink);
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  border: 1px solid var(--desk-ink);
+}
+
+/* Column 3: Sources Ledger */
+.desk-ledger {
+  padding: 1.25rem;
+}
+
+.source-item {
+  background: #ffffff;
+  border: 1px solid var(--desk-border);
+  padding: 0.85rem 1rem;
+  border-radius: 2px;
+  margin-bottom: 0.75rem;
+}
+
+.source-item-title {
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.25;
+  margin: 0 0 0.25rem;
+}
+
+.source-item-publisher {
+  font-size: 0.78rem;
+  color: var(--desk-muted);
+  margin: 0 0 0.4rem;
+}
+
+.source-item-excerpt {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--desk-ink);
+  font-style: italic;
+  border-left: 2px solid #cbd5e1;
+  padding-left: 0.5rem;
+  margin: 0.4rem 0;
+}
+
+.source-item-link {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0369a1;
+  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Responsive & Reduced Motion */
+@media (max-width: 1100px) {
+  .review-desk-grid {
+    grid-template-columns: 260px minmax(0, 1fr);
+  }
+  .desk-ledger {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .review-desk-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .review-desk-header {
+    margin-bottom: 1.25rem;
+  }
+  .review-desk-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .review-desk-page {
+    padding: 1rem 0.75rem;
+  }
+  .desk-workbench-sheet {
+    padding: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
