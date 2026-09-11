@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { POST } from "./route";
 
+let ipCounter = 1;
+
 function makeJsonRequest(
   body: unknown,
   options?: {
@@ -12,6 +14,7 @@ function makeJsonRequest(
   const bodyText = typeof body === "string" ? body : JSON.stringify(body);
   const headers = new Headers({
     "content-type": "application/json",
+    "x-forwarded-for": `198.51.100.${ipCounter++}`,
     ...options?.headers,
   });
 
@@ -189,6 +192,60 @@ describe("POST /api/review/runs Route Handler", () => {
       expect(text).toContain('"code":"unavailable"');
     } else {
       expect(res.status).toBe(400);
+    }
+  });
+
+  it("enforces atomic rate limiting returning 429 when IP limit is exceeded", async () => {
+    const { createReviewRunsHandler } = await import("./route");
+    const { RateLimiter } = await import("@/lib/review/rate-limit");
+    const rateLimiter = new RateLimiter({ limit: 5, windowMs: 60_000 });
+    const handler = createReviewRunsHandler({ rateLimiter });
+
+    const clientIp = "198.51.100.222";
+    const headers = {
+      "x-forwarded-for": clientIp,
+    };
+
+    // First 5 requests should pass rate limit (they might return 200)
+    for (let i = 0; i < 5; i++) {
+      const req = makeJsonRequest(validPayload, { headers });
+      const res = await handler(req);
+      expect(res.status).toBe(200);
+    }
+
+    // 6th request must be rejected with 429
+    const req6 = makeJsonRequest(validPayload, { headers });
+    const res6 = await handler(req6);
+    expect(res6.status).toBe(429);
+    expect(res6.headers.get("retry-after")).toBeDefined();
+
+    const data = await res6.json();
+    expect(data.error).toBeDefined();
+    expect(data.error.code).toBe("rate_limit_exceeded");
+    expect(data.error.message).toContain("sınırı");
+  });
+
+  it("anonymizes IP immediately and never leaks raw IP in response or logs", async () => {
+    const { createReviewRunsHandler } = await import("./route");
+    const { MemoryTelemetrySink } = await import("@/lib/review/telemetry");
+    const telemetry = new MemoryTelemetrySink();
+    const handler = createReviewRunsHandler({ telemetry });
+
+    const rawIp = "203.0.113.88";
+    const req = makeJsonRequest(validPayload, {
+      headers: {
+        "x-forwarded-for": `${rawIp}, 10.0.0.1`,
+      },
+    });
+
+    const res = await handler(req);
+    expect(res.status).toBe(200);
+
+    const logged = telemetry.getEvents();
+    for (const event of logged) {
+      const str = JSON.stringify(event);
+      expect(str).not.toContain(rawIp);
+      expect(str).not.toContain("203.0.113");
     }
   });
 });

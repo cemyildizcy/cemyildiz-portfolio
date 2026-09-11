@@ -6,6 +6,7 @@ import type {
   ReviewMode,
   ReviewRequest,
   RoleOutput,
+  VerifiedFinding,
 } from "./contracts";
 import { validateEventSequence } from "./events";
 import {
@@ -312,6 +313,158 @@ describe("Review Orchestrator - runReviewStream", () => {
     expect(events[0].type).toBe("run.error");
     if (events[0].type === "run.error") {
       expect(events[0].payload.code).toBe("unavailable");
+    }
+  });
+
+  it("handles missing role by withholding definitive verdict and returning role_failed error", async () => {
+    // Provider returning only researcher and skeptic, missing verifier
+    const missingRoleProvider: ReviewModelProvider = {
+      async executeRole({ role }) {
+        if (role === "verifier") {
+          throw new Error("Verifier service unavailable");
+        }
+        return {
+          role,
+          summary: `Completed ${role}`,
+          findings: [],
+        };
+      },
+    };
+
+    const stream = await runReviewStream(validRequest, {
+      provider: missingRoleProvider,
+    });
+    const events = await readSseEvents(stream);
+
+    // Definitive verdict must be withheld
+    const verdictEvent = events.find((e) => e.type === "run.verdict");
+    expect(verdictEvent).toBeUndefined();
+
+    // Must emit role_failed error event
+    const errorEvent = events.find((e) => e.type === "run.error");
+    expect(errorEvent).toBeDefined();
+    if (errorEvent && errorEvent.type === "run.error") {
+      expect(errorEvent.payload.code).toBe("role_failed");
+      expect(errorEvent.payload.retryable).toBe(true);
+      expect(errorEvent.payload.message).toContain("İnceleme");
+    }
+  });
+
+  it("enforces timeout and safely aborts with timeout error without leaking internals", async () => {
+    // Hanging provider
+    const slowProvider: ReviewModelProvider = {
+      async executeRole({ role, signal }) {
+        return new Promise((resolve, reject) => {
+          const timer = setTimeout(() => {
+            resolve({ role, summary: "too late", findings: [] });
+          }, 500);
+          signal?.addEventListener("abort", () => {
+            clearTimeout(timer);
+            reject(new Error("aborted"));
+          });
+        });
+      },
+    };
+
+    const stream = await runReviewStream(validRequest, {
+      provider: slowProvider,
+      timeoutMs: 40,
+    });
+    const events = await readSseEvents(stream);
+
+    const errorEvent = events.find((e) => e.type === "run.error");
+    expect(errorEvent).toBeDefined();
+    if (errorEvent && errorEvent.type === "run.error") {
+      expect(errorEvent.payload.code).toBe("timeout");
+      expect(errorEvent.payload.retryable).toBe(true);
+      // Ensure no raw internal error traces or secrets leak
+      expect(errorEvent.payload.message).not.toContain("stack");
+      expect(errorEvent.payload.message).not.toContain("Error:");
+    }
+  });
+
+  it("falls back to verified cache upon timeout when cached record is available", async () => {
+    const { ReviewCache } = await import("./cache");
+    const cache = new ReviewCache();
+
+    // Pre-populate cache with a verified run
+    const preProvider = new FakeReviewProvider();
+    const preStream = await runReviewStream(validRequest, { provider: preProvider });
+    const preEvents = await readSseEvents(preStream);
+    const receiptEvent = preEvents.find((e) => e.type === "run.receipt");
+    const verifiedFindingEvents = preEvents.filter((e) => e.type === "finding.verified");
+
+    expect(receiptEvent).toBeDefined();
+    if (receiptEvent && receiptEvent.type === "run.receipt") {
+      await cache.set({
+        claimId: validRequest.claimId,
+        mode: validRequest.mode,
+        receipt: receiptEvent.payload.receipt,
+        verdict: receiptEvent.payload.receipt.verdict,
+        summary: "Önceden doğrulanmış inceleme özeti.",
+        verifiedFindings: verifiedFindingEvents.map((e) => (e.payload as { finding: VerifiedFinding }).finding),
+        rejectedFindings: [],
+      });
+    }
+
+    // Now run with a slow provider that triggers timeout
+    const slowProvider: ReviewModelProvider = {
+      async executeRole({ role, signal }) {
+        return new Promise((resolve, reject) => {
+          const timer = setTimeout(() => {
+            resolve({ role, summary: "late", findings: [] });
+          }, 500);
+          signal?.addEventListener("abort", () => {
+            clearTimeout(timer);
+            reject(new Error("aborted"));
+          });
+        });
+      },
+    };
+
+    const stream = await runReviewStream(validRequest, {
+      provider: slowProvider,
+      timeoutMs: 40,
+      cache,
+    });
+    const events = await readSseEvents(stream);
+
+    // Fallback cache should have completed the run, NOT an error
+    const errorEvent = events.find((e) => e.type === "run.error");
+    expect(errorEvent).toBeUndefined();
+
+    const finalReceipt = events.find((e) => e.type === "run.receipt");
+    expect(finalReceipt).toBeDefined();
+    if (finalReceipt && finalReceipt.type === "run.receipt") {
+      expect(finalReceipt.payload.receipt.resultSource).toBe("fallback_cache");
+      expect(finalReceipt.payload.receipt.humanReviewLabel).toBe("Son kontrol: Cem.");
+    }
+
+    const completedEvent = events[events.length - 1];
+    expect(completedEvent.type).toBe("run.completed");
+  });
+
+  it("emits safe telemetry and never logs secrets, credentials, or raw model output", async () => {
+    const { MemoryTelemetrySink } = await import("./telemetry");
+    const telemetrySink = new MemoryTelemetrySink();
+
+    const provider = new FakeReviewProvider();
+    const stream = await runReviewStream(validRequest, {
+      provider,
+      telemetry: telemetrySink,
+    });
+    await readSseEvents(stream);
+
+    const loggedEvents = telemetrySink.getEvents();
+    expect(loggedEvents.length).toBeGreaterThanOrEqual(2);
+
+    for (const event of loggedEvents) {
+      const serialized = JSON.stringify(event);
+      expect(serialized).not.toContain("prompt");
+      expect(serialized).not.toContain("apiKey");
+      expect(serialized).not.toContain("credentials");
+      expect(serialized).not.toContain("rawOutput");
+      expect(serialized).not.toContain("sk-");
     }
   });
 });

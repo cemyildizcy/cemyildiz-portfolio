@@ -1,11 +1,23 @@
+import { ReviewCache, defaultReviewCache } from "@/lib/review/cache";
 import {
   ContractParseError,
   parseReviewRequest,
 } from "@/lib/review/contracts";
 import {
+  RateLimiter,
+  defaultRateLimiter,
+  extractClientIp,
+  hashClientIp,
+  isLoopbackIp,
+} from "@/lib/review/rate-limit";
+import {
   type RunReviewOptions,
   runReviewStream,
 } from "@/lib/review/run";
+import {
+  type TelemetrySink,
+  defaultTelemetry,
+} from "@/lib/review/telemetry";
 
 const MAX_BODY_BYTES = 4096;
 
@@ -42,7 +54,17 @@ function isAllowedOrigin(origin: string | null): boolean {
   }
 }
 
-export function createReviewRunsHandler(options: RunReviewOptions = {}) {
+export interface ReviewRunsHandlerOptions extends RunReviewOptions {
+  rateLimiter?: RateLimiter;
+  cache?: ReviewCache;
+  telemetry?: TelemetrySink;
+}
+
+export function createReviewRunsHandler(options: ReviewRunsHandlerOptions = {}) {
+  const rateLimiter = options.rateLimiter ?? defaultRateLimiter;
+  const cache = options.cache ?? defaultReviewCache;
+  const telemetry = options.telemetry ?? defaultTelemetry;
+
   return async function POST(req: Request): Promise<Response> {
     if (req.method !== "POST") {
       return new Response(null, {
@@ -53,7 +75,37 @@ export function createReviewRunsHandler(options: RunReviewOptions = {}) {
       });
     }
 
-    // 1. Origin and Sec-Fetch-Site check
+    // 1. IP extraction, immediate anonymization, and atomic rate limiting
+    const rawIp = extractClientIp(req.headers);
+    const isLoopback = isLoopbackIp(rawIp);
+    const hashedIp = hashClientIp(rawIp);
+    const rateLimit = await rateLimiter.check(hashedIp, true, { isLoopback });
+
+    if (!rateLimit.allowed) {
+      telemetry.log({
+        eventName: "rate_limit.exceeded",
+        timestamp: new Date().toISOString(),
+      });
+
+      const retryAfterSec = Math.max(1, Math.ceil((rateLimit.resetAt - Date.now()) / 1000));
+      return new Response(
+        JSON.stringify({
+          error: {
+            code: "rate_limit_exceeded",
+            message: "İstek sınırı aşıldı. Lütfen daha sonra tekrar deneyin.",
+          },
+        }),
+        {
+          status: 429,
+          headers: {
+            "Content-Type": "application/json",
+            "Retry-After": retryAfterSec.toString(),
+          },
+        },
+      );
+    }
+
+    // 2. Origin and Sec-Fetch-Site check
     const secFetchSite = req.headers.get("sec-fetch-site");
     if (secFetchSite && secFetchSite === "cross-site") {
       return new Response(
@@ -86,7 +138,7 @@ export function createReviewRunsHandler(options: RunReviewOptions = {}) {
       );
     }
 
-    // 2. Exact Content-Type check
+    // 3. Exact Content-Type check
     const rawContentType = req.headers.get("content-type");
     const mimeType = rawContentType
       ? rawContentType.split(";")[0].trim().toLowerCase()
@@ -106,7 +158,7 @@ export function createReviewRunsHandler(options: RunReviewOptions = {}) {
       );
     }
 
-    // 3. Request body size limit check (4KB)
+    // 4. Request body size limit check (4KB)
     const contentLength = req.headers.get("content-length");
     if (contentLength && Number.parseInt(contentLength, 10) > MAX_BODY_BYTES) {
       return new Response(
@@ -139,7 +191,7 @@ export function createReviewRunsHandler(options: RunReviewOptions = {}) {
       );
     }
 
-    // 4. JSON parsing
+    // 5. JSON parsing
     let bodyJson: unknown;
     try {
       bodyJson = JSON.parse(rawText);
@@ -158,7 +210,7 @@ export function createReviewRunsHandler(options: RunReviewOptions = {}) {
       );
     }
 
-    // 5. Contract validation
+    // 6. Contract validation
     let reviewRequest;
     try {
       reviewRequest = parseReviewRequest(bodyJson);
@@ -206,9 +258,11 @@ export function createReviewRunsHandler(options: RunReviewOptions = {}) {
       );
     }
 
-    // 6. Run orchestrator and stream SSE
+    // 7. Run orchestrator and stream SSE
     const stream = await runReviewStream(reviewRequest, {
       ...options,
+      cache,
+      telemetry,
       signal: req.signal,
     });
 
