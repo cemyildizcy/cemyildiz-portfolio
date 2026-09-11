@@ -9,8 +9,19 @@ test("ana sayfa Cem'i ve çalışma yönünü açık Türkçeyle tanıtır", asy
   await expect(page.getByRole("heading", { name: "Matematikten yapay zekâ ürünlerine." })).toBeVisible();
   await expect(page.getByText("ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim.")).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Ana gezinme" })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Ana gezinme" }).getByRole("link", { name: "İnceleme Masası" })).toBeVisible();
   await expect(page).toHaveTitle(/Cem Yıldız \| Yapay zekâ projeleri/);
   await expect(page.getByText(/kanıt defteri|iddia/i)).toHaveCount(0);
+});
+
+test("ana gezinme çubuğu İnceleme Masası bağlantısını sunar ve tıklandığında sayfaya gider", async ({ page }) => {
+  await page.goto("/");
+  const reviewDeskLink = page.getByRole("navigation", { name: "Ana gezinme" }).getByRole("link", { name: "İnceleme Masası" });
+  await expect(reviewDeskLink).toBeVisible();
+  await expect(reviewDeskLink).toHaveAttribute("href", "/ai-inceleme-masasi");
+  await reviewDeskLink.click();
+  await expect(page).toHaveURL(/\/ai-inceleme-masasi/);
+  await expect(page.getByRole("heading", { level: 1, name: "AI İnceleme Masası" })).toBeVisible();
 });
 
 test("sekmeler roving tabindex ve klavye seçimi uygular", async ({ page }) => {

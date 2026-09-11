@@ -8,6 +8,7 @@ export function Navbar() {
       </Link>
       <nav aria-label="Ana gezinme">
         <Link href="/#work">Projeler</Link>
+        <Link href="/ai-inceleme-masasi">İnceleme Masası</Link>
         <Link href="/#now">Şu an</Link>
         <Link href="/#about">Hakkımda / İletişim</Link>
       </nav>

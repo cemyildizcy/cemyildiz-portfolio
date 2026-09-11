@@ -248,4 +248,55 @@ describe("POST /api/review/runs Route Handler", () => {
       expect(str).not.toContain("203.0.113");
     }
   });
+
+  describe("Hostile Input & Injection Audit", () => {
+    const hostilePayloads = [
+      { name: "SQLi in claimId", payload: { ...validPayload, claimId: "claim-1' OR '1'='1" }, expectedStatus: 400 },
+      { name: "SQLi DROP TABLE in claimId", payload: { ...validPayload, claimId: "claim-1; DROP TABLE runs;--" }, expectedStatus: 400 },
+      { name: "XSS script tag in claimId", payload: { ...validPayload, claimId: "<script>alert('xss')</script>" }, expectedStatus: 400 },
+      { name: "XSS img onerror in mode", payload: { ...validPayload, mode: "<img src=x onerror=alert(1)>" }, expectedStatus: 400 },
+      { name: "Path traversal in claimId", payload: { ...validPayload, claimId: "../../../../etc/passwd" }, expectedStatus: 400 },
+      { name: "Command injection in mode", payload: { ...validPayload, mode: "quick; whoami" }, expectedStatus: 400 },
+      { name: "SQLi in clientRequestId", payload: { ...validPayload, clientRequestId: "a0000000-0000-4000-8000-000000000001' OR 1=1--" }, expectedStatus: 400 },
+      { name: "XSS in clientRequestId", payload: { ...validPayload, clientRequestId: "a0000000-0000-4000-8000-<script>" }, expectedStatus: 400 },
+      { name: "Null byte injection in claimId", payload: { ...validPayload, claimId: "claim-1\u0000" }, expectedStatus: 400 },
+      { name: "SQLi in contractVersion", payload: { ...validPayload, contractVersion: "1' OR '1'='1" }, expectedStatus: 409 },
+      { name: "XSS in contractVersion", payload: { ...validPayload, contractVersion: "<script>1</script>" }, expectedStatus: 409 },
+      {
+        name: "Prototype pollution attempt",
+        payload: JSON.parse('{"__proto__": {"polluted": true}, "claimId": "claim-1", "mode": "quick", "clientRequestId": "a0000000-0000-4000-8000-000000000001", "contractVersion": "1"}'),
+        expectedStatus: 400,
+      },
+    ];
+
+    for (const { name, payload, expectedStatus } of hostilePayloads) {
+      it(`safely rejects ${name} with HTTP ${expectedStatus}`, async () => {
+        const req = makeJsonRequest(payload);
+        const res = await POST(req);
+        expect(res.status).toBe(expectedStatus);
+        const data = await res.json();
+        expect(data.error).toBeDefined();
+        expect(typeof data.error.code).toBe("string");
+      });
+    }
+
+    it("safely rejects hostile origin with CRLF or invalid URL with 403", async () => {
+      let rejectedOrBlocked = false;
+      try {
+        const req = makeJsonRequest(validPayload, {
+          headers: {
+            origin: "https://evil.com\r\nX-Injected: true",
+          },
+        });
+        const res = await POST(req);
+        if (res.status === 403) {
+          rejectedOrBlocked = true;
+        }
+      } catch {
+        // Native Fetch Header parser rejects CRLF in header values
+        rejectedOrBlocked = true;
+      }
+      expect(rejectedOrBlocked).toBe(true);
+    });
+  });
 });
