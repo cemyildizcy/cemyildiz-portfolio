@@ -177,6 +177,9 @@ for (const slug of routes) {
     await expect(page.getByRole("heading", { name: "Yapay zekânın katkısı" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Ne öğrendim, sınırlar neler?" })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
   });
 }
 
@@ -204,6 +207,8 @@ test("temel kişisel içerik ve doğrulanmış dış bağlantılar görünür", 
 
 test("seçilmiş blog yazıları tam sayfalar ve sitemap girdileri sunar", async ({ page, request }) => {
   await page.goto("/blog");
+  const axeResults = await new AxeBuilder({ page }).analyze();
+  expect(axeResults.violations).toEqual([]);
   await expect(page.getByRole("heading", { name: "Seçilmiş yazılar" })).toBeVisible();
   const article = page.getByRole("link", { name: /Makine Öğrenmesinde Veri Sızıntısı/ });
   await expect(article).toBeVisible();
@@ -244,10 +249,10 @@ test("kalibrasyon yazısı kod, tablo ve kaynak bağlantılarını biçimli gös
   await expect(source).toHaveAttribute("rel", "noopener noreferrer");
 });
 
-test("ana sayfada ciddi erişilebilirlik ihlali veya yatay taşma yoktur", async ({ page }) => {
+test("ana sayfada erişilebilirlik ihlali veya yatay taşma yoktur", async ({ page }) => {
   await page.goto("/");
   const results = await new AxeBuilder({ page }).analyze();
-  expect(results.violations.filter((v) => ["serious", "critical"].includes(v.impact ?? ""))).toEqual([]);
+  expect(results.violations).toEqual([]);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
 });
 
@@ -467,6 +472,25 @@ test("ana sayfa ve canlı kesit azaltılmış hareket (prefers-reduced-motion) d
     return window.getComputedStyle(el).animationName;
   });
   expect(["none", ""].includes(fileAnim)).toBe(true);
+});
+
+test("sayfa 200% yakınlaştırmada (zoom reflow) yatay taşma yapmaz", async ({ page, context }) => {
+  await page.goto("/");
+  const cdp = await context.newCDPSession(page);
+  await cdp.send("Emulation.setPageScaleFactor", { pageScaleFactor: 2 });
+  const homeMetrics = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    clientWidth: document.documentElement.clientWidth,
+  }));
+  expect(homeMetrics.scrollWidth).toBe(homeMetrics.clientWidth);
+
+  await page.goto("/work/gundem-ai");
+  await cdp.send("Emulation.setPageScaleFactor", { pageScaleFactor: 2 });
+  const subMetrics = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    clientWidth: document.documentElement.clientWidth,
+  }));
+  expect(subMetrics.scrollWidth).toBe(subMetrics.clientWidth);
 });
 
 test("skip link boşta gizlidir ve odaklandığında görünür", async ({ page }) => {

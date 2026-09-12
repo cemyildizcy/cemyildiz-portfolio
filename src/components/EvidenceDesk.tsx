@@ -102,7 +102,7 @@ export function EvidenceDesk() {
           })}
         </div>
 
-        <article
+        <div
           id="evidence-project-panel"
           role="tabpanel"
           aria-labelledby={projectTabId}
@@ -216,7 +216,7 @@ export function EvidenceDesk() {
 
             <p className="record-note pencil-note">{layer.note}</p>
           </div>
-        </article>
+        </div>
       </div>
     </section>
   );

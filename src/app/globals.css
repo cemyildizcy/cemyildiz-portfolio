@@ -145,8 +145,12 @@ button {
 
 .margin-note {
   font: 500 0.72rem var(--mono);
-  color: #b9d0e6;
+  color: var(--muted);
   letter-spacing: 0.02em;
+}
+
+.hero .margin-note {
+  color: #b9d0e6;
 }
 
 .hero h1 {
@@ -162,10 +166,19 @@ button {
   font-size: clamp(1.05rem, 1.4vw, 1.25rem);
   max-width: 65ch;
   line-height: 1.55;
-  color: #e6edf2;
+  color: var(--ink);
 }
 
 .lede span {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.hero .lede {
+  color: #e6edf2;
+}
+
+.hero .lede span {
   color: white;
   font-weight: 700;
 }
@@ -729,8 +742,20 @@ footer {
   margin: 0 auto;
 }
 
-.profile-section .margin-note {
+.profile-section .margin-note,
+.content-page .margin-note,
+.case .margin-note {
   color: var(--muted);
+}
+
+.case .lede,
+.content-page .lede {
+  color: var(--ink);
+}
+
+.case .lede span,
+.content-page .lede span {
+  color: var(--ink);
 }
 
 .profile-section {
