@@ -1,4 +1,4 @@
-import type { LayerKey } from "@/data/projects";
+import { projects, type LayerKey } from "@/data/projects";
 
 export type EvidenceDeskState = {
   projectSlug: string;
@@ -18,8 +18,12 @@ export function selectLayer(
 }
 
 export function selectProject(
-  _state: EvidenceDeskState,
+  current: EvidenceDeskState,
   projectSlug: string,
 ): EvidenceDeskState {
-  return { projectSlug, layer: "output" };
+  const isKnown = projects.some((project) => project.slug === projectSlug);
+  return {
+    projectSlug: isKnown ? projectSlug : current.projectSlug,
+    layer: "output",
+  };
 }

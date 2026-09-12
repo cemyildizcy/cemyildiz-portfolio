@@ -31,8 +31,10 @@ export function EvidenceDesk() {
   const [state, setState] = useState(initialEvidenceDeskState);
   const projectTabs = useRef<Record<TabKey, HTMLButtonElement | null>>({});
   const layerTabs = useRef<Record<TabKey, HTMLButtonElement | null>>({});
-  const project = projects.find((item) => item.slug === state.projectSlug) ??
-    projects.find((item) => item.slug === initialEvidenceDeskState.projectSlug);
+  const project =
+    projects.find((item) => item.slug === state.projectSlug) ??
+    projects.find((item) => item.slug === initialEvidenceDeskState.projectSlug) ??
+    projects[0];
 
   if (!project) return null;
 
@@ -42,12 +44,12 @@ export function EvidenceDesk() {
 
   function chooseProject(projectSlug: string, focus = false) {
     setState((current) => selectProject(current, projectSlug));
-    if (focus) requestAnimationFrame(() => projectTabs.current[projectSlug]?.focus());
+    if (focus) projectTabs.current[projectSlug]?.focus();
   }
 
   function chooseLayer(layerKey: LayerKey, focus = false) {
     setState((current) => selectLayer(current, layerKey));
-    if (focus) requestAnimationFrame(() => layerTabs.current[layerKey]?.focus());
+    if (focus) layerTabs.current[layerKey]?.focus();
   }
 
   function handleProjectKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
@@ -134,6 +136,7 @@ export function EvidenceDesk() {
             {state.layer === "output" && project.image ? (
               <figure>
                 <div
+                  role="region"
                   aria-label={`${project.title} şampiyonluk olasılıkları grafiği, kaydırılabilir bölge`}
                   tabIndex={0}
                 >

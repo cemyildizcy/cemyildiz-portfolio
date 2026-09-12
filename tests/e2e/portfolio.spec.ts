@@ -53,29 +53,105 @@ test("canlı kesit bağımsız proje ve dosya katmanları sekmelerini yönetir",
 
 test("dosya katmanları ve proje sekmeleri tüm yön tuşlarıyla otomatik etkinleşir", async ({ page }) => {
   await page.goto("/");
-  const groups = [
-    page.getByRole("tablist", { name: "Proje dosyaları" }),
-    page.getByRole("tablist", { name: "Dosya katmanları" }),
-  ];
 
-  for (const group of groups) {
-    const tabs = group.getByRole("tab");
-    const count = await tabs.count();
-    await tabs.nth(0).focus();
-    await page.keyboard.press("ArrowLeft");
-    await expect(tabs.nth(count - 1)).toBeFocused();
-    await page.keyboard.press("ArrowRight");
-    await expect(tabs.nth(0)).toBeFocused();
-    await page.keyboard.press("ArrowUp");
-    await expect(tabs.nth(count - 1)).toBeFocused();
-    await page.keyboard.press("ArrowDown");
-    await expect(tabs.nth(0)).toBeFocused();
-    await page.keyboard.press("End");
-    await expect(tabs.nth(count - 1)).toBeFocused();
-    await page.keyboard.press("Home");
-    await expect(tabs.nth(0)).toBeFocused();
-    await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
-  }
+  const projectTablist = page.getByRole("tablist", { name: "Proje dosyaları" });
+  const layerTablist = page.getByRole("tablist", { name: "Dosya katmanları" });
+  const projectTabs = projectTablist.getByRole("tab");
+  const layerTabs = layerTablist.getByRole("tab");
+
+  // Initial active tabs: WC2026 (index 1) for projects, Çıktı (index 0) for layers
+  const initialActiveProject = projectTablist.locator('[role="tab"][tabindex="0"]');
+  const initialActiveLayer = layerTablist.locator('[role="tab"][tabindex="0"]');
+  await expect(initialActiveProject).toHaveAttribute("aria-selected", "true");
+  await expect(initialActiveProject).toContainText("WC2026");
+  await expect(initialActiveLayer).toHaveAttribute("aria-selected", "true");
+  await expect(initialActiveLayer).toHaveText("Çıktı");
+
+  // 1. Proje dosyaları: start keyboard navigation from the active tab (tabIndex="0")
+  await initialActiveProject.focus();
+  await expect(initialActiveProject).toBeFocused();
+
+  // Forward sequential navigation with ArrowRight (moves to next index: SleepInfo)
+  await page.keyboard.press("ArrowRight");
+  await expect(projectTabs.nth(2)).toBeFocused();
+  await expect(projectTabs.nth(2)).toHaveAttribute("aria-selected", "true");
+  await expect(projectTabs.nth(2)).toHaveAttribute("tabindex", "0");
+
+  // Forward step with ArrowDown (wraps to next index: GündemAI)
+  await page.keyboard.press("ArrowDown");
+  await expect(projectTabs.nth(0)).toBeFocused();
+  await expect(projectTabs.nth(0)).toHaveAttribute("aria-selected", "true");
+  await expect(projectTabs.nth(0)).toHaveAttribute("tabindex", "0");
+
+  // Backward navigation with ArrowLeft (wraps to End)
+  await page.keyboard.press("ArrowLeft");
+  await expect(projectTabs.nth(2)).toBeFocused();
+  await expect(projectTabs.nth(2)).toHaveAttribute("aria-selected", "true");
+
+  // Backward step with ArrowUp
+  await page.keyboard.press("ArrowUp");
+  await expect(projectTabs.nth(1)).toBeFocused();
+  await expect(projectTabs.nth(1)).toHaveAttribute("aria-selected", "true");
+
+  // Boundary navigation: Home and End
+  await page.keyboard.press("Home");
+  await expect(projectTabs.nth(0)).toBeFocused();
+  await expect(projectTabs.nth(0)).toHaveAttribute("aria-selected", "true");
+
+  await page.keyboard.press("End");
+  await expect(projectTabs.nth(2)).toBeFocused();
+  await expect(projectTabs.nth(2)).toHaveAttribute("aria-selected", "true");
+
+  // Group independence: moving through Proje dosyaları does not change the active Dosya katmanları tab
+  await expect(layerTablist.locator('[role="tab"][tabindex="0"]')).toHaveText("Çıktı");
+  await expect(layerTabs.nth(0)).toHaveAttribute("aria-selected", "true");
+
+  // 2. Dosya katmanları: start keyboard navigation from the active tab (tabIndex="0")
+  const activeLayerTab = layerTablist.locator('[role="tab"][tabindex="0"]');
+  await activeLayerTab.focus();
+  await expect(activeLayerTab).toBeFocused();
+  await expect(activeLayerTab).toHaveAttribute("aria-selected", "true");
+
+  // Forward sequential navigation with ArrowRight (moves to next index: Karar)
+  await page.keyboard.press("ArrowRight");
+  await expect(layerTabs.nth(1)).toBeFocused();
+  await expect(layerTabs.nth(1)).toHaveAttribute("aria-selected", "true");
+  await expect(layerTabs.nth(1)).toHaveAttribute("tabindex", "0");
+
+  // Forward step with ArrowDown (moves to next index: AI desteği)
+  await page.keyboard.press("ArrowDown");
+  await expect(layerTabs.nth(2)).toBeFocused();
+  await expect(layerTabs.nth(2)).toHaveAttribute("aria-selected", "true");
+  await expect(layerTabs.nth(2)).toHaveAttribute("tabindex", "0");
+
+  // Backward navigation with ArrowLeft
+  await page.keyboard.press("ArrowLeft");
+  await expect(layerTabs.nth(1)).toBeFocused();
+  await expect(layerTabs.nth(1)).toHaveAttribute("aria-selected", "true");
+
+  // Backward step with ArrowUp
+  await page.keyboard.press("ArrowUp");
+  await expect(layerTabs.nth(0)).toBeFocused();
+  await expect(layerTabs.nth(0)).toHaveAttribute("aria-selected", "true");
+
+  // Boundary navigation: End and Home
+  await page.keyboard.press("End");
+  await expect(layerTabs.nth(3)).toBeFocused();
+  await expect(layerTabs.nth(3)).toHaveAttribute("aria-selected", "true");
+
+  await page.keyboard.press("Home");
+  await expect(layerTabs.nth(0)).toBeFocused();
+  await expect(layerTabs.nth(0)).toHaveAttribute("aria-selected", "true");
+
+  // Move to a different layer tab to verify independence when layer != 0
+  await page.keyboard.press("ArrowRight");
+  await expect(layerTabs.nth(1)).toBeFocused();
+  await expect(layerTabs.nth(1)).toHaveAttribute("aria-selected", "true");
+
+  // Group independence: moving through Dosya katmanları leaves the active Proje dosyaları tab unchanged
+  await expect(projectTablist.locator('[role="tab"][tabindex="0"]')).toHaveAttribute("aria-selected", "true");
+  await expect(projectTabs.nth(2)).toHaveAttribute("aria-selected", "true");
+  await expect(projectTabs.nth(2)).toContainText("SleepInfo");
 });
 
 test("canlı kesit sekmelerinin aria-controls ve aria-labelledby ilişkileri geçerlidir", async ({ page }) => {

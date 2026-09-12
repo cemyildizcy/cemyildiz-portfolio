@@ -28,4 +28,19 @@ describe("evidence desk state", () => {
       layer: "output",
     });
   });
+
+  it("ignores unknown project slug and keeps valid projectSlug without diverging", () => {
+    const current = selectLayer(initialEvidenceDeskState, "ai");
+
+    expect(selectProject(current, "unknown-project-slug")).toEqual({
+      projectSlug: "wc2026-ai-simulator",
+      layer: "output",
+    });
+
+    const sleepinfoState = selectProject(initialEvidenceDeskState, "sleepinfo");
+    expect(selectProject(sleepinfoState, "another-invalid-slug")).toEqual({
+      projectSlug: "sleepinfo",
+      layer: "output",
+    });
+  });
 });
