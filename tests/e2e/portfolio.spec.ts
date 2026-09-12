@@ -24,21 +24,73 @@ test("ana gezinme çubuğu İnceleme Masası bağlantısını sunar ve tıkland�
   await expect(page.getByRole("heading", { level: 1, name: "AI İnceleme Masası" })).toBeVisible();
 });
 
-test("sekmeler roving tabindex ve klavye seçimi uygular", async ({ page }) => {
+test("canlı kesit bağımsız proje ve dosya katmanları sekmelerini yönetir", async ({ page }) => {
   await page.goto("/");
-  const tabs = page.getByRole("tab");
-  await expect(tabs.nth(0)).toHaveAttribute("tabindex", "0");
-  await expect(tabs.nth(1)).toHaveAttribute("tabindex", "-1");
-  await tabs.nth(0).focus();
-  await page.keyboard.press("ArrowRight");
-  await expect(tabs.nth(1)).toBeFocused();
-  await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
-  await page.keyboard.press("End");
-  await expect(tabs.nth(2)).toBeFocused();
-  await page.keyboard.press("Home");
-  await expect(tabs.nth(0)).toBeFocused();
-  await page.keyboard.press("ArrowLeft");
-  await expect(tabs.nth(2)).toBeFocused();
+
+  const projectTabs = page.getByRole("tablist", { name: "Proje dosyaları" });
+  const layerTabs = page.getByRole("tablist", { name: "Dosya katmanları" });
+  await expect(projectTabs).toBeVisible();
+  await expect(layerTabs).toBeVisible();
+  await expect(projectTabs.getByRole("tab").filter({ hasText: "WC2026" })).toHaveAttribute("aria-selected", "true");
+  await expect(layerTabs.getByRole("tab", { name: "Çıktı", exact: true })).toHaveAttribute("aria-selected", "true");
+  await expect(projectTabs.locator('[role="tab"][tabindex="0"]')).toHaveCount(1);
+  await expect(layerTabs.locator('[role="tab"][tabindex="0"]')).toHaveCount(1);
+
+  const projectPanel = page.getByRole("tabpanel", { name: /WC2026 AI Simulator/ });
+  const layerPanel = page.getByRole("tabpanel", { name: "Çıktı" });
+  await expect(projectPanel).toContainText("WC2026 AI Simulator");
+  await expect(layerPanel).toContainText("Tek tahmin değil, olasılık dağılımı.");
+
+  await layerTabs.getByRole("tab", { name: "AI desteği", exact: true }).click();
+  await expect(page.getByRole("tabpanel", { name: "AI desteği" })).toContainText("Araştırma ve iyileştirmede destek.");
+  await expect(projectPanel).toContainText("WC2026 AI Simulator");
+
+  await projectTabs.getByRole("tab").filter({ hasText: "SleepInfo" }).click();
+  await expect(projectTabs.getByRole("tab").filter({ hasText: "SleepInfo" })).toHaveAttribute("aria-selected", "true");
+  await expect(layerTabs.getByRole("tab", { name: "Çıktı", exact: true })).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByRole("tabpanel", { name: "Çıktı" })).toContainText("Tahmini kullanıcıya dönük ürüne taşıdım.");
+});
+
+test("dosya katmanları ve proje sekmeleri tüm yön tuşlarıyla otomatik etkinleşir", async ({ page }) => {
+  await page.goto("/");
+  const groups = [
+    page.getByRole("tablist", { name: "Proje dosyaları" }),
+    page.getByRole("tablist", { name: "Dosya katmanları" }),
+  ];
+
+  for (const group of groups) {
+    const tabs = group.getByRole("tab");
+    const count = await tabs.count();
+    await tabs.nth(0).focus();
+    await page.keyboard.press("ArrowLeft");
+    await expect(tabs.nth(count - 1)).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(tabs.nth(0)).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(tabs.nth(count - 1)).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(tabs.nth(0)).toBeFocused();
+    await page.keyboard.press("End");
+    await expect(tabs.nth(count - 1)).toBeFocused();
+    await page.keyboard.press("Home");
+    await expect(tabs.nth(0)).toBeFocused();
+    await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
+  }
+});
+
+test("canlı kesit sekmelerinin aria-controls ve aria-labelledby ilişkileri geçerlidir", async ({ page }) => {
+  await page.goto("/");
+  for (const tab of await page.getByRole("tab").all()) {
+    const panelId = await tab.getAttribute("aria-controls");
+    expect(panelId).toBeTruthy();
+    await expect(page.locator(`#${panelId}`)).toHaveCount(1);
+  }
+
+  for (const panel of await page.getByRole("tabpanel").all()) {
+    const tabId = await panel.getAttribute("aria-labelledby");
+    expect(tabId).toBeTruthy();
+    await expect(page.locator(`#${tabId}`)).toHaveAttribute("aria-selected", "true");
+  }
 });
 
 for (const slug of routes) {
