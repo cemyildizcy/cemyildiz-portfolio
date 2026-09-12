@@ -1,0 +1,814 @@
+[
+  {
+    "innerWidth": 1440,
+    "scrollWidth": 1440,
+    "scrollHeight": 2172,
+    "active": "BODY",
+    "skip": {
+      "x": 16,
+      "y": -46,
+      "width": 107.25,
+      "height": 40,
+      "bottom": -6
+    },
+    "hero": {
+      "x": 0,
+      "y": 68,
+      "width": 1440,
+      "height": 943.453125,
+      "bottom": 1011.453125
+    },
+    "live": {
+      "x": 587.59375,
+      "y": 114.078125,
+      "width": 797.671875,
+      "height": 825.375,
+      "bottom": 939.453125
+    },
+    "figure": {
+      "x": 966.203125,
+      "y": 340.28125,
+      "width": 382.875,
+      "height": 320.4375,
+      "bottom": 660.71875
+    },
+    "h1": {
+      "x": 54.71875,
+      "y": 312.84375,
+      "width": 460.875,
+      "height": 209.953125,
+      "bottom": 522.796875
+    },
+    "fileTitle": {
+      "x": 615.78125,
+      "y": 199.859375,
+      "width": 409.953125,
+      "height": 37.4375,
+      "bottom": 237.296875
+    },
+    "targets": [
+      {
+        "text": "Projeler",
+        "w": 54.484375,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Yazılar",
+        "w": 47.5625,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Profil",
+        "w": 39.90625,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "İletişim",
+        "w": 51.015625,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Proje dosyalarını aç",
+        "w": 167.578125,
+        "h": 46,
+        "visible": true
+      },
+      {
+        "text": "CV’yi indir",
+        "w": 101.703125,
+        "h": 46,
+        "visible": true
+      },
+      {
+        "text": "GündemAI",
+        "w": 101.3125,
+        "h": 46,
+        "visible": true
+      },
+      {
+        "text": "WC2026",
+        "w": 86.234375,
+        "h": 46,
+        "visible": true
+      },
+      {
+        "text": "SleepInfo",
+        "w": 95.015625,
+        "h": 46,
+        "visible": true
+      },
+      {
+        "text": "Çıktı",
+        "w": 198.90625,
+        "h": 48,
+        "visible": true
+      },
+      {
+        "text": "Karar",
+        "w": 198.921875,
+        "h": 48,
+        "visible": true
+      },
+      {
+        "text": "AI desteği",
+        "w": 198.921875,
+        "h": 48,
+        "visible": true
+      },
+      {
+        "text": "Sınırlar",
+        "w": 198.921875,
+        "h": 48,
+        "visible": true
+      },
+      {
+        "text": "GitHub deposu",
+        "w": 106.9375,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Canlı demo",
+        "w": 86.46875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 75.546875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 75.546875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 75.546875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "w": 47.140625,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "LinkedIn",
+        "w": 58.53125,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "E-posta",
+        "w": 51.3125,
+        "h": 44,
+        "visible": true
+      }
+    ],
+    "images": [
+      {
+        "src": "file:///C:/Users/cemyi/Documents/cemyildiz-portfolio/public/images/profile.jpg",
+        "loaded": true,
+        "naturalWidth": 400
+      },
+      {
+        "src": "file:///C:/Users/cemyi/Documents/cemyildiz-portfolio/public/images/projects/wc2026/champion-probabilities.png",
+        "loaded": true,
+        "naturalWidth": 1971
+      }
+    ],
+    "name": "desktop",
+    "width": 1440,
+    "height": 1000,
+    "scale": 1,
+    "errors": [],
+    "minTarget": 44
+  },
+  {
+    "innerWidth": 390,
+    "scrollWidth": 390,
+    "scrollHeight": 2947,
+    "active": "BODY",
+    "skip": {
+      "x": 16,
+      "y": -46,
+      "width": 107.25,
+      "height": 40,
+      "bottom": -6
+    },
+    "hero": {
+      "x": 0,
+      "y": 60,
+      "width": 390,
+      "height": 1352.359375,
+      "bottom": 1412.359375
+    },
+    "live": {
+      "x": 12,
+      "y": 402.71875,
+      "width": 366,
+      "height": 969.640625,
+      "bottom": 1372.359375
+    },
+    "figure": {
+      "x": 25,
+      "y": 578.859375,
+      "width": 340,
+      "height": 270,
+      "bottom": 848.859375
+    },
+    "h1": {
+      "x": 12,
+      "y": 143.765625,
+      "width": 343.359375,
+      "height": 84.09375,
+      "bottom": 227.859375
+    },
+    "fileTitle": {
+      "x": 25.796875,
+      "y": 474.5,
+      "width": 227.8125,
+      "height": 21.828125,
+      "bottom": 496.328125
+    },
+    "targets": [
+      {
+        "text": "Projeler",
+        "w": 60.703125,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Yazılar",
+        "w": 0,
+        "h": 0,
+        "visible": false
+      },
+      {
+        "text": "Profil",
+        "w": 0,
+        "h": 0,
+        "visible": false
+      },
+      {
+        "text": "İletişim",
+        "w": 57.359375,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Proje dosyalarını aç",
+        "w": 177.796875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "CV’yi indir",
+        "w": 177.8125,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "GündemAI",
+        "w": 128.34375,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "WC2026",
+        "w": 113.5,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "SleepInfo",
+        "w": 122.15625,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Çıktı",
+        "w": 91,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Karar",
+        "w": 91,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "AI desteği",
+        "w": 91,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Sınırlar",
+        "w": 91,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "GitHub deposu",
+        "w": 106.9375,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Canlı demo",
+        "w": 86.46875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 75.546875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 75.546875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 75.546875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "w": 47.140625,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "LinkedIn",
+        "w": 58.53125,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "E-posta",
+        "w": 51.3125,
+        "h": 44,
+        "visible": true
+      }
+    ],
+    "images": [
+      {
+        "src": "file:///C:/Users/cemyi/Documents/cemyildiz-portfolio/public/images/profile.jpg",
+        "loaded": true,
+        "naturalWidth": 400
+      },
+      {
+        "src": "file:///C:/Users/cemyi/Documents/cemyildiz-portfolio/public/images/projects/wc2026/champion-probabilities.png",
+        "loaded": true,
+        "naturalWidth": 1971
+      }
+    ],
+    "name": "mobile",
+    "width": 390,
+    "height": 844,
+    "scale": 1,
+    "errors": [],
+    "minTarget": 44,
+    "skipWhenFocused": {
+      "active": "skip",
+      "rect": {
+        "x": 16,
+        "y": 16,
+        "width": 107.25,
+        "height": 40,
+        "top": 16,
+        "right": 123.25,
+        "bottom": 56,
+        "left": 16
+      }
+    },
+    "projectAfterArrow": "SleepInfo",
+    "layers": [
+      "Tahmini kullanıcıya dönük ürüne taşıdım.",
+      "Yanıta işaret eden değişkenleri çıkardım.",
+      "Uygulama, hata ayıklama, iyileştirme.",
+      "Tıbbi tavsiye değildir."
+    ]
+  },
+  {
+    "innerWidth": 320,
+    "scrollWidth": 320,
+    "scrollHeight": 3201,
+    "active": "BODY",
+    "skip": {
+      "x": 16,
+      "y": -46,
+      "width": 107.25,
+      "height": 40,
+      "bottom": -6
+    },
+    "hero": {
+      "x": 0,
+      "y": 60,
+      "width": 320,
+      "height": 1427.171875,
+      "bottom": 1487.171875
+    },
+    "live": {
+      "x": 9.59375,
+      "y": 433.28125,
+      "width": 300.8125,
+      "height": 1013.890625,
+      "bottom": 1447.171875
+    },
+    "figure": {
+      "x": 22.59375,
+      "y": 628.875,
+      "width": 274.8125,
+      "height": 270,
+      "bottom": 898.875
+    },
+    "h1": {
+      "x": 9.59375,
+      "y": 159.359375,
+      "width": 279.171875,
+      "height": 68.34375,
+      "bottom": 227.703125
+    },
+    "fileTitle": {
+      "x": 23.390625,
+      "y": 519.0625,
+      "width": 176.578125,
+      "height": 39.625,
+      "bottom": 558.6875
+    },
+    "targets": [
+      {
+        "text": "Projeler",
+        "w": 55.890625,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Yazılar",
+        "w": 0,
+        "h": 0,
+        "visible": false
+      },
+      {
+        "text": "Profil",
+        "w": 0,
+        "h": 0,
+        "visible": false
+      },
+      {
+        "text": "İletişim",
+        "w": 52.546875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Proje dosyalarını aç",
+        "w": 145.203125,
+        "h": 52,
+        "visible": true
+      },
+      {
+        "text": "CV’yi indir",
+        "w": 145.21875,
+        "h": 52,
+        "visible": true
+      },
+      {
+        "text": "GündemAI",
+        "w": 106.609375,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "WC2026",
+        "w": 91.765625,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "SleepInfo",
+        "w": 100.4375,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Çıktı",
+        "w": 74.703125,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Karar",
+        "w": 74.703125,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "AI desteği",
+        "w": 74.703125,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Sınırlar",
+        "w": 74.703125,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "GitHub deposu",
+        "w": 106.9375,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Canlı demo",
+        "w": 86.46875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 75.546875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 75.546875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 75.546875,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "w": 47.140625,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "LinkedIn",
+        "w": 58.53125,
+        "h": 44,
+        "visible": true
+      },
+      {
+        "text": "E-posta",
+        "w": 51.3125,
+        "h": 44,
+        "visible": true
+      }
+    ],
+    "images": [
+      {
+        "src": "file:///C:/Users/cemyi/Documents/cemyildiz-portfolio/public/images/profile.jpg",
+        "loaded": true,
+        "naturalWidth": 400
+      },
+      {
+        "src": "file:///C:/Users/cemyi/Documents/cemyildiz-portfolio/public/images/projects/wc2026/champion-probabilities.png",
+        "loaded": true,
+        "naturalWidth": 1971
+      }
+    ],
+    "name": "narrow",
+    "width": 320,
+    "height": 844,
+    "scale": 1,
+    "errors": [],
+    "minTarget": 44
+  },
+  {
+    "innerWidth": 390,
+    "scrollWidth": 390,
+    "scrollHeight": 9446,
+    "active": "BODY",
+    "skip": {
+      "x": 32,
+      "y": -93,
+      "width": 214.484375,
+      "height": 81,
+      "bottom": -12
+    },
+    "hero": {
+      "x": 0,
+      "y": 124.78125,
+      "width": 390,
+      "height": 4189.484375,
+      "bottom": 4314.265625
+    },
+    "live": {
+      "x": 24,
+      "y": 1330.875,
+      "width": 342,
+      "height": 2903.390625,
+      "bottom": 4234.265625
+    },
+    "figure": {
+      "x": 50,
+      "y": 1802.453125,
+      "width": 290,
+      "height": 540,
+      "bottom": 2342.453125
+    },
+    "h1": {
+      "x": 24,
+      "y": 416.078125,
+      "width": 342,
+      "height": 336.3125,
+      "bottom": 752.390625
+    },
+    "fileTitle": {
+      "x": 51.59375,
+      "y": 1527.453125,
+      "width": 144.703125,
+      "height": 131.015625,
+      "bottom": 1658.46875
+    },
+    "targets": [
+      {
+        "text": "Projeler",
+        "w": 121.390625,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "Yazılar",
+        "w": 0,
+        "h": 0,
+        "visible": false
+      },
+      {
+        "text": "Profil",
+        "w": 0,
+        "h": 0,
+        "visible": false
+      },
+      {
+        "text": "İletişim",
+        "w": 114.703125,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "Proje dosyalarını aç",
+        "w": 179.578125,
+        "h": 135,
+        "visible": true
+      },
+      {
+        "text": "CV’yi indir",
+        "w": 141.625,
+        "h": 135,
+        "visible": true
+      },
+      {
+        "text": "GündemAI",
+        "w": 181.625,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "WC2026",
+        "w": 151.890625,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "SleepInfo",
+        "w": 169.234375,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "Çıktı",
+        "w": 84.5,
+        "h": 91.59375,
+        "visible": true
+      },
+      {
+        "text": "Karar",
+        "w": 84.5,
+        "h": 91.59375,
+        "visible": true
+      },
+      {
+        "text": "AI desteği",
+        "w": 84.5,
+        "h": 91.59375,
+        "visible": true
+      },
+      {
+        "text": "Sınırlar",
+        "w": 84.5,
+        "h": 91.59375,
+        "visible": true
+      },
+      {
+        "text": "GitHub deposu",
+        "w": 213.890625,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "Canlı demo",
+        "w": 172.96875,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 151.09375,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 151.09375,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "Dosyayı aç",
+        "w": 151.09375,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "w": 94.28125,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "LinkedIn",
+        "w": 117.0625,
+        "h": 88,
+        "visible": true
+      },
+      {
+        "text": "E-posta",
+        "w": 102.609375,
+        "h": 88,
+        "visible": true
+      }
+    ],
+    "images": [
+      {
+        "src": "file:///C:/Users/cemyi/Documents/cemyildiz-portfolio/public/images/profile.jpg",
+        "loaded": true,
+        "naturalWidth": 400
+      },
+      {
+        "src": "file:///C:/Users/cemyi/Documents/cemyildiz-portfolio/public/images/projects/wc2026/champion-probabilities.png",
+        "loaded": true,
+        "naturalWidth": 1971
+      }
+    ],
+    "name": "zoom200",
+    "width": 390,
+    "height": 844,
+    "scale": 2,
+    "errors": [],
+    "minTarget": 88,
+    "overflowers": [
+      {
+        "tag": "BUTTON",
+        "cls": "project-tab",
+        "text": "SleepInfo",
+        "right": 530.75,
+        "width": 169.234375
+      },
+      {
+        "tag": "IMG",
+        "cls": "",
+        "text": "",
+        "right": 2062.796875,
+        "width": 2000
+      }
+    ]
+  }
+]

@@ -9,7 +9,7 @@ web
 People evaluating Cem for internships, collaborations, or technical conversation. They need to understand how he thinks, what evidence exists, and what he actually contributed.
 
 ## Product Purpose
-A compact evidence notebook for three representative projects. Success means a visitor can distinguish shipped evidence, Cem's contribution, and the role of AI without reading a stack inventory.
+A compact evidence notebook centered on three representative projects, with the existing technical writing catalog retained as supporting learning evidence. Success means a visitor can distinguish shipped evidence, Cem's decisions, AI assistance, and limits without reading a stack inventory.
 
 ## Positioning
 The portfolio documents decisions and evidence rather than presenting a technology résumé.
@@ -25,9 +25,9 @@ The repository contains a WC2026 chart and profile photograph. Public repositori
 
 ## Product Principles
 - Evidence before confidence.
-- Separate contribution, tools, and AI assistance.
-- Show three strong projects rather than a catalog.
+- Separate output, decisions, AI assistance, and limits.
+- Center three strong projects while preserving the technical writing catalog.
 - Describe learning honestly.
 
 ## Accessibility & Inclusion
-Keyboard operable, reduced-motion aware, readable contrast, semantic landmarks, and responsive down to 390px.
+Keyboard operable, reduced-motion aware, readable contrast, semantic landmarks, 44px interaction targets, and responsive/reflow-safe at 320px, 390px, desktop, and 200% zoom. Large mobile evidence may scroll only inside a labelled, discoverable, bounded region; the page itself must not overflow horizontally.
