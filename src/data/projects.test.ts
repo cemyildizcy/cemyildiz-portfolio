@@ -1,5 +1,40 @@
 import { describe, expect, it } from "vitest";
-import { getProject, layerOrder, projects } from "./projects";
+import { getProject, layerOrder, projects, type LayerKey } from "./projects";
+
+type ApprovedEvidenceLabels = {
+  fileLabel: string;
+  layers: Record<LayerKey, string>;
+};
+
+const approvedEvidenceLabels: Record<string, ApprovedEvidenceLabels> = {
+  "gundem-ai": {
+    fileLabel: "GA–01",
+    layers: {
+      output: "MEVCUT ÇIKTI",
+      decision: "ÜRÜN KARARI",
+      ai: "ÜRETİM ORTAĞI",
+      limits: "SINIR NOTU",
+    },
+  },
+  "wc2026-ai-simulator": {
+    fileLabel: "WC–26",
+    layers: {
+      output: "ÇALIŞAN ÇIKTI",
+      decision: "TASARIM KARARI",
+      ai: "ÜRETİM ORTAĞI",
+      limits: "SINIR NOTU",
+    },
+  },
+  sleepinfo: {
+    fileLabel: "SI–03",
+    layers: {
+      output: "ÇALIŞAN ÇIKTI",
+      decision: "MODEL KARARI",
+      ai: "ÜRETİM ORTAĞI",
+      limits: "SINIR NOTU",
+    },
+  },
+} satisfies Record<string, ApprovedEvidenceLabels>;
 
 const approvedLinks: Record<string, { label: string; href: string }[]> = {
   "gundem-ai": [],
@@ -31,9 +66,13 @@ describe("evidence catalog", () => {
     expect(layerOrder).toEqual(["output", "decision", "ai", "limits"]);
 
     for (const project of projects) {
+      const approvedLabels = approvedEvidenceLabels[project.slug];
+
+      expect(project.fileLabel).toBe(approvedLabels.fileLabel);
       expect(Object.keys(project.layers)).toEqual(["output", "decision", "ai", "limits"]);
       for (const key of layerOrder) {
         const layer = project.layers[key];
+        expect(layer.label).toBe(approvedLabels.layers[key]);
         expect(layer.title).toBeTruthy();
         expect(layer.body).toBeTruthy();
         expect(layer.facts.length).toBeGreaterThan(0);
