@@ -1,21 +1,45 @@
 # Design system
 
 ## Direction
-A working research notebook on a blue cutting mat: ruled paper, clipped evidence, margin annotations, and one interactive evidence index. It avoids portfolio cards, neon gradients, tech walls, and decorative dashboards.
+
+A calm editorial portfolio with the directness of a well-edited product profile. The person comes first; real product imagery supplies the visual identity. The page is understandable on arrival and does not depend on interaction.
 
 ## Tokens
-- Ink `#172033`; paper `#f3f0e6`; blue mat `#173f67`; signal yellow `#ffd447`; red pencil `#b8483d`; rule `#b9b5aa`.
-- Display: `Arial Narrow`, compact and pragmatic. Body: Georgia for notebook reading. Data: Geist Mono only for evidence labels.
-- Corners remain small; rules encode structure; shadows suggest physical layering.
+
+- Canvas `#f7f7f5`
+- Surface `#ffffff`
+- Ink `#17191d`
+- Muted ink `#5f6670`
+- Rule `#d9dce1`
+- Accent blue `#245aa5`; dark blue `#173f78`; soft blue `#eaf1fa`
+- Display: Georgia for a human editorial tone.
+- Interface/body: Arial/Helvetica for compact clarity.
+- Geist Mono remains available to existing non-home routes only.
 
 ## Composition
-The home page opens on the blue mat with a compact identity/profile block, the thesis “Kararları görünen işler.”, and a dominant live project file. The file defaults to WC2026 and separates four selectable layers: Çıktı, Karar, AI desteği, and Sınırlar. A project ledger, technical writing/blog access, the three verified LinkedIn posts, education/profile content, and contact links continue below. Project pages remain field notes.
 
-## Motion
-Only the project file may enter once and selection/scroll feedback may transition. Reduced motion removes the entrance, transitions, and smooth scrolling. No WebGL, video, or physics effects.
+The opening composition pairs a circular portrait and literal biography with a compact GündemAI product panel. On mobile, the portrait, name, positioning, and recognizable real product screenshot fit in the first viewport.
+
+The work sequence is intentionally unequal:
+
+- GündemAI is largest, with a tall real screenshot and the strongest title scale.
+- SleepInfo uses a broad pale-blue illustration field and medium title scale.
+- WC2026 is more compact, pairing concise copy with an output chart so it cannot dominate.
+
+Selected writing and the minor AI İnceleme Masası entry share a quieter two-column section. The dark closing section contains biography, education, and contact links.
+
+## Typography and spacing
+
+Headings use a tight serif scale and sentence case. Body copy stays below roughly 65 characters per line where practical. Generous vertical intervals replace card repetition. Rules encode section boundaries; corners, shadows, gradients, and labels are used sparingly.
+
+## Interaction
+
+Links state their destination. There are no custom cursors, tabs, reveal modes, automatic entrance sequences, or decorative motion. Hover is secondary to visible keyboard focus. All action targets are at least 44 × 44 pixels.
 
 ## Responsive behavior
-At 900px and below, identity and live file stack. At 560px and below, controls reflow while retaining 44px targets. The WC2026 graph becomes a labelled, focusable, approximately 270px-high native scroll region with a visible “Yana kaydırarak incele” hint; oversized graph content remains contained and never creates document-level horizontal overflow. The page must reflow at 320px, 390px, desktop, and 200% zoom.
+
+The hero and project splits stack below 900px. Below 600px the opening layout compresses into a portrait/name row followed by a compact two-column GündemAI proof panel. At 320px the navigation and hero retain readable wrapping without document overflow. Blog prose and inline code can break long tokens, while `pre` blocks retain native horizontal scrolling for code inspection.
 
 ## Accessibility
-Visible focus, semantic landmarks/buttons/headings, 4.5:1 body contrast, descriptive link text, and no information conveyed by color alone. Project and layer selectors use independent ARIA tablists with roving tabindex, arrow keys, Home, and End. Axe must report no serious or critical homepage violations.
+
+The page uses one `h1`, sequential section headings, semantic articles and an aside, descriptive image alternatives, and labelled navigation. Focus is visible, contrast meets WCAG AA, reduced motion disables smooth scrolling and transition duration, and all layouts reflow at 200% zoom.

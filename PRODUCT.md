@@ -1,33 +1,39 @@
 # Product
 
-<!-- impeccable:product-schema 1 -->
+## Audience
 
-## Platform
-web
+People considering Cem for internships, collaborations, or technical conversation. They should understand who he is, what he has shipped, and where his current technical foundations stand without operating an interface first.
 
-## Users
-People evaluating Cem for internships, collaborations, or technical conversation. They need to understand how he thinks, what evidence exists, and what he actually contributed.
+## Purpose
 
-## Product Purpose
-A compact evidence notebook centered on three representative projects, with the existing technical writing catalog retained as supporting learning evidence. Success means a visitor can distinguish shipped evidence, Cem's decisions, AI assistance, and limits without reading a stack inventory.
+A Turkish-first, person-led portfolio built around real products. The homepage introduces Cem plainly and then presents GündemAI, SleepInfo, and WC2026 with real imagery, current status, direct links, one limitation, and deeper case pages.
 
 ## Positioning
-The portfolio documents decisions and evidence rather than presenting a technology résumé.
 
-## Capabilities and Constraints
-Next.js 16, React 19, TypeScript, Tailwind CSS 4. Turkish-first. Static content, accessible navigation, responsive layouts, and no unverified claims. No deployment in this rebuild.
+Cem is an Eskişehir Osmangazi University Mathematics and Computer Sciences student strengthening statistics and classical machine-learning foundations and preparing for deep learning. He uses AI extensively for research, orchestration, production, and critique. The site does not imply handwritten framework mastery or expert status.
 
-## Brand Commitments
-Use Cem Yıldız's name, cemyildiz.net, verified GitHub/LinkedIn links, and a direct, learning-in-public voice. Position Cem as an ESOGU Mathematics and Computer Science student learning ML and moving toward deep learning. AI is a production partner, not hidden authorship.
+## Content hierarchy
 
-## Evidence on Hand
-The repository contains a WC2026 chart and profile photograph. Public repositories verify WC2026 and SleepInfo project descriptions. GündemAI details remain deliberately limited to claims supplied in the approved brief.
+1. Cem's photograph, name, literal positioning, and direct CV/contact paths.
+2. GündemAI as the primary shipped product, with a real Google Play screenshot and store link visible in the opening viewport.
+3. SleepInfo as a secondary live educational product, with an illustration copied from its source repository.
+4. WC2026 as a tertiary educational statistical forecast engine, with its output chart and repository link. It uses feature weights, Poisson, and Monte Carlo; it is not trained machine learning.
+5. Selected technical writing, education, contact links, and a minor link to AI İnceleme Masası.
 
-## Product Principles
-- Evidence before confidence.
-- Separate output, decisions, AI assistance, and limits.
-- Center three strong projects while preserving the technical writing catalog.
-- Describe learning honestly.
+## Preserved product surface
 
-## Accessibility & Inclusion
-Keyboard operable, reduced-motion aware, readable contrast, semantic landmarks, 44px interaction targets, and responsive/reflow-safe at 320px, 390px, desktop, and 200% zoom. Large mobile evidence may scroll only inside a labelled, discoverable, bounded region; the page itself must not overflow horizontally.
+The three `/work` routes, blog routes, sitemap, CV, profile image, GitHub, LinkedIn, email, Play Store, SleepInfo live product/repository, WC2026 repository, `/ai-inceleme-masasi`, and `POST /api/review/runs` remain available.
+
+## Evidence and asset provenance
+
+- `public/images/projects/gundemai/bugunun-gundemi.png` is copied from GündemAI's real Play Store screenshot set: `store-assets/screenshots/play-store-real-2026-08-16/01-bugunun-gundemi.png`.
+- `public/images/projects/sleepinfo/hero.png` is the illustrative hero asset from the SleepInfo product repository: `frontend/src/assets/hero.png`. It is not described as a screenshot.
+- `public/images/projects/wc2026/champion-probabilities.png` is the existing simulation output chart.
+
+## Constraints
+
+No X-Ray mode, hidden inspection UI, evidence desk, ledger, engineering harness, simulator, agent characters, fake telemetry, terminal treatment, decorative metrics, or stale test counts on the homepage. No unverified claims. No WC2026 live-demo link while it redirects to authentication.
+
+## Quality bar
+
+Semantic landmarks and headings, visible keyboard focus, 44 × 44 pixel interactive targets, reduced-motion support, meaningful product evidence in the initial mobile viewport, no document-level horizontal overflow at 320px/390px/desktop/200% zoom, loaded images, and zero Axe violations.

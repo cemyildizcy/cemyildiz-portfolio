@@ -1,211 +1,164 @@
 import Image from "next/image";
 import Link from "next/link";
-import { EvidenceDesk } from "@/components/EvidenceDesk";
-import { ProjectLedger } from "@/components/ProjectLedger";
-import { EngineeringHarness } from "@/components/EngineeringHarness";
+import { projects } from "@/data/projects";
 import { getAllPosts } from "@/lib/blog";
 
-const posts = [
-  {
-    title: "2026 Dünya Kupası AI Simülatörü",
-    meta: "6. hafta projesi",
-    href: "https://www.linkedin.com/feed/update/urn:li:activity:7470769047601664000/",
-  },
-  {
-    title: "Öğrenci Alışkanlıkları ve Akademik Başarı",
-    meta: "5. hafta projesi",
-    href: "https://www.linkedin.com/feed/update/urn:li:activity:7467981878382465024/",
-  },
-  {
-    title: "Türkiye Deprem Risk Analizi",
-    meta: "4. hafta projesi",
-    href: "https://www.linkedin.com/feed/update/urn:li:activity:7465489993902411776/",
-  },
+const socialLinks = [
+  { label: "GitHub", href: "https://github.com/cemyildizcy" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/cemyildizcy/" },
+  { label: "E-posta", href: "mailto:cemyildizcy@hotmail.com" },
 ];
 
+function ProjectLinks({ project }: { project: (typeof projects)[number] }) {
+  return (
+    <div className="project-links">
+      {project.links.map((link) => (
+        <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
+          {link.label}
+        </a>
+      ))}
+      <Link href={project.caseHref} aria-label={`${project.title} vaka analizini aç`}>
+        Vaka analizi
+      </Link>
+    </div>
+  );
+}
+
 export default function Home() {
-  const writing = getAllPosts();
+  const writing = getAllPosts().slice(0, 3);
+  const [gundem, sleepinfo, wc2026] = projects;
 
   return (
     <main>
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-copy">
-          <p className="margin-note">
-            Cem Yıldız / Eskişehir / ML temelleri &amp; AI-first ürün operatörü
-          </p>
-          <h1 id="hero-title">
-            <span className="hero-name">Cem Yıldız</span>
-            <span className="hero-role">Kararları görünen işler.</span>
-          </h1>
-          <p className="lede">
-            <span>ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim.</span> İstatistik ve klasik makine öğrenmesi temellerini güçlendirirken derin öğrenmeye ilerliyorum. AI-first bir ürün operatörü olarak yapay zekâyı araştırma ve üretim ortağı kılıyor; insanların güvenle kullanabileceği, kararları ve sınırları açık ürünler geliştiriyorum.
-          </p>
-          <div className="hero-actions">
-            <Link href="#work">Projeleri aç</Link>
-            <a href="/documents/Cem_Yildiz_CV.pdf" download>
-              CV&apos;yi indir
-            </a>
-            <a href="mailto:cemyildizcy@hotmail.com">İletişim</a>
-            <a
-              href="https://github.com/cemyildizcy"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://www.linkedin.com/in/cemyildizcy/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
-            <a href="mailto:cemyildizcy@hotmail.com">E-posta</a>
-          </div>
-        </div>
-        <figure className="portrait">
+      <section className="home-hero" aria-labelledby="hero-title">
+        <div className="hero-identity">
           <Image
+            className="hero-portrait"
             src="/images/profile.jpg"
             alt="Cem Yıldız profil fotoğrafı"
-            fill
+            width={400}
+            height={400}
             priority
-            sizes="(max-width: 760px) 75vw, 34vw"
           />
-          <figcaption>Eskişehir · 2026</figcaption>
-        </figure>
-      </section>
-
-      <EvidenceDesk />
-
-      <ProjectLedger />
-
-      <EngineeringHarness />
-
-      <section id="review-desk" className="review-preview-section" aria-labelledby="review-desk-title">
-        <div className="section-head">
-          <h2 id="review-desk-title">AI İnceleme Masası.</h2>
-          <p>Yapay zekâ kararlarını ve model sonuçlarını denetleyen etkileşimli doğrulama ortamı.</p>
-        </div>
-        <div className="review-preview-card">
-          <p className="margin-note">Etkileşimli Doğrulama Ortamı</p>
-          <h3>Model çıktıları, kaynaklar ve karar doğrulama masası</h3>
-          <p>
-            Modellerin ve ürünlerin ürettiği sonuçları akademik kaynaklar, karşılaştırmalı bulgular ve insan denetimiyle test eden canlı simülasyon masası. Son kontrol her zaman insana aittir.
-          </p>
-          <div className="review-preview-actions">
-            <Link className="text-link" href="/ai-inceleme-masasi">
-              AI İnceleme Masası&apos;nı aç ↗
-            </Link>
+          <div className="hero-intro">
+            <p className="eyebrow">Eskişehir, Türkiye</p>
+            <h1 id="hero-title">Cem Yıldız</h1>
+            <p className="hero-position">
+              ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim. İstatistik ve klasik makine öğrenmesi temellerimi güçlendiriyor, derin öğrenmeye hazırlanıyorum.
+            </p>
+            <p className="hero-method">
+              Yapay zekâyı araştırma, üretim, orkestrasyon ve eleştiri için yoğun biçimde kullanarak gerçek ürünler geliştiriyorum.
+            </p>
+            <div className="hero-actions">
+              <Link className="button-primary" href="#work">Projeleri gör</Link>
+              <a href="/documents/Cem_Yildiz_CV.pdf" download>CV&apos;yi indir</a>
+            </div>
           </div>
         </div>
+
+        <article className="hero-product" aria-labelledby="hero-product-title">
+          <div className="hero-product-copy">
+            <p className="product-status">{gundem.status}</p>
+            <h2 id="hero-product-title">{gundem.title}</h2>
+            <p>{gundem.short}</p>
+            <ProjectLinks project={gundem} />
+          </div>
+          <div className="phone-frame">
+            <Image
+              src={gundem.image.src}
+              alt={gundem.image.alt}
+              width={gundem.image.width}
+              height={gundem.image.height}
+              priority
+              sizes="(max-width: 760px) 31vw, 230px"
+            />
+          </div>
+        </article>
       </section>
 
-      <section className="writing-section">
-        <div className="section-head">
-          <h2>Yazı masasından.</h2>
-          <p>ML yolculuğumdan üç uzun teknik not.</p>
-        </div>
-        <div className="writing-grid">
-          {writing.map((p) => (
-            <article key={p.slug}>
-              <p>{p.readTime}</p>
-              <h3>
-                <Link href={`/blog/${p.slug}`}>{p.title}</Link>
-              </h3>
-              <p>{p.description}</p>
-            </article>
-          ))}
-        </div>
-        <Link className="text-link" href="/blog">
-          Tüm yazılar
-        </Link>
+      <section id="work" className="work-showcase" aria-labelledby="work-title">
+        <header className="section-intro">
+          <h2 id="work-title">Üretilen işler</h2>
+          <p>Çalışan ürünler ve doğrulanabilir çıktılar.</p>
+        </header>
+
+        <article className="project-feature project-primary">
+          <div className="project-visual project-visual-phone">
+            <Image src={gundem.image.src} alt={gundem.image.alt} width={gundem.image.width} height={gundem.image.height} sizes="(max-width: 760px) 70vw, 360px" />
+          </div>
+          <div className="project-copy">
+            <p className="product-status">{gundem.status}</p>
+            <h3>{gundem.title}</h3>
+            <p>{gundem.short}</p>
+            <p className="project-limit">Sınır: {gundem.limits}</p>
+            <ProjectLinks project={gundem} />
+          </div>
+        </article>
+
+        <article className="project-feature project-secondary">
+          <div className="project-copy">
+            <p className="product-status">{sleepinfo.status}</p>
+            <h3>{sleepinfo.title}</h3>
+            <p>{sleepinfo.short}</p>
+            <p className="project-limit">Sınır: {sleepinfo.limits}</p>
+            <ProjectLinks project={sleepinfo} />
+          </div>
+          <div className="project-visual project-visual-illustration">
+            <Image src={sleepinfo.image.src} alt={sleepinfo.image.alt} width={sleepinfo.image.width} height={sleepinfo.image.height} sizes="(max-width: 760px) 80vw, 420px" />
+          </div>
+        </article>
+
+        <article className="project-feature project-tertiary">
+          <div className="project-copy">
+            <p className="product-status">{wc2026.status}</p>
+            <h3>{wc2026.title}</h3>
+            <p>{wc2026.short}</p>
+            <p className="project-limit">Sınır: {wc2026.limits}</p>
+            <ProjectLinks project={wc2026} />
+          </div>
+          <figure className="project-chart">
+            <Image src={wc2026.image.src} alt={wc2026.image.alt} width={wc2026.image.width} height={wc2026.image.height} sizes="(max-width: 760px) 92vw, 500px" />
+          </figure>
+        </article>
       </section>
 
-      <section className="linkedin-section">
-        <div className="section-head">
-          <h2>Proje günlüğü.</h2>
-          <p>Git geçmişinde URL&apos;si doğrulanan seçilmiş LinkedIn paylaşımları.</p>
+      <section className="home-notes" aria-labelledby="writing-title">
+        <div className="writing-column">
+          <header className="section-intro compact">
+            <h2 id="writing-title">Seçilmiş yazılar</h2>
+            <Link href="/blog">Tüm yazılar</Link>
+          </header>
+          <div className="writing-list-home">
+            {writing.map((post) => (
+              <article key={post.slug}>
+                <p>{post.readTime}</p>
+                <h3><Link href={`/blog/${post.slug}`}>{post.title}</Link></h3>
+              </article>
+            ))}
+          </div>
         </div>
-        <div className="linkedin-grid">
-          {posts.map((p) => (
-            <a
-              key={p.href}
-              href={p.href}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={p.title}
-            >
-              <span>{p.meta}</span>
-              <h3>{p.title}</h3>
-              <small>LinkedIn&apos;de aç ↗</small>
-            </a>
-          ))}
+
+        <div id="review-desk" className="review-note" aria-labelledby="review-title">
+          <p className="eyebrow">Yan çalışma</p>
+          <h2 id="review-title">AI İnceleme Masası</h2>
+          <p>Sınırlandırılmış iddiaları kaynaklarla karşılaştıran deneysel inceleme aracı.</p>
+          <Link href="/ai-inceleme-masasi">İnceleme masasını aç</Link>
         </div>
-        <a
-          className="text-link"
-          href="https://www.linkedin.com/in/cemyildizcy/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          LinkedIn profili
-        </a>
       </section>
 
-      <section id="about" className="profile-section">
+      <section id="about" className="about-section" aria-labelledby="about-title">
         <div>
-          <p className="margin-note">Kısa profil</p>
-          <h2>Öğrenci, geliştirici, dikkatli bir öğrenen.</h2>
-          <p>
-            İstatistik ve klasik makine öğrenmesi temellerini güçlendirirken derin öğrenmeye ilerliyorum.
-            Yapay zekâyı araştırma, uygulama ve eleştiri ortağı olarak kullanıyorum; ürün kararları ve
-            yayımlanan içeriklerin son kontrolü bana ait.
-          </p>
+          <h2 id="about-title">Hakkımda</h2>
+          <p>Yapay zekâ desteğini güçlü biçimde kullanıyor; ürün kararları, doğrulama ve yayımlanan işlerin sorumluluğunu üstleniyorum.</p>
+          <div className="contact-links">
+            {socialLinks.map((link) => (
+              <a key={link.label} href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}>{link.label}</a>
+            ))}
+          </div>
         </div>
-        <div>
+        <div id="now" className="education">
           <h2>Eğitim</h2>
-          <p>
-            <strong>Eskişehir Osmangazi Üniversitesi</strong>
-            <br />
-            Matematik ve Bilgisayar Bilimleri, lisans
-            <br />
-            2026–2027 döneminde 3. sınıf
-          </p>
-        </div>
-      </section>
-
-      <section id="now" className="now">
-        <h2>Şu anda neye odaklanıyorum?</h2>
-        <div className="now-grid">
-          <p>
-            <strong>Öğrenme</strong> Derin öğrenmeden önce istatistik ve klasik makine öğrenmesi temellerimi güçlendiriyorum.
-          </p>
-          <p>
-            <strong>Üretim</strong> GündemAI ile yoğun bilgi akışını daha kolay okunabilir hâle getirmeye çalışıyorum.
-          </p>
-          <p>
-            <strong>Yöntem</strong> Yapay zekâyı araştırma, uygulama ve eleştiri süreçlerinde aktif bir üretim ortağı olarak kullanıyorum.
-          </p>
-        </div>
-      </section>
-
-      <section className="about">
-        <h2>Bağlantılar.</h2>
-        <div className="contact-links">
-          <a
-            href="https://github.com/cemyildizcy"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://www.linkedin.com/in/cemyildizcy/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-          <a href="mailto:cemyildizcy@hotmail.com">E-posta</a>
+          <p><strong>Eskişehir Osmangazi Üniversitesi</strong><br />Matematik ve Bilgisayar Bilimleri, lisans<br />2026–2027 döneminde 3. sınıf</p>
         </div>
       </section>
     </main>

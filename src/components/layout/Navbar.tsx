@@ -4,13 +4,13 @@ export function Navbar() {
   return (
     <header className="site-header">
       <Link className="wordmark" href="/">
-        CY<span>yapay zekâ projeleri</span>
+        Cem Yıldız<span>ürünler ve teknik yazılar</span>
       </Link>
       <nav aria-label="Ana gezinme">
         <Link href="/#work">Projeler</Link>
+        <Link href="/blog">Yazılar</Link>
         <Link href="/ai-inceleme-masasi">İnceleme Masası</Link>
-        <Link href="/#now">Şu an</Link>
-        <Link href="/#about">Hakkımda / İletişim</Link>
+        <Link href="/#about">Hakkımda</Link>
       </nav>
     </header>
   );

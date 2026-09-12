@@ -1,107 +1,80 @@
 import { describe, expect, it } from "vitest";
-import { getProject, layerOrder, projects, type LayerKey } from "./projects";
+import { getProject, projects } from "./projects";
 
-type ApprovedEvidenceLabels = {
-  fileLabel: string;
-  layers: Record<LayerKey, string>;
-};
-
-const approvedEvidenceLabels: Record<string, ApprovedEvidenceLabels> = {
-  "gundem-ai": {
-    fileLabel: "GA–01",
-    layers: {
-      output: "MEVCUT ÇIKTI",
-      decision: "ÜRÜN KARARI",
-      ai: "ÜRETİM ORTAĞI",
-      orchestration: "AJAN İZİ & PROTOKOL",
-      limits: "SINIR NOTU",
+const expectedLinks: Record<string, { label: string; href: string }[]> = {
+  "gundem-ai": [
+    {
+      label: "Google Play'de aç",
+      href: "https://play.google.com/store/apps/details?id=com.gundemai.app",
     },
-  },
-  "wc2026-ai-simulator": {
-    fileLabel: "WC–26",
-    layers: {
-      output: "ÇALIŞAN ÇIKTI",
-      decision: "TASARIM KARARI",
-      ai: "ÜRETİM ORTAĞI",
-      orchestration: "AJAN İZİ & PROTOKOL",
-      limits: "SINIR NOTU",
-    },
-  },
-  sleepinfo: {
-    fileLabel: "SI–03",
-    layers: {
-      output: "ÇALIŞAN ÇIKTI",
-      decision: "MODEL KARARI",
-      ai: "ÜRETİM ORTAĞI",
-      orchestration: "AJAN İZİ & PROTOKOL",
-      limits: "SINIR NOTU",
-    },
-  },
-} satisfies Record<string, ApprovedEvidenceLabels>;
-
-const approvedLinks: Record<string, { label: string; href: string }[]> = {
-  "gundem-ai": [],
-  "wc2026-ai-simulator": [
-    { label: "GitHub deposunu aç", href: "https://github.com/cemyildizcy/wc2026-ai-simulator" },
-    { label: "Canlı demoyu aç", href: "https://wc2026-ai-simulator.streamlit.app" },
   ],
   sleepinfo: [
-    { label: "GitHub deposunu aç", href: "https://github.com/cemyildizcy/uyku-sagligi-tahmincisi" },
     { label: "Ürünü aç", href: "https://sleepinfo.com.tr" },
+    {
+      label: "GitHub deposunu aç",
+      href: "https://github.com/cemyildizcy/uyku-sagligi-tahmincisi",
+    },
+  ],
+  "wc2026-ai-simulator": [
+    {
+      label: "GitHub deposunu aç",
+      href: "https://github.com/cemyildizcy/wc2026-ai-simulator",
+    },
   ],
 };
 
-const approvedLimits: Record<string, string> = {
-  "gundem-ai":
-    "Proje geliştirme aşamasında. Bu nedenle henüz teknik performans veya kullanım sonucu iddiasında bulunmuyorum.",
-  "wc2026-ai-simulator":
-    "Sonuçlar olasılık tahminidir; maç sonucu garantisi değildir. Veri kalitesi ve model varsayımları tahminleri sınırlar.",
-  sleepinfo:
-    "Bu bir eğitim projesidir ve tıbbi tavsiye vermez. Model sonucu klinik değerlendirme yerine kullanılamaz.",
-};
-
-describe("evidence catalog", () => {
-  it("contains exactly the three approved projects", () => {
-    expect(projects.map((project) => project.slug)).toEqual(["gundem-ai", "wc2026-ai-simulator", "sleepinfo"]);
+describe("project catalog", () => {
+  it("keeps the three projects in their intended visual priority", () => {
+    expect(projects.map((project) => project.slug)).toEqual([
+      "gundem-ai",
+      "sleepinfo",
+      "wc2026-ai-simulator",
+    ]);
   });
 
-  it("models every truthful evidence layer", () => {
-    expect(layerOrder).toEqual(["output", "decision", "ai", "orchestration", "limits"]);
+  it("records truthful status, links, and real product imagery", () => {
+    expect(getProject("gundem-ai")).toMatchObject({
+      status: "Google Play'de yayında",
+      image: {
+        src: "/images/projects/gundemai/bugunun-gundemi.png",
+        alt: expect.stringContaining("gerçek Google Play ekran görüntüsü"),
+      },
+    });
+    expect(getProject("sleepinfo")?.image).toMatchObject({
+      src: "/images/projects/sleepinfo/hero.png",
+      alt: expect.stringContaining("ürün deposundaki özgün hero illüstrasyonu"),
+    });
+    expect(getProject("wc2026-ai-simulator")?.image).toMatchObject({
+      src: "/images/projects/wc2026/champion-probabilities.png",
+      alt: expect.stringContaining("çıktı grafiği"),
+    });
 
     for (const project of projects) {
-      const approvedLabels = approvedEvidenceLabels[project.slug];
-
-      expect(project.fileLabel).toBe(approvedLabels.fileLabel);
-      expect(Object.keys(project.layers)).toEqual(["output", "decision", "ai", "orchestration", "limits"]);
-      for (const key of layerOrder) {
-        const layer = project.layers[key];
-        expect(layer.label).toBe(approvedLabels.layers[key]);
-        expect(layer.title).toBeTruthy();
-        expect(layer.body).toBeTruthy();
-        expect(layer.facts.length).toBeGreaterThan(0);
-        expect(layer.facts.every(Boolean)).toBe(true);
-        expect(layer.note).toBeTruthy();
-      }
+      expect(project.links).toEqual(expectedLinks[project.slug]);
       expect(project.caseHref).toBe(`/work/${project.slug}`);
-    }
-  });
-
-  it("keeps authorship, evidence, links, and limitations explicit", () => {
-    for (const project of projects) {
-      expect(project.contribution.length).toBeGreaterThan(0);
-      expect(project.aiRole.length).toBeGreaterThan(0);
       expect(project.evidence.length).toBeGreaterThan(0);
-      expect(project.links).toEqual(approvedLinks[project.slug]);
-      expect(project.limits).toBe(approvedLimits[project.slug]);
+      expect(project.contribution.length).toBeGreaterThan(0);
+      expect(project.limits).toBeTruthy();
       expect(getProject(project.slug)).toBe(project);
     }
   });
 
-  it("keeps the approved WC2026 evidence image", () => {
-    expect(getProject("wc2026-ai-simulator")?.image?.src).toBe(
-      "/images/projects/wc2026/champion-probabilities.png",
-    );
+  it("does not expose agent-orchestration theater or a broken WC2026 demo", () => {
+    const serialized = JSON.stringify(projects);
+    expect(serialized).not.toMatch(/orchestration|Nolan|Marcus|Liam|Felix|Ethan/i);
+    expect(serialized).not.toContain("wc2026-ai-simulator.streamlit.app");
+    expect(serialized).not.toMatch(/Geliştiriliyor|herkese açık depo veya demo hazır olduğunda/i);
   });
 
-  it("returns undefined for unknown work", () => expect(getProject("missing")).toBeUndefined());
+  it("describes WC2026 as statistical simulation rather than trained ML", () => {
+    const wc2026 = getProject("wc2026-ai-simulator");
+    expect(`${wc2026?.short} ${wc2026?.premise}`).toMatch(/Poisson/);
+    expect(`${wc2026?.short} ${wc2026?.premise}`).toMatch(/Monte Carlo/);
+    expect(`${wc2026?.short} ${wc2026?.premise}`).toMatch(/eğitim/i);
+    expect(`${wc2026?.short} ${wc2026?.premise}`).not.toMatch(/eğitilmiş makine öğrenmesi/i);
+  });
+
+  it("returns undefined for unknown work", () => {
+    expect(getProject("missing")).toBeUndefined();
+  });
 });
