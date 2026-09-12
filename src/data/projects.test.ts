@@ -13,6 +13,7 @@ const approvedEvidenceLabels: Record<string, ApprovedEvidenceLabels> = {
       output: "MEVCUT ÇIKTI",
       decision: "ÜRÜN KARARI",
       ai: "ÜRETİM ORTAĞI",
+      orchestration: "AJAN İZİ & PROTOKOL",
       limits: "SINIR NOTU",
     },
   },
@@ -22,6 +23,7 @@ const approvedEvidenceLabels: Record<string, ApprovedEvidenceLabels> = {
       output: "ÇALIŞAN ÇIKTI",
       decision: "TASARIM KARARI",
       ai: "ÜRETİM ORTAĞI",
+      orchestration: "AJAN İZİ & PROTOKOL",
       limits: "SINIR NOTU",
     },
   },
@@ -31,6 +33,7 @@ const approvedEvidenceLabels: Record<string, ApprovedEvidenceLabels> = {
       output: "ÇALIŞAN ÇIKTI",
       decision: "MODEL KARARI",
       ai: "ÜRETİM ORTAĞI",
+      orchestration: "AJAN İZİ & PROTOKOL",
       limits: "SINIR NOTU",
     },
   },
@@ -63,13 +66,13 @@ describe("evidence catalog", () => {
   });
 
   it("models every truthful evidence layer", () => {
-    expect(layerOrder).toEqual(["output", "decision", "ai", "limits"]);
+    expect(layerOrder).toEqual(["output", "decision", "ai", "orchestration", "limits"]);
 
     for (const project of projects) {
       const approvedLabels = approvedEvidenceLabels[project.slug];
 
       expect(project.fileLabel).toBe(approvedLabels.fileLabel);
-      expect(Object.keys(project.layers)).toEqual(["output", "decision", "ai", "limits"]);
+      expect(Object.keys(project.layers)).toEqual(["output", "decision", "ai", "orchestration", "limits"]);
       for (const key of layerOrder) {
         const layer = project.layers[key];
         expect(layer.label).toBe(approvedLabels.layers[key]);

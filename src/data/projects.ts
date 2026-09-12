@@ -1,4 +1,4 @@
-export const layerOrder = ["output", "decision", "ai", "limits"] as const;
+export const layerOrder = ["output", "decision", "ai", "orchestration", "limits"] as const;
 
 export type LayerKey = (typeof layerOrder)[number];
 
@@ -74,6 +74,17 @@ export const projects: Project[] = [
         facts: ["Ürün kararları bana ait.", "Son kontroller bana ait."],
         note: "AI rolü süreçte açık, ürün iddiasından ayrı.",
       },
+      orchestration: {
+        label: "AJAN İZİ & PROTOKOL",
+        title: "Çoklu ajan orkestrasyonu ve şartname odaklı TDD.",
+        body: "Geliştirme süreci rol bazlı alt ajanlarla yürütüldü: Nolan mimari şartnameyi modelledi, Marcus arayüz bileşenlerini, Liam ise veri boru hattını kurdu. Felix ve Ethan uçtan uca TDD testlerini ve hasmane (adversarial) kod inceleme kapılarını işletti.",
+        facts: [
+          "Nolan sistem mimarisini ve bileşenler arası şartnameleri tanımladı.",
+          "Marcus ve Liam arayüz ve veri modellerini katı TDD döngüsüyle inşa etti.",
+          "Felix ve Ethan hasmane inceleme kapılarıyla uç senaryoları denetledi.",
+        ],
+        note: "Ajanlar otonom üretir; sistem sınırları, şartname kontrolü ve nihai kabul kurucu mühendise aittir.",
+      },
       limits: {
         label: "SINIR NOTU",
         title: "Erken aşama, erken iddia.",
@@ -141,6 +152,17 @@ export const projects: Project[] = [
           "Proje kapsamı ve yayımlanan sonuçların son kontrolü bana ait.",
         ],
         note: "Destek görünür; sorumluluk devredilmiş değil.",
+      },
+      orchestration: {
+        label: "AJAN İZİ & PROTOKOL",
+        title: "Simülasyon hattında çoklu ajan ve hasmane denetim.",
+        body: "Turnuva simülasyonu rol paylaşımıyla geliştirildi: Nolan olasılık modelleme şartnamesini hazırladı, Liam veri işleme ve simülasyon mantığını, Marcus ise Streamlit arayüzünü kodladı. Felix ve Ethan sınır koşullarını ve istatistiksel tutarlılığı hasmane testlerle sınadı.",
+        facts: [
+          "Nolan 48 takımlı turnuva protokolünü ve simülasyon şartnamesini çıkardı.",
+          "Liam ve Marcus veri boru hattını ve görselleştirme katmanını TDD ile kurdu.",
+          "Felix ve Ethan olasılık matrisi sınırlarını ve uç senaryoları denetledi.",
+        ],
+        note: "Tekil model çıktısına güvenilmez; çok katmanlı test kapıları ve hasmane doğrulama esastır.",
       },
       limits: {
         label: "SINIR NOTU",
@@ -212,6 +234,17 @@ export const projects: Project[] = [
           "AI desteği ileri düzey araç uzmanlığı iddiası değildir.",
         ],
         note: "Yardımın kapsamını da yetkinliğin sınırını da yazıyorum.",
+      },
+      orchestration: {
+        label: "AJAN İZİ & PROTOKOL",
+        title: "Veri sızıntısını engelleyen çoklu ajan protokolü.",
+        body: "Ürün geliştirme hattında görevler ayrıştırıldı: Nolan veri sızıntısını dışlayan model şartnamesini yazdı, Liam çıkarım API'sini ve veri akışını, Marcus web arayüzünü geliştirdi. Felix ve Ethan TDD güvencesini ve tıbbi sınır denetimini hasmane incelemeyle doğruladı.",
+        facts: [
+          "Nolan hedef değişken sızıntısını engelleyen veri şartnamesini belirledi.",
+          "Liam ve Marcus model çıkarım hattını ve web deneyimini TDD ile bağladı.",
+          "Felix ve Ethan klinik tavsiye teşkil etmeme ve doğrulama kapılarını yürüttü.",
+        ],
+        note: "Yüksek skor değil, şartnameye tam uyum ve bağımsız doğrulama kapıları belirleyicidir.",
       },
       limits: {
         label: "SINIR NOTU",
