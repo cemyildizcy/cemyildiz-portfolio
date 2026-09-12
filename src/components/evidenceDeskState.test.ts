@@ -14,6 +14,10 @@ describe("evidence desk state", () => {
   });
 
   it("changes only the active layer", () => {
+    expect(selectLayer(initialEvidenceDeskState, "orchestration")).toEqual({
+      projectSlug: "wc2026-ai-simulator",
+      layer: "orchestration",
+    });
     expect(selectLayer(initialEvidenceDeskState, "limits")).toEqual({
       projectSlug: "wc2026-ai-simulator",
       layer: "limits",

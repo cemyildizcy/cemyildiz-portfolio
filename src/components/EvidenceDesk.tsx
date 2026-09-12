@@ -14,6 +14,7 @@ const layerLabels: Record<LayerKey, string> = {
   output: "Çıktı",
   decision: "Karar",
   ai: "AI desteği",
+  orchestration: "Orkestrasyon",
   limits: "Sınırlar",
 };
 
@@ -178,6 +179,46 @@ export function EvidenceDesk() {
                 <p className="layer-label">{layer.label}</p>
                 <h4 className="layer-title">{layer.title}</h4>
                 <p className="layer-body">{layer.body}</p>
+
+                {state.layer === "orchestration" ? (
+                  <div className="orchestration-presentation" aria-label="Ajan filosu ve doğrulama kapıları">
+                    <div className="agent-fleet-tags" role="list" aria-label="Görevli Ajan Filosu">
+                      <span className="agent-tag" role="listitem">
+                        <strong className="agent-name">Nolan</strong>
+                        <span className="agent-role">Mimari</span>
+                      </span>
+                      <span className="agent-tag" role="listitem">
+                        <strong className="agent-name">Marcus</strong>
+                        <span className="agent-role">Arayüz</span>
+                      </span>
+                      <span className="agent-tag" role="listitem">
+                        <strong className="agent-name">Liam</strong>
+                        <span className="agent-role">Veri</span>
+                      </span>
+                      <span className="agent-tag" role="listitem">
+                        <strong className="agent-name">Felix</strong>
+                        <span className="agent-role">TDD</span>
+                      </span>
+                      <span className="agent-tag" role="listitem">
+                        <strong className="agent-name">Ethan</strong>
+                        <span className="agent-role">Denetim</span>
+                      </span>
+                    </div>
+
+                    <div className="verification-badges" role="list" aria-label="Doğrulama Kapıları">
+                      <span className="v-badge v-badge-tdd" role="listitem">
+                        ✓ TDD Protokolü: RED &rarr; GREEN
+                      </span>
+                      <span className="v-badge v-badge-audit" role="listitem">
+                        ✓ Hasmane Denetim Kapısı
+                      </span>
+                      <span className="v-badge v-badge-drift" role="listitem">
+                        ✓ Sıfır Şartname Sapması
+                      </span>
+                    </div>
+                  </div>
+                ) : null}
+
                 <ul className="facts">
                   {layer.facts.map((fact) => (
                     <li key={fact}>{fact}</li>
@@ -228,6 +269,36 @@ export function EvidenceDesk() {
                   </div>
                   <figcaption>{project.image.alt}</figcaption>
                 </figure>
+              ) : null}
+
+              {state.layer === "orchestration" ? (
+                <div className="orchestration-card" aria-label="Orkestrasyon Protokolü Özeti">
+                  <div className="orchestration-card-head">
+                    <span className="card-kicker">PROTOKOL // MULTI_AGENT_TDD</span>
+                    <span className="card-badge">ONAYLANDI (0 VETO)</span>
+                  </div>
+                  <div className="orchestration-flow">
+                    <div className="flow-step">
+                      <span className="flow-phase phase-red">1. RED TEST</span>
+                      <p className="flow-text">Felix başarısız e2e/birim testini yazdı.</p>
+                    </div>
+                    <div className="flow-step">
+                      <span className="flow-phase phase-green">2. GREEN KOD</span>
+                      <p className="flow-text">Marcus &amp; Liam şartnameye göre kodu yeşile çevirdi.</p>
+                    </div>
+                    <div className="flow-step">
+                      <span className="flow-phase phase-audit">3. HASMANE DENETİM</span>
+                      <p className="flow-text">Ethan kontrast, erişilebilirlik ve sızıntı denetimi yaptı.</p>
+                    </div>
+                    <div className="flow-step">
+                      <span className="flow-phase phase-pass">4. KABUL &amp; PUSH</span>
+                      <p className="flow-text">Tüm kapılar geçildi, ana dala temiz kayıt sağlandı.</p>
+                    </div>
+                  </div>
+                  <div className="orchestration-card-footer">
+                    <span>Mühendis: Cem Yıldız (Nihai Onay)</span>
+                  </div>
+                </div>
               ) : null}
             </div>
 

@@ -45,6 +45,17 @@ test("canlı kesit bağımsız proje ve dosya katmanları sekmelerini yönetir",
   await expect(page.getByRole("tabpanel", { name: "AI desteği" })).toContainText("Araştırma ve iyileştirmede destek.");
   await expect(projectPanel).toContainText("WC2026 AI Simulator");
 
+  await layerTabs.getByRole("tab", { name: "Orkestrasyon", exact: true }).click();
+  await expect(layerTabs.getByRole("tab", { name: "Orkestrasyon", exact: true })).toHaveAttribute("aria-selected", "true");
+  const orchPanel = page.getByRole("tabpanel", { name: "Orkestrasyon" });
+  await expect(orchPanel).toContainText("Nolan");
+  await expect(orchPanel).toContainText("Marcus");
+  await expect(orchPanel).toContainText("Liam");
+  await expect(orchPanel).toContainText("Felix");
+  await expect(orchPanel).toContainText("Ethan");
+  await expect(orchPanel).toContainText("TDD Protokolü");
+  await expect(orchPanel).toContainText("Hasmane Denetim");
+
   await projectTabs.getByRole("tab").filter({ hasText: "SleepInfo" }).click();
   await expect(projectTabs.getByRole("tab").filter({ hasText: "SleepInfo" })).toHaveAttribute("aria-selected", "true");
   await expect(layerTabs.getByRole("tab", { name: "Çıktı", exact: true })).toHaveAttribute("aria-selected", "true");
@@ -124,8 +135,20 @@ test("dosya katmanları ve proje sekmeleri tüm yön tuşlarıyla otomatik etkin
   await expect(layerTabs.nth(2)).toHaveAttribute("aria-selected", "true");
   await expect(layerTabs.nth(2)).toHaveAttribute("tabindex", "0");
 
+  // Forward step with ArrowRight (moves to next index: Orkestrasyon)
+  await page.keyboard.press("ArrowRight");
+  await expect(layerTabs.nth(3)).toBeFocused();
+  await expect(layerTabs.nth(3)).toHaveAttribute("aria-selected", "true");
+  await expect(layerTabs.nth(3)).toHaveAttribute("tabindex", "0");
+  await expect(layerTabs.nth(3)).toHaveText("Orkestrasyon");
+
   // Backward navigation with ArrowLeft
   await page.keyboard.press("ArrowLeft");
+  await expect(layerTabs.nth(2)).toBeFocused();
+  await expect(layerTabs.nth(2)).toHaveAttribute("aria-selected", "true");
+
+  // Backward step with ArrowUp
+  await page.keyboard.press("ArrowUp");
   await expect(layerTabs.nth(1)).toBeFocused();
   await expect(layerTabs.nth(1)).toHaveAttribute("aria-selected", "true");
 
@@ -136,8 +159,9 @@ test("dosya katmanları ve proje sekmeleri tüm yön tuşlarıyla otomatik etkin
 
   // Boundary navigation: End and Home
   await page.keyboard.press("End");
-  await expect(layerTabs.nth(3)).toBeFocused();
-  await expect(layerTabs.nth(3)).toHaveAttribute("aria-selected", "true");
+  await expect(layerTabs.nth(4)).toBeFocused();
+  await expect(layerTabs.nth(4)).toHaveAttribute("aria-selected", "true");
+  await expect(layerTabs.nth(4)).toHaveText("Sınırlar");
 
   await page.keyboard.press("Home");
   await expect(layerTabs.nth(0)).toBeFocused();
@@ -475,7 +499,7 @@ for (const vp of homeViewports) {
 
 test("canlı kesit ve ana sayfa etkileşimli kontrol öğeleri en az 44x44 dokunma hedefine sahiptir", async ({ page }) => {
   await page.goto("/");
-  const controls = page.locator(".project-tab, .layer-tab, .file-links a, .case-link-wrap a, .hero-actions a, .site-header nav a, .contact-links a, .ledger-open-btn, .ledger-case-link");
+  const controls = page.locator(".project-tab, .layer-tab, .file-links a, .case-link-wrap a, .hero-actions a, .site-header nav a, .contact-links a, .ledger-open-btn, .ledger-case-link, .harness-tab");
   const count = await controls.count();
   expect(count).toBeGreaterThan(0);
 
@@ -624,6 +648,116 @@ test("ana sayfa proje kayıt defteri tüm projeleri listeler, vaka bağlantılar
   const projectTabs = page.getByRole("tablist", { name: "Proje dosyaları" });
   await expect(projectTabs.getByRole("tab").filter({ hasText: "GündemAI" })).toHaveAttribute("aria-selected", "true");
   await expect(page.getByRole("tabpanel", { name: /GündemAI/ })).toBeVisible();
+});
+
+test("mühendislik konsolu (EngineeringHarness) başlık, lede ve terminal arayüzünü sunar", async ({ page }) => {
+  await page.goto("/");
+
+  const harness = page.locator("#harness");
+  await expect(harness).toBeVisible();
+  await expect(harness).toHaveAttribute("aria-labelledby", "harness-title");
+
+  const heading = harness.getByRole("heading", { name: "Nasıl üretiyorum?" });
+  await expect(heading).toBeVisible();
+  await expect(harness.locator(".harness-lede")).toHaveText(
+    "Vibe coding değil; 6 uzman ajan, kod öncesi 7 hazırlık adımı ve hasmane denetim kapısı."
+  );
+
+  // Terminal header
+  await expect(harness.locator(".terminal-title")).toHaveText("cemyildiz@harness:~/cemyildizos");
+  await expect(harness.locator(".status-text")).toContainText("6/6 AJAN AKTİF");
+
+  // Tablist and initial tab
+  const tablist = harness.getByRole("tablist", { name: "Mühendislik üretim prensipleri" });
+  await expect(tablist).toBeVisible();
+
+  const tabs = tablist.getByRole("tab");
+  await expect(tabs).toHaveCount(4);
+  await expect(tabs.nth(0)).toHaveText("Ajan Filosu");
+  await expect(tabs.nth(1)).toHaveText("Kod Öncesi 7 Adım");
+  await expect(tabs.nth(2)).toHaveText("Hasmane Denetim & TDD");
+  await expect(tabs.nth(3)).toHaveText("Canlı Sistem Röntgeni");
+
+  // Initial tab is Ajan Filosu
+  await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
+  await expect(tabs.nth(0)).toHaveAttribute("tabindex", "0");
+  await expect(tabs.nth(1)).toHaveAttribute("tabindex", "-1");
+
+  const panel = harness.getByRole("tabpanel", { name: "Ajan Filosu" });
+  await expect(panel).toBeVisible();
+  await expect(panel).toContainText("Nolan");
+  await expect(panel).toContainText("Marcus");
+  await expect(panel).toContainText("Liam");
+  await expect(panel).toContainText("Felix");
+  await expect(panel).toContainText("Leo");
+  await expect(panel).toContainText("Ethan");
+  await expect(panel).toContainText("Kurucu Mühendis & Nihai Onay");
+});
+
+test("mühendislik konsolu sekmeleri klavye ve fare etkileşimiyle roving-tabindex uygular", async ({ page }) => {
+  await page.goto("/");
+
+  const harness = page.locator("#harness");
+  const tablist = harness.getByRole("tablist", { name: "Mühendislik üretim prensipleri" });
+  const tabs = tablist.getByRole("tab");
+
+  // Initial focus on first tab
+  await tabs.nth(0).focus();
+  await expect(tabs.nth(0)).toBeFocused();
+  await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
+
+  // ArrowRight moves to Kod Öncesi 7 Adım
+  await page.keyboard.press("ArrowRight");
+  await expect(tabs.nth(1)).toBeFocused();
+  await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
+  await expect(tabs.nth(1)).toHaveAttribute("tabindex", "0");
+  await expect(tabs.nth(0)).toHaveAttribute("tabindex", "-1");
+  await expect(harness.getByRole("tabpanel", { name: "Kod Öncesi 7 Adım" })).toContainText("Avenox Şartname Odaklı Metodoloji vs. Vibe Coding");
+  await expect(harness.getByRole("tabpanel", { name: "Kod Öncesi 7 Adım" })).toContainText("specs/");
+  await expect(harness.getByRole("tabpanel", { name: "Kod Öncesi 7 Adım" })).toContainText("Git Checkpoint");
+
+  // ArrowDown moves to Hasmane Denetim & TDD
+  await page.keyboard.press("ArrowDown");
+  await expect(tabs.nth(2)).toBeFocused();
+  await expect(tabs.nth(2)).toHaveAttribute("aria-selected", "true");
+  await expect(harness.getByRole("tabpanel", { name: "Hasmane Denetim & TDD" })).toContainText("RED TEST");
+  await expect(harness.getByRole("tabpanel", { name: "Hasmane Denetim & TDD" })).toContainText("GREEN KOD");
+  await expect(harness.getByRole("tabpanel", { name: "Hasmane Denetim & TDD" })).toContainText("Ethan REJECT [contrast / a11y]");
+  await expect(harness.getByRole("tabpanel", { name: "Hasmane Denetim & TDD" })).toContainText("Ethan APPROVED");
+
+  // ArrowRight moves to Canlı Sistem Röntgeni
+  await page.keyboard.press("ArrowRight");
+  await expect(tabs.nth(3)).toBeFocused();
+  await expect(tabs.nth(3)).toHaveAttribute("aria-selected", "true");
+  await expect(harness.getByRole("tabpanel", { name: "Canlı Sistem Röntgeni" })).toContainText("185");
+  await expect(harness.getByRole("tabpanel", { name: "Canlı Sistem Röntgeni" })).toContainText("Vitest Testi");
+  await expect(harness.getByRole("tabpanel", { name: "Canlı Sistem Röntgeni" })).toContainText("80");
+  await expect(harness.getByRole("tabpanel", { name: "Canlı Sistem Röntgeni" })).toContainText("Playwright & Axe");
+
+  // ArrowRight wraps to index 0 (Ajan Filosu)
+  await page.keyboard.press("ArrowRight");
+  await expect(tabs.nth(0)).toBeFocused();
+  await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
+
+  // ArrowLeft wraps to index 3 (Canlı Sistem Röntgeni)
+  await page.keyboard.press("ArrowLeft");
+  await expect(tabs.nth(3)).toBeFocused();
+  await expect(tabs.nth(3)).toHaveAttribute("aria-selected", "true");
+
+  // Home moves to index 0
+  await page.keyboard.press("Home");
+  await expect(tabs.nth(0)).toBeFocused();
+  await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
+
+  // End moves to index 3
+  await page.keyboard.press("End");
+  await expect(tabs.nth(3)).toBeFocused();
+  await expect(tabs.nth(3)).toHaveAttribute("aria-selected", "true");
+
+  // Mouse click selection
+  await tabs.nth(1).click();
+  await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
+  await expect(harness.getByRole("tabpanel", { name: "Kod Öncesi 7 Adım" })).toBeVisible();
 });
 
 

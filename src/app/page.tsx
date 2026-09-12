@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { EvidenceDesk } from "@/components/EvidenceDesk";
 import { ProjectLedger } from "@/components/ProjectLedger";
+import { EngineeringHarness } from "@/components/EngineeringHarness";
 import { getAllPosts } from "@/lib/blog";
 
 const posts = [
@@ -77,6 +78,8 @@ export default function Home() {
       <EvidenceDesk />
 
       <ProjectLedger />
+
+      <EngineeringHarness />
 
       <section id="review-desk" className="review-preview-section" aria-labelledby="review-desk-title">
         <div className="section-head">
