@@ -156,10 +156,23 @@ button {
 .hero h1 {
   font: 900 clamp(3.25rem, 6.5vw, 6.5rem) / 0.86 var(--sans);
   letter-spacing: -0.045em;
-  max-width: 10ch;
+  max-width: 14ch;
   margin: 1.2rem 0 2rem;
   color: var(--white);
   overflow-wrap: anywhere;
+}
+
+.hero-name {
+  display: block;
+  font: 700 clamp(1.1rem, 2vw, 1.5rem) var(--mono);
+  color: var(--yellow);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.hero-role {
+  display: block;
 }
 
 .lede {
@@ -734,6 +747,7 @@ footer {
 .profile-section,
 .writing-section,
 .linkedin-section,
+.review-preview-section,
 .content-page {
   background: var(--paper);
   padding: clamp(3rem, 7vw, 7rem) clamp(1rem, 3.8vw, 3.5rem);
@@ -767,6 +781,7 @@ footer {
 .profile-section h2,
 .writing-section h2,
 .linkedin-section h2,
+.review-preview-section h2,
 .content-page h1 {
   font: 900 clamp(2.3rem, 5vw, 4.5rem) / 0.95 var(--sans);
   margin: 0.4rem 0 1.4rem;
@@ -837,17 +852,43 @@ footer {
   justify-content: space-between;
 }
 
-.linkedin-grid strong {
+.linkedin-grid strong,
+.linkedin-grid h3 {
   font: 800 1.15rem var(--sans);
+  margin: 0.5rem 0;
+  color: var(--ink);
 }
 
 .writing-section .text-link,
-.linkedin-section .text-link {
+.linkedin-section .text-link,
+.review-preview-section .text-link {
   min-height: 44px;
   min-width: 44px;
   display: inline-flex;
   align-items: center;
   font-weight: 700;
+}
+
+.review-preview-card {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--rule);
+  background: #fffdf6;
+}
+
+.review-preview-card h3 {
+  font: 800 1.3rem / 1.15 var(--sans);
+  margin: 0.5rem 0;
+  color: var(--ink);
+}
+
+.review-preview-card p {
+  margin: 0.5rem 0;
+  color: var(--ink);
+}
+
+.review-preview-actions {
+  margin-top: 1.25rem;
 }
 
 .content-page {

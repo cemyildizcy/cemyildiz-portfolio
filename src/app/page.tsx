@@ -3,13 +3,205 @@ import Link from "next/link";
 import { EvidenceDesk } from "@/components/EvidenceDesk";
 import { getAllPosts } from "@/lib/blog";
 
-const posts=[
- {title:"2026 Dünya Kupası AI Simülatörü",meta:"6. hafta projesi",href:"https://www.linkedin.com/feed/update/urn:li:activity:7470769047601664000/"},
- {title:"Öğrenci Alışkanlıkları ve Akademik Başarı",meta:"5. hafta projesi",href:"https://www.linkedin.com/feed/update/urn:li:activity:7467981878382465024/"},
- {title:"Türkiye Deprem Risk Analizi",meta:"4. hafta projesi",href:"https://www.linkedin.com/feed/update/urn:li:activity:7465489993902411776/"}
+const posts = [
+  {
+    title: "2026 Dünya Kupası AI Simülatörü",
+    meta: "6. hafta projesi",
+    href: "https://www.linkedin.com/feed/update/urn:li:activity:7470769047601664000/",
+  },
+  {
+    title: "Öğrenci Alışkanlıkları ve Akademik Başarı",
+    meta: "5. hafta projesi",
+    href: "https://www.linkedin.com/feed/update/urn:li:activity:7467981878382465024/",
+  },
+  {
+    title: "Türkiye Deprem Risk Analizi",
+    meta: "4. hafta projesi",
+    href: "https://www.linkedin.com/feed/update/urn:li:activity:7465489993902411776/",
+  },
 ];
-export default function Home(){const writing=getAllPosts();return <main><section className="hero"><div className="hero-copy"><p className="margin-note">Cem Yıldız / Eskişehir / öğrenirken paylaşan</p><h1>Matematikten yapay zekâ ürünlerine.</h1><p className="lede"><span>ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim.</span> Makine öğrenmesini öğreniyor, derin öğrenmeye ilerliyorum. Yapay zekâ desteğiyle insanların kullanabileceği ürünler geliştiriyorum.</p><div className="hero-actions"><Link href="#work">Projeleri aç</Link><a href="/documents/Cem_Yildiz_CV.pdf" download>CV&apos;yi indir</a></div></div><figure className="portrait"><Image src="/images/profile.jpg" alt="Cem Yıldız profil fotoğrafı" fill priority sizes="(max-width: 760px) 75vw, 34vw"/><figcaption>Eskişehir · 2026</figcaption></figure></section><EvidenceDesk/>
-<section id="about" className="profile-section"><div><p className="margin-note">Kısa profil</p><h2>Öğrenci, geliştirici, dikkatli bir öğrenen.</h2><p>İstatistik ve klasik makine öğrenmesi temellerini güçlendirirken derin öğrenmeye ilerliyorum. Yapay zekâyı araştırma, uygulama ve eleştiri ortağı olarak kullanıyorum; ürün kararları ve yayımlanan içeriklerin son kontrolü bana ait.</p></div><div><h2>Eğitim</h2><p><strong>Eskişehir Osmangazi Üniversitesi</strong><br/>Matematik ve Bilgisayar Bilimleri, lisans<br/>2026–2027 döneminde 3. sınıf</p></div></section>
-<section className="writing-section"><div className="section-head"><h2>Yazı masasından.</h2><p>ML yolculuğumdan üç uzun teknik not.</p></div><div className="writing-grid">{writing.map(p=><article key={p.slug}><p>{p.readTime}</p><h3><Link href={`/blog/${p.slug}`}>{p.title}</Link></h3><p>{p.description}</p></article>)}</div><Link className="text-link" href="/blog">Tüm yazılar</Link></section>
-<section className="linkedin-section"><div className="section-head"><h2>Proje günlüğü.</h2><p>Git geçmişinde URL&apos;si doğrulanan seçilmiş LinkedIn paylaşımları.</p></div><div className="linkedin-grid">{posts.map(p=><a key={p.href} href={p.href} target="_blank" rel="noreferrer" aria-label={p.title}><span>{p.meta}</span><strong>{p.title}</strong><small>LinkedIn&apos;de aç ↗</small></a>)}</div><a className="text-link" href="https://www.linkedin.com/in/cemyildizcy/">LinkedIn profili</a></section>
-<section id="now" className="now"><h2>Şu anda neye odaklanıyorum?</h2><div className="now-grid"><p><strong>Öğrenme</strong> Derin öğrenmeden önce istatistik ve klasik makine öğrenmesi temellerimi güçlendiriyorum.</p><p><strong>Üretim</strong> GündemAI ile yoğun bilgi akışını daha kolay okunabilir hâle getirmeye çalışıyorum.</p><p><strong>Yöntem</strong> Yapay zekâyı araştırma, uygulama ve eleştiri süreçlerinde aktif bir üretim ortağı olarak kullanıyorum.</p></div></section><section className="about"><h2>Bağlantılar.</h2><div className="contact-links"><a href="https://github.com/cemyildizcy">GitHub</a><a href="https://www.linkedin.com/in/cemyildizcy/">LinkedIn</a><a href="mailto:cemyildizcy@hotmail.com">E-posta</a></div></section></main>}
+
+export default function Home() {
+  const writing = getAllPosts();
+
+  return (
+    <main>
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="hero-copy">
+          <p className="margin-note">
+            Cem Yıldız / Eskişehir / ML temelleri &amp; AI-first ürün operatörü
+          </p>
+          <h1 id="hero-title">
+            <span className="hero-name">Cem Yıldız</span>
+            <span className="hero-role">Matematikten yapay zekâ ürünlerine.</span>
+          </h1>
+          <p className="lede">
+            <span>ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim.</span> İstatistik ve klasik makine öğrenmesi temellerini güçlendirirken derin öğrenmeye ilerliyorum. AI-first bir ürün operatörü olarak yapay zekâyı araştırma ve üretim ortağı kılıyor; insanların güvenle kullanabileceği, kararları ve sınırları açık ürünler geliştiriyorum.
+          </p>
+          <div className="hero-actions">
+            <Link href="#work">Projeleri aç</Link>
+            <a href="/documents/Cem_Yildiz_CV.pdf" download>
+              CV&apos;yi indir
+            </a>
+            <a href="mailto:cemyildizcy@hotmail.com">İletişim</a>
+            <a
+              href="https://github.com/cemyildizcy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/cemyildizcy/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            <a href="mailto:cemyildizcy@hotmail.com">E-posta</a>
+          </div>
+        </div>
+        <figure className="portrait">
+          <Image
+            src="/images/profile.jpg"
+            alt="Cem Yıldız profil fotoğrafı"
+            fill
+            priority
+            sizes="(max-width: 760px) 75vw, 34vw"
+          />
+          <figcaption>Eskişehir · 2026</figcaption>
+        </figure>
+      </section>
+
+      <EvidenceDesk />
+
+      <section id="review-desk" className="review-preview-section" aria-labelledby="review-desk-title">
+        <div className="section-head">
+          <h2 id="review-desk-title">AI İnceleme Masası.</h2>
+          <p>Yapay zekâ kararlarını ve model sonuçlarını denetleyen etkileşimli doğrulama ortamı.</p>
+        </div>
+        <div className="review-preview-card">
+          <p className="margin-note">Etkileşimli Doğrulama Ortamı</p>
+          <h3>Model çıktıları, kaynaklar ve karar doğrulama masası</h3>
+          <p>
+            Modellerin ve ürünlerin ürettiği sonuçları akademik kaynaklar, karşılaştırmalı bulgular ve insan denetimiyle test eden canlı simülasyon masası. Son kontrol her zaman insana aittir.
+          </p>
+          <div className="review-preview-actions">
+            <Link className="text-link" href="/ai-inceleme-masasi">
+              AI İnceleme Masası&apos;nı aç ↗
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="writing-section">
+        <div className="section-head">
+          <h2>Yazı masasından.</h2>
+          <p>ML yolculuğumdan üç uzun teknik not.</p>
+        </div>
+        <div className="writing-grid">
+          {writing.map((p) => (
+            <article key={p.slug}>
+              <p>{p.readTime}</p>
+              <h3>
+                <Link href={`/blog/${p.slug}`}>{p.title}</Link>
+              </h3>
+              <p>{p.description}</p>
+            </article>
+          ))}
+        </div>
+        <Link className="text-link" href="/blog">
+          Tüm yazılar
+        </Link>
+      </section>
+
+      <section className="linkedin-section">
+        <div className="section-head">
+          <h2>Proje günlüğü.</h2>
+          <p>Git geçmişinde URL&apos;si doğrulanan seçilmiş LinkedIn paylaşımları.</p>
+        </div>
+        <div className="linkedin-grid">
+          {posts.map((p) => (
+            <a
+              key={p.href}
+              href={p.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={p.title}
+            >
+              <span>{p.meta}</span>
+              <h3>{p.title}</h3>
+              <small>LinkedIn&apos;de aç ↗</small>
+            </a>
+          ))}
+        </div>
+        <a
+          className="text-link"
+          href="https://www.linkedin.com/in/cemyildizcy/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn profili
+        </a>
+      </section>
+
+      <section id="about" className="profile-section">
+        <div>
+          <p className="margin-note">Kısa profil</p>
+          <h2>Öğrenci, geliştirici, dikkatli bir öğrenen.</h2>
+          <p>
+            İstatistik ve klasik makine öğrenmesi temellerini güçlendirirken derin öğrenmeye ilerliyorum.
+            Yapay zekâyı araştırma, uygulama ve eleştiri ortağı olarak kullanıyorum; ürün kararları ve
+            yayımlanan içeriklerin son kontrolü bana ait.
+          </p>
+        </div>
+        <div>
+          <h2>Eğitim</h2>
+          <p>
+            <strong>Eskişehir Osmangazi Üniversitesi</strong>
+            <br />
+            Matematik ve Bilgisayar Bilimleri, lisans
+            <br />
+            2026–2027 döneminde 3. sınıf
+          </p>
+        </div>
+      </section>
+
+      <section id="now" className="now">
+        <h2>Şu anda neye odaklanıyorum?</h2>
+        <div className="now-grid">
+          <p>
+            <strong>Öğrenme</strong> Derin öğrenmeden önce istatistik ve klasik makine öğrenmesi temellerimi güçlendiriyorum.
+          </p>
+          <p>
+            <strong>Üretim</strong> GündemAI ile yoğun bilgi akışını daha kolay okunabilir hâle getirmeye çalışıyorum.
+          </p>
+          <p>
+            <strong>Yöntem</strong> Yapay zekâyı araştırma, uygulama ve eleştiri süreçlerinde aktif bir üretim ortağı olarak kullanıyorum.
+          </p>
+        </div>
+      </section>
+
+      <section className="about">
+        <h2>Bağlantılar.</h2>
+        <div className="contact-links">
+          <a
+            href="https://github.com/cemyildizcy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/cemyildizcy/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a href="mailto:cemyildizcy@hotmail.com">E-posta</a>
+        </div>
+      </section>
+    </main>
+  );
+}

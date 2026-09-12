@@ -205,6 +205,68 @@ test("temel kişisel içerik ve doğrulanmış dış bağlantılar görünür", 
   await expect(page.getByRole("link", { name: "Tüm yazılar" })).toHaveAttribute("href", "/blog");
 });
 
+test("ana sayfa Mavi Masa canlı kesit deneyimi, semantik başlık hiyerarşisi ve ikincil AI inceleme masasını doğrular", async ({ page }) => {
+  await page.goto("/");
+
+  // H1 name and role
+  const h1 = page.locator("h1");
+  await expect(h1).toHaveCount(1);
+  await expect(h1).toContainText("Cem Yıldız");
+  await expect(h1).toContainText("Matematikten yapay zekâ ürünlerine.");
+
+  // Verified identity
+  await expect(page.getByText("ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim.")).toBeVisible();
+  await expect(page.locator(".lede")).toContainText("İstatistik ve klasik makine öğrenmesi temellerini");
+  await expect(page.locator(".lede")).toContainText("AI-first bir ürün operatörü");
+
+  // Profile photo
+  await expect(page.getByAltText("Cem Yıldız profil fotoğrafı")).toBeVisible();
+
+  // Hero direct actions
+  const heroActions = page.locator(".hero-actions");
+  await expect(heroActions.getByRole("link", { name: "Projeleri aç" })).toHaveAttribute("href", "#work");
+  await expect(heroActions.getByRole("link", { name: /CV.*indir/i })).toHaveAttribute("href", "/documents/Cem_Yildiz_CV.pdf");
+  await expect(heroActions.getByRole("link", { name: "İletişim" })).toHaveAttribute("href", "mailto:cemyildizcy@hotmail.com");
+  await expect(heroActions.getByRole("link", { name: "GitHub" })).toHaveAttribute("href", "https://github.com/cemyildizcy");
+  await expect(heroActions.getByRole("link", { name: "LinkedIn" })).toHaveAttribute("href", "https://www.linkedin.com/in/cemyildizcy/");
+  await expect(heroActions.getByRole("link", { name: "E-posta" })).toHaveAttribute("href", "mailto:cemyildizcy@hotmail.com");
+
+  // Secondary reference to AI İnceleme Masası
+  const reviewSection = page.locator("#review-desk");
+  await expect(reviewSection).toBeVisible();
+  await expect(reviewSection.getByRole("heading", { level: 2, name: "AI İnceleme Masası." })).toBeVisible();
+  await expect(reviewSection.getByRole("heading", { level: 3 })).toBeVisible();
+  await expect(reviewSection.getByRole("link", { name: /AI İnceleme Masası.*aç/i })).toHaveAttribute("href", "/ai-inceleme-masasi");
+
+  // Semantic heading hierarchy across sections
+  const h2s = page.locator("h2");
+  const h2Texts = await h2s.allInnerTexts();
+  expect(h2Texts).toContain("Seçili projeler.");
+  expect(h2Texts).toContain("AI İnceleme Masası.");
+  expect(h2Texts).toContain("Yazı masasından.");
+  expect(h2Texts).toContain("Proje günlüğü.");
+  expect(h2Texts).toContain("Öğrenci, geliştirici, dikkatli bir öğrenen.");
+  expect(h2Texts).toContain("Eğitim");
+  expect(h2Texts).toContain("Şu anda neye odaklanıyorum?");
+  expect(h2Texts).toContain("Bağlantılar.");
+
+  // Preserved education timeline
+  await expect(page.getByText("2026–2027 döneminde 3. sınıf")).toBeVisible();
+
+  // Preserved writing highlights
+  await expect(page.getByRole("link", { name: "Tüm yazılar" })).toHaveAttribute("href", "/blog");
+  const blogLink = page.locator(".writing-grid h3 a").first();
+  await expect(blogLink).toBeVisible();
+  await expect(blogLink).toHaveAttribute("href", /^\/blog\//);
+
+  // Preserved LinkedIn posts
+  const linkedInLinks = page.locator(".linkedin-grid a");
+  await expect(linkedInLinks).toHaveCount(3);
+  await expect(linkedInLinks.nth(0)).toHaveAttribute("href", /7470769047601664000/);
+  await expect(linkedInLinks.nth(1)).toHaveAttribute("href", /7467981878382465024/);
+  await expect(linkedInLinks.nth(2)).toHaveAttribute("href", /7465489993902411776/);
+});
+
 test("seçilmiş blog yazıları tam sayfalar ve sitemap girdileri sunar", async ({ page, request }) => {
   await page.goto("/blog");
   const axeResults = await new AxeBuilder({ page }).analyze();
