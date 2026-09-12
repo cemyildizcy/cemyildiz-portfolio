@@ -45,6 +45,8 @@ export function renderMarkdown(source: string) {
   const lines = source.replace(/\r\n?/g, "\n").split("\n");
   const html: string[] = [];
   let index = 0;
+  let codeIndex = 0;
+  let tableIndex = 0;
 
   while (index < lines.length) {
     const line = lines[index];
@@ -55,6 +57,7 @@ export function renderMarkdown(source: string) {
 
     const fence = line.match(/^```([\w-]*)\s*$/);
     if (fence) {
+      codeIndex += 1;
       const language = fence[1];
       const code: string[] = [];
       index += 1;
@@ -64,7 +67,9 @@ export function renderMarkdown(source: string) {
       }
       if (index < lines.length) index += 1;
       const className = language ? ` class="language-${escapeHtml(language)}"` : "";
-      html.push(`<pre><code${className}>${escapeHtml(code.join("\n"))}</code></pre>`);
+      html.push(
+        `<pre tabindex="0" role="region" aria-label="Kod örneği ${codeIndex}, kaydırılabilir bölge"><code${className}>${escapeHtml(code.join("\n"))}</code></pre>`,
+      );
       continue;
     }
 
@@ -93,8 +98,9 @@ export function renderMarkdown(source: string) {
         rows.push(tableCells(lines[index]));
         index += 1;
       }
+      tableIndex += 1;
       html.push(
-        `<div class="table-wrap"><table><thead><tr>${headers.map((cell) => `<th>${renderInline(cell)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${renderInline(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`,
+        `<div class="table-wrap" tabindex="0" role="region" aria-label="Tablo ${tableIndex}, kaydırılabilir bölge"><table><thead><tr>${headers.map((cell) => `<th>${renderInline(cell)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${renderInline(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`,
       );
       continue;
     }

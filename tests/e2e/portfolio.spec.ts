@@ -6,7 +6,7 @@ const routes = ["gundem-ai", "wc2026-ai-simulator", "sleepinfo"];
 test("ana sayfa Cem'i ve çalışma yönünü açık Türkçeyle tanıtır", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("lang", "tr");
-  await expect(page.getByRole("heading", { name: "Matematikten yapay zekâ ürünlerine." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Kararları görünen işler." })).toBeVisible();
   await expect(page.getByText("ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim.")).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Ana gezinme" })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Ana gezinme" }).getByRole("link", { name: "İnceleme Masası" })).toBeVisible();
@@ -178,6 +178,19 @@ for (const slug of routes) {
     await expect(page.getByRole("heading", { name: "Ne öğrendim, sınırlar neler?" })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
 
+    const touchTargets = page.locator(".case-links a, .back");
+    const count = await touchTargets.count();
+    for (let i = 0; i < count; i++) {
+      const el = touchTargets.nth(i);
+      if (await el.isVisible()) {
+        const box = await el.boundingBox();
+        if (box) {
+          expect(box.width).toBeGreaterThanOrEqual(44);
+          expect(box.height).toBeGreaterThanOrEqual(44);
+        }
+      }
+    }
+
     const results = await new AxeBuilder({ page }).analyze();
     expect(results.violations).toEqual([]);
   });
@@ -212,7 +225,7 @@ test("ana sayfa Mavi Masa canlı kesit deneyimi, semantik başlık hiyerarşisi 
   const h1 = page.locator("h1");
   await expect(h1).toHaveCount(1);
   await expect(h1).toContainText("Cem Yıldız");
-  await expect(h1).toContainText("Matematikten yapay zekâ ürünlerine.");
+  await expect(h1).toContainText("Kararları görünen işler.");
 
   // Verified identity
   await expect(page.getByText("ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim.")).toBeVisible();
@@ -242,6 +255,7 @@ test("ana sayfa Mavi Masa canlı kesit deneyimi, semantik başlık hiyerarşisi 
   const h2s = page.locator("h2");
   const h2Texts = await h2s.allInnerTexts();
   expect(h2Texts).toContain("Seçili projeler.");
+  expect(h2Texts).toContain("Üç dosya. Tek ölçüt: kanıt.");
   expect(h2Texts).toContain("AI İnceleme Masası.");
   expect(h2Texts).toContain("Yazı masasından.");
   expect(h2Texts).toContain("Proje günlüğü.");
@@ -461,7 +475,7 @@ for (const vp of homeViewports) {
 
 test("canlı kesit ve ana sayfa etkileşimli kontrol öğeleri en az 44x44 dokunma hedefine sahiptir", async ({ page }) => {
   await page.goto("/");
-  const controls = page.locator(".project-tab, .layer-tab, .file-links a, .case-link-wrap a, .hero-actions a, .site-header nav a, .contact-links a");
+  const controls = page.locator(".project-tab, .layer-tab, .file-links a, .case-link-wrap a, .hero-actions a, .site-header nav a, .contact-links a, .ledger-open-btn, .ledger-case-link");
   const count = await controls.count();
   expect(count).toBeGreaterThan(0);
 
@@ -571,4 +585,45 @@ test("skip link boşta gizlidir ve odaklandığında görünür", async ({ page 
     expect(focusedBox.y).toBeGreaterThanOrEqual(0);
   }
 });
+
+const allBlogSlugs = [
+  "cross-validation-stratejisi-nasil-secilir",
+  "siniflandirici-kalibrasyonu-predict-proba-guvenilirligi",
+  "makine-ogrenmesinde-veri-sizintisi",
+  "ml-projelerinde-metrik-secimi",
+  "overfitting-nedir-nasil-onlenir",
+];
+
+for (const slug of allBlogSlugs) {
+  test(`blog yazısı ${slug} Axe denetiminde scrollable-region-focusable ve diğer ihlaller olmadan geçer`, async ({ page }) => {
+    await page.goto(`/blog/${slug}`);
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
+  });
+}
+
+test("ana sayfa proje kayıt defteri tüm projeleri listeler, vaka bağlantılarını sunar ve canlı kesiti tetikler", async ({ page }) => {
+  await page.goto("/");
+
+  const ledger = page.locator("#projects-ledger");
+  await expect(ledger).toBeVisible();
+  await expect(ledger.getByRole("heading", { name: "WC2026 AI Simulator" })).toBeVisible();
+  await expect(ledger.getByRole("heading", { name: "GündemAI" })).toBeVisible();
+  await expect(ledger.getByRole("heading", { name: "SleepInfo" })).toBeVisible();
+
+  // Check case study links
+  await expect(ledger.getByRole("link", { name: /WC2026 AI Simulator vaka analizi/i })).toHaveAttribute("href", "/work/wc2026-ai-simulator");
+  await expect(ledger.getByRole("link", { name: /GündemAI vaka analizi/i })).toHaveAttribute("href", "/work/gundem-ai");
+  await expect(ledger.getByRole("link", { name: /SleepInfo vaka analizi/i })).toHaveAttribute("href", "/work/sleepinfo");
+
+  // Clicking "Dosyayı aç" for GündemAI activates GündemAI in the live cutaway
+  const gundemOpenBtn = ledger.locator('button[data-open="gundem-ai"]');
+  await expect(gundemOpenBtn).toBeVisible();
+  await gundemOpenBtn.click();
+
+  const projectTabs = page.getByRole("tablist", { name: "Proje dosyaları" });
+  await expect(projectTabs.getByRole("tab").filter({ hasText: "GündemAI" })).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByRole("tabpanel", { name: /GündemAI/ })).toBeVisible();
+});
+
 

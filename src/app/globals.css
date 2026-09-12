@@ -744,6 +744,138 @@ footer {
   margin: 0.65rem 0;
 }
 
+.case-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.case-links a {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--ink);
+  background: var(--paper-light);
+  font: 700 0.82rem var(--sans);
+  text-decoration: none;
+  color: var(--ink);
+  transition: background 0.15s ease;
+  box-shadow: 2px 2px 0 rgba(23, 32, 51, 0.12);
+}
+
+.case-links a:hover {
+  background: var(--yellow);
+}
+
+/* Project Ledger Section */
+.ledger-section {
+  background: var(--paper);
+  padding: clamp(3rem, 7vw, 7rem) clamp(1rem, 3.8vw, 3.5rem);
+  border-top: 1px solid var(--rule);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.ledger-intro {
+  margin-bottom: 2rem;
+}
+
+.ledger-intro h2 {
+  font: 900 clamp(1.8rem, 3.5vw, 2.5rem) var(--sans);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.6rem;
+  color: var(--ink);
+}
+
+.ledger-intro p {
+  color: var(--muted);
+  max-width: 65ch;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.project-ledger {
+  display: flex;
+  flex-direction: column;
+}
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.45fr) minmax(240px, 1.2fr) auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.ledger-row:first-child {
+  border-top: 1px solid var(--rule);
+}
+
+.ledger-row h3 {
+  margin: 0;
+  font: 900 1.25rem var(--sans);
+  color: var(--ink);
+}
+
+.ledger-row p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.ledger-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.ledger-open-btn {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ink);
+  background: var(--paper-light);
+  font: 700 0.8rem var(--sans);
+  color: var(--ink);
+  padding: 0.55rem 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  box-shadow: 2px 2px 0 rgba(23, 32, 51, 0.12);
+}
+
+.ledger-open-btn:hover {
+  background: var(--yellow);
+}
+
+.ledger-case-link {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: 800 0.82rem var(--sans);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  color: var(--ink);
+  padding: 0.55rem 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .ledger-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
 .profile-section,
 .writing-section,
 .linkedin-section,

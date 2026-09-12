@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { EvidenceDesk } from "@/components/EvidenceDesk";
+import { ProjectLedger } from "@/components/ProjectLedger";
 import { getAllPosts } from "@/lib/blog";
 
 const posts = [
@@ -33,7 +34,7 @@ export default function Home() {
           </p>
           <h1 id="hero-title">
             <span className="hero-name">Cem Yıldız</span>
-            <span className="hero-role">Matematikten yapay zekâ ürünlerine.</span>
+            <span className="hero-role">Kararları görünen işler.</span>
           </h1>
           <p className="lede">
             <span>ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim.</span> İstatistik ve klasik makine öğrenmesi temellerini güçlendirirken derin öğrenmeye ilerliyorum. AI-first bir ürün operatörü olarak yapay zekâyı araştırma ve üretim ortağı kılıyor; insanların güvenle kullanabileceği, kararları ve sınırları açık ürünler geliştiriyorum.
@@ -74,6 +75,8 @@ export default function Home() {
       </section>
 
       <EvidenceDesk />
+
+      <ProjectLedger />
 
       <section id="review-desk" className="review-preview-section" aria-labelledby="review-desk-title">
         <div className="section-head">

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { layerOrder, projects, type LayerKey } from "@/data/projects";
 import {
   initialEvidenceDeskState,
@@ -31,16 +31,6 @@ export function EvidenceDesk() {
   const [state, setState] = useState(initialEvidenceDeskState);
   const projectTabs = useRef<Record<TabKey, HTMLButtonElement | null>>({});
   const layerTabs = useRef<Record<TabKey, HTMLButtonElement | null>>({});
-  const project =
-    projects.find((item) => item.slug === state.projectSlug) ??
-    projects.find((item) => item.slug === initialEvidenceDeskState.projectSlug) ??
-    projects[0];
-
-  if (!project) return null;
-
-  const layer = project.layers[state.layer];
-  const projectTabId = `evidence-project-tab-${project.slug}`;
-  const layerTabId = `evidence-layer-tab-${state.layer}`;
 
   function chooseProject(projectSlug: string, focus = false) {
     setState((current) => selectProject(current, projectSlug));
@@ -51,6 +41,33 @@ export function EvidenceDesk() {
     setState((current) => selectLayer(current, layerKey));
     if (focus) layerTabs.current[layerKey]?.focus();
   }
+
+  useEffect(() => {
+    function handleSelect(event: Event) {
+      const customEvent = event as CustomEvent<{ slug: string }>;
+      const rawSlug = customEvent.detail?.slug;
+      if (!rawSlug) return;
+      const targetProject =
+        projects.find((p) => p.slug === rawSlug) ??
+        projects.find((p) => p.slug.includes(rawSlug) || rawSlug.includes(p.slug));
+      if (targetProject) {
+        chooseProject(targetProject.slug, true);
+      }
+    }
+    window.addEventListener("select-evidence-project", handleSelect);
+    return () => window.removeEventListener("select-evidence-project", handleSelect);
+  }, []);
+
+  const project =
+    projects.find((item) => item.slug === state.projectSlug) ??
+    projects.find((item) => item.slug === initialEvidenceDeskState.projectSlug) ??
+    projects[0];
+
+  if (!project) return null;
+
+  const layer = project.layers[state.layer];
+  const projectTabId = `evidence-project-tab-${project.slug}`;
+  const layerTabId = `evidence-layer-tab-${state.layer}`;
 
   function handleProjectKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     const next = nextTabIndex(event.key, index, projects.length);

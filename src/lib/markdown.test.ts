@@ -63,9 +63,13 @@ value = "<unsafe>"
     expect(html).toContain(
       '<a href="https://scikit-learn.org/stable/" rel="noopener noreferrer">scikit-learn</a>',
     );
-    expect(html).toContain('<pre><code class="language-python">');
+    expect(html).toContain(
+      '<pre tabindex="0" role="region" aria-label="Kod örneği 1, kaydırılabilir bölge"><code class="language-python">',
+    );
     expect(html).toContain('value = &quot;&lt;unsafe&gt;&quot;');
-    expect(html).toContain("<table>");
+    expect(html).toContain(
+      '<div class="table-wrap" tabindex="0" role="region" aria-label="Tablo 1, kaydırılabilir bölge"><table>',
+    );
     expect(html).toContain("<thead>");
     expect(html).toContain("<tbody>");
     expect(html).toContain("<code>KFold</code>");
@@ -123,8 +127,12 @@ describe("calibration article Markdown quality", () => {
 
   it("renders safe HTML without unescaped tags or broken blocks", () => {
     const html = renderMarkdown(calibrationArticle);
-    expect(html).toContain('<pre><code class="language-python">');
-    expect(html).toContain("<table><thead><tr>");
+    expect(html).toContain(
+      '<pre tabindex="0" role="region" aria-label="Kod örneği 1, kaydırılabilir bölge"><code class="language-python">',
+    );
+    expect(html).toContain(
+      '<div class="table-wrap" tabindex="0" role="region" aria-label="Tablo 1, kaydırılabilir bölge"><table><thead><tr>',
+    );
     expect(html).toContain('<a href="https://scikit-learn.org/stable/modules/calibration.html" rel="noopener noreferrer">scikit-learn: Probability calibration</a>');
     expect(html).toContain('<a href="https://arxiv.org/abs/1706.04599" rel="noopener noreferrer">Guo et al. (2017): On Calibration of Modern Neural Networks</a>');
   });
