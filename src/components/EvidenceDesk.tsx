@@ -66,30 +66,37 @@ export function EvidenceDesk() {
     chooseLayer(layerOrder[next], true);
   }
 
+  const formattedStatus = project.status.replace(/\bve\b/g, "+").toUpperCase();
+
   return (
-    <section id="work" className="desk-section" aria-labelledby="work-title">
+    <section id="work" className="desk-section live-cutaway-section" aria-labelledby="work-title">
       <div className="section-head">
         <h2 id="work-title">Seçili projeler.</h2>
         <p>Bir proje seçerek çıktıyı, kararları, yapay zekâ desteğini ve sınırları incele.</p>
       </div>
 
-      <div className="evidence-desk">
-        <div className="file-tabs" role="tablist" aria-label="Proje dosyaları">
+      <div className="evidence-desk live-cutaway">
+        <div className="project-tabs file-tabs" role="tablist" aria-label="Proje dosyaları">
           {projects.map((item, index) => {
             const selected = item.slug === project.slug;
             return (
               <button
                 key={item.slug}
-                ref={(element) => { projectTabs.current[item.slug] = element; }}
+                ref={(element) => {
+                  projectTabs.current[item.slug] = element;
+                }}
+                type="button"
                 role="tab"
                 id={`evidence-project-tab-${item.slug}`}
                 aria-selected={selected}
                 aria-controls="evidence-project-panel"
                 tabIndex={selected ? 0 : -1}
+                className="project-tab"
                 onClick={() => chooseProject(item.slug)}
                 onKeyDown={(event) => handleProjectKeyDown(event, index)}
               >
-                {item.title}<span>{item.status}</span>
+                <span className="project-tab-title">{item.title}</span>
+                <span className="project-tab-status">{item.status}</span>
               </button>
             );
           })}
@@ -99,11 +106,24 @@ export function EvidenceDesk() {
           id="evidence-project-panel"
           role="tabpanel"
           aria-labelledby={projectTabId}
-          className="proof-sheet"
+          className="proof-sheet file"
+          aria-live="polite"
         >
-          <p className="pencil-note">{project.fileLabel} · {project.note}</p>
-          <h3>{project.title}</h3>
-          <p className="premise">{project.premise}</p>
+          <header className="file-head">
+            <div>
+              <p className="file-kicker" id="file-kicker">
+                DOSYA {project.fileLabel} / CANLI KESİT
+              </p>
+              <h3 id="project-file-title" className="file-title">
+                {project.title}
+              </h3>
+            </div>
+            <span className="status" id="file-status">
+              {formattedStatus}
+            </span>
+          </header>
+
+          <p className="premise file-premise">{project.premise}</p>
 
           <div className="layer-tabs" role="tablist" aria-label="Dosya katmanları">
             {layerOrder.map((layerKey, index) => {
@@ -111,12 +131,16 @@ export function EvidenceDesk() {
               return (
                 <button
                   key={layerKey}
-                  ref={(element) => { layerTabs.current[layerKey] = element; }}
+                  ref={(element) => {
+                    layerTabs.current[layerKey] = element;
+                  }}
+                  type="button"
                   role="tab"
                   id={`evidence-layer-tab-${layerKey}`}
                   aria-selected={selected}
                   aria-controls="evidence-layer-panel"
                   tabIndex={selected ? 0 : -1}
+                  className="layer-tab"
                   onClick={() => chooseLayer(layerKey)}
                   onKeyDown={(event) => handleLayerKeyDown(event, index)}
                 >
@@ -126,39 +150,72 @@ export function EvidenceDesk() {
             })}
           </div>
 
-          <div id="evidence-layer-panel" role="tabpanel" aria-labelledby={layerTabId}>
-            <p>{layer.label}</p>
-            <h4>{layer.title}</h4>
-            <p>{layer.body}</p>
-            <ul>{layer.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
-            <p className="pencil-note">{layer.note}</p>
+          <div
+            id="evidence-layer-panel"
+            className="file-body"
+            role="tabpanel"
+            aria-labelledby={layerTabId}
+          >
+            <div className="proof-grid">
+              <div className="proof-copy">
+                <p className="layer-label">{layer.label}</p>
+                <h4 className="layer-title">{layer.title}</h4>
+                <p className="layer-body">{layer.body}</p>
+                <ul className="facts">
+                  {layer.facts.map((fact) => (
+                    <li key={fact}>{fact}</li>
+                  ))}
+                </ul>
 
-            {state.layer === "output" && project.image ? (
-              <figure>
-                <div
-                  role="region"
-                  aria-label={`${project.title} şampiyonluk olasılıkları grafiği, kaydırılabilir bölge`}
-                  tabIndex={0}
-                >
-                  <span>Yana kaydırarak incele</span>
-                  <Image src={project.image.src} alt={project.image.alt} width={960} height={540} />
+                {state.layer === "output" && project.links.length > 0 ? (
+                  <div className="file-links">
+                    {project.links.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+
+                <div className="case-link-wrap">
+                  <Link className="text-link" href={project.caseHref}>
+                    Projeyi incele ↗
+                  </Link>
                 </div>
-                <figcaption>{project.image.alt}</figcaption>
-              </figure>
-            ) : null}
-
-            {state.layer === "output" && project.links.length > 0 ? (
-              <div>
-                {project.links.map((link) => (
-                  <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
-                    {link.label}
-                  </a>
-                ))}
               </div>
-            ) : null}
-          </div>
 
-          <Link className="text-link" href={project.caseHref}>Projeyi incele</Link>
+              {state.layer === "output" && project.image ? (
+                <figure className="figure">
+                  <div
+                    role="region"
+                    className="chart-scroll-region"
+                    aria-label="WC2026 şampiyonluk olasılıkları grafiği, kaydırılabilir bölge"
+                    tabIndex={0}
+                  >
+                    <span className="chart-hint" aria-hidden="true">
+                      Yana kaydırarak incele →
+                    </span>
+                    <Image
+                      src={project.image.src}
+                      alt={project.image.alt}
+                      width={1000}
+                      height={562}
+                      className="chart-image"
+                      priority
+                    />
+                  </div>
+                  <figcaption>{project.image.alt}</figcaption>
+                </figure>
+              ) : null}
+            </div>
+
+            <p className="record-note pencil-note">{layer.note}</p>
+          </div>
         </article>
       </div>
     </section>

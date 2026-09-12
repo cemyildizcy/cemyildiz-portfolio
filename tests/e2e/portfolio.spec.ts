@@ -371,3 +371,118 @@ test("taslak vaka seçildiğinde inceleme başlatılırsa erişilemezlik bildiri
 
   await expect(page.getByText(/Bu iddia veya inceleme modu henüz erişilebilir değil/i).first()).toBeVisible();
 });
+
+const homeViewports = [
+  { name: "desktop", width: 1440, height: 1000 },
+  { name: "mobile", width: 390, height: 844 },
+  { name: "narrow", width: 320, height: 844 },
+];
+
+for (const vp of homeViewports) {
+  test(`canlı kesit görsel sistemi ve sayfa düzeni ${vp.name} (${vp.width}px) genişlikte yatay taşma yapmaz`, async ({ page }) => {
+    await page.setViewportSize({ width: vp.width, height: vp.height });
+    await page.goto("/");
+    expect(await page.evaluate(() => document.documentElement.scrollWidth === document.documentElement.clientWidth)).toBe(true);
+
+    const projectTabs = page.getByRole("tablist", { name: "Proje dosyaları" });
+    const layerTabs = page.getByRole("tablist", { name: "Dosya katmanları" });
+    await expect(projectTabs).toBeVisible();
+    await expect(layerTabs).toBeVisible();
+    await expect(page.locator(".file, .proof-sheet")).toBeVisible();
+  });
+}
+
+test("canlı kesit ve ana sayfa etkileşimli kontrol öğeleri en az 44x44 dokunma hedefine sahiptir", async ({ page }) => {
+  await page.goto("/");
+  const controls = page.locator(".project-tab, .layer-tab, .file-links a, .case-link-wrap a, .hero-actions a, .site-header nav a, .contact-links a");
+  const count = await controls.count();
+  expect(count).toBeGreaterThan(0);
+
+  for (let i = 0; i < count; i++) {
+    const el = controls.nth(i);
+    if (await el.isVisible()) {
+      const box = await el.boundingBox();
+      if (box) {
+        expect(box.width).toBeGreaterThanOrEqual(44);
+        expect(box.height).toBeGreaterThanOrEqual(44);
+      }
+    }
+  }
+});
+
+for (const mobileWidth of [390, 320]) {
+  test(`mobil ${mobileWidth}px genişlikte WC2026 kanıt grafiği sınırlandırılmış kaydırma bölgesinde yatay incelenebilir`, async ({ page }) => {
+    await page.setViewportSize({ width: mobileWidth, height: 844 });
+    await page.goto("/");
+
+    // Default is WC2026 / Çıktı
+    const graphRegion = page.getByRole("region", { name: /WC2026.*şampiyonluk olasılıkları grafiği/i });
+    await expect(graphRegion).toBeVisible();
+    await expect(graphRegion).toHaveAttribute("tabindex", "0");
+
+    // Check bounded height (~270px)
+    const box = await graphRegion.boundingBox();
+    expect(box).toBeTruthy();
+    if (box) {
+      expect(box.height).toBeGreaterThanOrEqual(250);
+      expect(box.height).toBeLessThanOrEqual(300);
+      expect(box.width).toBeLessThanOrEqual(mobileWidth);
+    }
+
+    // Check visible hint
+    await expect(page.getByText("Yana kaydırarak incele")).toBeVisible();
+
+    // Check scrollable behavior
+    const scrollInfo = await graphRegion.evaluate((el) => {
+      const startLeft = el.scrollLeft;
+      el.scrollLeft = 120;
+      return {
+        startLeft,
+        newLeft: el.scrollLeft,
+        scrollWidth: el.scrollWidth,
+        clientWidth: el.clientWidth,
+      };
+    });
+    expect(scrollInfo.scrollWidth).toBeGreaterThan(scrollInfo.clientWidth);
+    expect(scrollInfo.newLeft).toBeGreaterThan(0);
+
+    // No document level overflow
+    expect(await page.evaluate(() => document.documentElement.scrollWidth === document.documentElement.clientWidth)).toBe(true);
+
+    // Absent for GündemAI and SleepInfo
+    const projectTabs = page.getByRole("tablist", { name: "Proje dosyaları" });
+    await projectTabs.getByRole("tab").filter({ hasText: "GündemAI" }).click();
+    await expect(page.getByRole("region", { name: /şampiyonluk olasılıkları grafiği/i })).toHaveCount(0);
+
+    await projectTabs.getByRole("tab").filter({ hasText: "SleepInfo" }).click();
+    await expect(page.getByRole("region", { name: /şampiyonluk olasılıkları grafiği/i })).toHaveCount(0);
+  });
+}
+
+test("ana sayfa ve canlı kesit azaltılmış hareket (prefers-reduced-motion) desteği sunar", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+
+  const fileAnim = await page.locator(".file, .proof-sheet").first().evaluate((el) => {
+    return window.getComputedStyle(el).animationName;
+  });
+  expect(["none", ""].includes(fileAnim)).toBe(true);
+});
+
+test("skip link boşta gizlidir ve odaklandığında görünür", async ({ page }) => {
+  await page.goto("/");
+  const skip = page.locator(".skip");
+
+  // When idle, top is negative (outside viewport)
+  const idleBox = await skip.boundingBox();
+  expect(idleBox ? idleBox.y + idleBox.height <= 0 : true).toBe(true);
+
+  // Focus the skip link
+  await skip.focus();
+  const focusedBox = await skip.boundingBox();
+  expect(focusedBox).toBeTruthy();
+  if (focusedBox) {
+    expect(focusedBox.y).toBeGreaterThanOrEqual(0);
+  }
+});
+
