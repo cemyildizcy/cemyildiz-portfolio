@@ -19,10 +19,10 @@ export const projects: Project[] = [
     slug: "gundem-ai",
     title: "GündemAI",
     short: "Günün öne çıkan haberlerini daha sakin ve takip edilebilir bir mobil deneyimde sunan Android uygulaması.",
-    status: "Kapalı testte",
+    status: "Google Play'de yayında",
     premise: "Yoğun gündem akışı, kaynakları kaybetmeden daha kısa ve okunabilir bir mobil ürüne nasıl dönüşür?",
     evidence: [
-      "Android uygulaması Google Play kapalı testinde; indirme erişimi davetli test kullanıcılarıyla sınırlı.",
+      "Android uygulaması Google Play'in production kanalında yayımlandı.",
       "Ürün, gündemi konu başlıkları ve kaynak bağlantılarıyla okunabilir bir akışta sunuyor.",
     ],
     contribution: [
@@ -30,10 +30,10 @@ export const projects: Project[] = [
       "Araştırma, üretim ve eleştiri döngülerini yönetip yayımlama kararlarını verdim.",
     ],
     aiRole: "Yapay zekâyı araştırma, seçenek üretme, uygulama ve eleştiri için yoğun biçimde kullandım. Ürün kararları ve son kontrol bana ait.",
-    limits: "Uygulama henüz herkese açık değil; Google Play erişimi kapalı test daveti gerektiriyor. Haber özetleri bağlam kaybedebilir; kullanıcılar özgün kaynağı açabilir.",
+    limits: "Google Play erişimi ülke ve cihaz uygunluğuna göre değişebilir. Haber özetleri bağlam kaybedebilir; kullanıcılar özgün kaynağı açabilir.",
     links: [
       {
-        label: "Test bağlantısı (davet gerekli)",
+        label: "Google Play'de görüntüle",
         href: "https://play.google.com/store/apps/details?id=com.gundemai.app",
       },
     ],

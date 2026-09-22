@@ -15,7 +15,7 @@ Cem is an Eskişehir Osmangazi University Mathematics and Computer Sciences stud
 ## Content hierarchy
 
 1. Cem's photograph, name, literal positioning, and direct CV/contact paths.
-2. GündemAI as the primary Android product in closed testing, with a real Google Play test screenshot and an invitation-required link visible in the opening viewport.
+2. GündemAI as the primary Android product published on Google Play, with a real store screenshot and a direct listing link visible in the opening viewport.
 3. Bike Demand as a temporal machine-learning benchmark, with its held-out MAE comparison and limitations visible.
 4. WC2026 as a tertiary educational statistical simulation, with its output chart and repository link. It uses feature weights, Poisson, and Monte Carlo; it is not trained machine learning.
 5. SleepInfo as a quiet link to its case page, which states that its published model metrics have not been independently validated.

@@ -13,7 +13,7 @@ test("ana sayfa Cem'i açık ve dürüst bir konumlandırmayla tanıtır", async
   await expect(page).toHaveTitle(/Cem Yıldız \| Yapay zekâ projeleri/);
 });
 
-test("ilk görünüm Cem'i ve GündemAI kapalı test kanıtını birlikte gösterir", async ({ page }) => {
+test("ilk görünüm Cem'i ve GündemAI Google Play ürününü birlikte gösterir", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
 
@@ -21,7 +21,7 @@ test("ilk görünüm Cem'i ve GündemAI kapalı test kanıtını birlikte göste
   const product = page.locator(".hero-product").getByAltText(/GündemAI.*gerçek Google Play ekran görüntüsü/i);
   await expect(portrait).toBeVisible();
   await expect(product).toBeVisible();
-  await expect(page.locator(".hero-product").getByRole("link", { name: "Test bağlantısı (davet gerekli)" })).toHaveAttribute(
+  await expect(page.locator(".hero-product").getByRole("link", { name: "Google Play'de görüntüle" })).toHaveAttribute(
     "href",
     "https://play.google.com/store/apps/details?id=com.gundemai.app",
   );

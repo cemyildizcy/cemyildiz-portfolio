@@ -4,7 +4,7 @@ import { getProject, projects } from "./projects";
 const expectedLinks: Record<string, { label: string; href: string }[]> = {
   "gundem-ai": [
     {
-      label: "Test bağlantısı (davet gerekli)",
+      label: "Google Play'de görüntüle",
       href: "https://play.google.com/store/apps/details?id=com.gundemai.app",
     },
   ],
@@ -43,7 +43,7 @@ describe("project catalog", () => {
 
   it("records truthful status, links, and real product imagery", () => {
     expect(getProject("gundem-ai")).toMatchObject({
-      status: "Kapalı testte",
+      status: "Google Play'de yayında",
       image: {
         src: "/images/projects/gundemai/bugunun-gundemi.png",
         alt: expect.stringContaining("gerçek Google Play ekran görüntüsü"),

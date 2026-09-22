@@ -6,7 +6,7 @@ The site presents shipped products and educational projects with their purpose, 
 
 ## Featured projects
 
-- **GündemAI** — an Android news app in closed testing; access is limited to invited testers.
+- **GündemAI** — an Android news app published on Google Play.
 - **Bike Demand: Temporal ML** — a chronological comparison of seasonal-naive and ridge models on the [UCI Bike Sharing dataset](https://doi.org/10.24432/C5W894). The repository reports a final-test MAE of 77.79 bikes versus 103.54 for the baseline; this is one city and two years, and historical weather does not establish advance forecast performance.
 - **WC2026 AI Simulator** — a probability-based tournament simulation using Poisson distributions and Monte Carlo. It is not a trained machine-learning model.
 
