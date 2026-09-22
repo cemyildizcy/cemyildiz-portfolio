@@ -107,6 +107,38 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "fashion-mnist-numpy-capacity",
+    title: "Fashion-MNIST: NumPy ile MLP",
+    short: "Fashion-MNIST üzerinde doğrusal softmax sınıflandırıcı ile 128–64 ReLU MLP'yi veri miktarı ve sentetik piksel gürültüsü altında karşılaştıran deney.",
+    status: "NumPy deney raporu yayımlandı",
+    premise: "Eğitim verisi azalınca ve sentetik piksel bozulması eklenince, iki gizli katmanlı bir MLP doğrusal sınıflandırıcıya göre nasıl değişiyor?",
+    evidence: [
+      "Zalando Research Fashion-MNIST'in resmi 10.000 görüntülük test kümesi kullanıldı; resmi veri arşivleri yayımlanmış MD5 değerleriyle doğrulandı.",
+      "54.000 eğitim örneğiyle temiz test doğruluğu, softmax lojistik regresyonda %83.56; 128–64 ReLU MLP'de %87.03 oldu.",
+      "Aynı testte sentetik Gaussian gürültüsünde (σ=0.20) doğruluk %77.70'e karşı %81.76; %10 salt-and-pepper bozulmasında %78.47'ye karşı %82.91 oldu.",
+      "Checkpoint'ler validation macro-F1 ile seçildi; resmi test kümesi model seçimi bittikten sonra bir kez değerlendirildi.",
+    ],
+    contribution: [
+      "Eşlenmiş veri bütçelerinde lineer softmax baseline ile iki gizli katmanlı MLP karşılaştırmasını kurup sonuçları raporladım.",
+      "Veri kaynağı, doğrulama protokolü, metrikler ve sınırlamaları yeniden incelenebilir biçimde yayımladım.",
+    ],
+    aiRole: "Uygulama ve dokümantasyonun bazı bölümlerinde AI desteği kullandım. Rapor; deney protokolünü, testleri, kaynak veriyi ve üretilen metrikleri incelemeye açıyor.",
+    limits: "Sonuç tek seed ve tek train/validation split üzerindeki tek çalışmadır; anlamlılık veya güven aralığı iddiası taşımaz. Gürültü koşulları sentetik iki piksel bozulmasıdır; gerçek perakende fotoğraflarına ya da dağıtımdaki performansa genellenemez.",
+    links: [
+      { label: "GitHub deposunu aç", href: "https://github.com/cemyildizcy/fashion-mnist-numpy-capacity" },
+      { label: "Dondurulmuş sonuç raporunu gör", href: "https://github.com/cemyildizcy/fashion-mnist-numpy-capacity/blob/36ac847/reports/results.json" },
+      { label: "Deney yöntemini oku", href: "https://github.com/cemyildizcy/fashion-mnist-numpy-capacity/blob/36ac847/README.md" },
+    ],
+    note: "Metrikler 36ac847 commit'indeki tek dondurulmuş çalışmadan alınmıştır; tekrarlı tohum veya dış doğrulama değildir.",
+    caseHref: "/work/fashion-mnist-numpy-capacity",
+    image: {
+      src: "/images/projects/fashion-mnist/clean-test-accuracy.svg",
+      alt: "Fashion-MNIST resmi 10.000 örnekli test kümesinde temiz görüntü doğruluğu: lineer softmax %83.56, 128–64 ReLU MLP %87.03. Tek seed ve tek split.",
+      width: 760,
+      height: 330,
+    },
+  },
+  {
     slug: "wc2026-ai-simulator",
     title: "WC2026 AI Simulator",
     short: "Özellik ağırlıkları, Poisson ve Monte Carlo yöntemleriyle çalışan eğitim amaçlı istatistiksel turnuva tahmin motoru.",

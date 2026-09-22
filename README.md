@@ -8,9 +8,10 @@ The site presents shipped products and educational projects with their purpose, 
 
 - **GündemAI** — an Android news app published on Google Play.
 - **Bike Demand: Temporal ML** — a chronological comparison of seasonal-naive and ridge models on the [UCI Bike Sharing dataset](https://doi.org/10.24432/C5W894). The repository reports a final-test MAE of 77.79 bikes versus 103.54 for the baseline; this is one city and two years, and historical weather does not establish advance forecast performance.
+- **Fashion-MNIST: NumPy ile MLP** — a NumPy experiment on the official 10,000-image test set: a 128–64 ReLU MLP reached 87.03% accuracy versus 83.56% for linear softmax. Results come from one seed and split; the noise tests use synthetic pixel corruption, and parts of the implementation and documentation were AI-assisted.
 - **WC2026 AI Simulator** — a probability-based tournament simulation using Poisson distributions and Monte Carlo. It is not a trained machine-learning model.
 
-SleepInfo remains available as an earlier case study. Its published model metrics have not been independently validated.
+SleepInfo remains in the repository as an earlier case page and is not featured on the homepage. Its published model metrics have not been independently validated.
 
 ## Site
 

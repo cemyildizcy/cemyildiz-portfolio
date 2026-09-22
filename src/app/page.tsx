@@ -26,7 +26,7 @@ function ProjectLinks({ project }: { project: (typeof projects)[number] }) {
 
 export default function Home() {
   const writing = getAllPosts().slice(0, 3);
-  const [gundem, sleepinfo, bikeDemand, wc2026] = projects;
+  const [gundem, , bikeDemand, fashionMnist, wc2026] = projects;
 
   return (
     <main>
@@ -44,7 +44,7 @@ export default function Home() {
             <p className="eyebrow">Eskişehir, Türkiye</p>
             <h1 id="hero-title">Cem Yıldız</h1>
             <p className="hero-position">
-              ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim. İstatistik ve klasik makine öğrenmesi temellerimi güçlendiriyor, derin öğrenmeye hazırlanıyorum.
+              ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim. İstatistik ve klasik makine öğrenmesi temellerimi güçlendiriyor, derin öğrenme temellerini deneylerle çalışıyorum.
             </p>
             <p className="hero-method">
               Yapay zekâyı araştırma, üretim, orkestrasyon ve eleştiri için yoğun biçimde kullanarak gerçek ürünler geliştiriyorum.
@@ -108,6 +108,19 @@ export default function Home() {
           </figure>
         </article>
 
+        <article className="project-feature project-dl">
+          <div className="project-copy">
+            <p className="product-status">{fashionMnist.status}</p>
+            <h3>{fashionMnist.title}</h3>
+            <p>{fashionMnist.short}</p>
+            <p className="project-limit">Sınır: {fashionMnist.limits}</p>
+            <ProjectLinks project={fashionMnist} />
+          </div>
+          <figure className="project-chart">
+            <Image src={fashionMnist.image.src} alt={fashionMnist.image.alt} width={fashionMnist.image.width} height={fashionMnist.image.height} sizes="(max-width: 760px) 92vw, 500px" />
+          </figure>
+        </article>
+
         <article className="project-feature project-tertiary">
           <div className="project-copy">
             <p className="product-status">{wc2026.status}</p>
@@ -120,7 +133,6 @@ export default function Home() {
             <Image src={wc2026.image.src} alt={wc2026.image.alt} width={wc2026.image.width} height={wc2026.image.height} sizes="(max-width: 760px) 92vw, 500px" />
           </figure>
         </article>
-        <p className="supporting-project">Önceki eğitim çalışması: <Link href={sleepinfo.caseHref}>SleepInfo</Link>. Yayımlanmış model metrikleri bağımsız doğrulanmadı.</p>
       </section>
 
       <section className="home-notes" aria-labelledby="writing-title">

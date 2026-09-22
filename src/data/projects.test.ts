@@ -23,6 +23,20 @@ const expectedLinks: Record<string, { label: string; href: string }[]> = {
     },
     { label: "UCI veri kaynağını gör", href: "https://doi.org/10.24432/C5W894" },
   ],
+  "fashion-mnist-numpy-capacity": [
+    {
+      label: "GitHub deposunu aç",
+      href: "https://github.com/cemyildizcy/fashion-mnist-numpy-capacity",
+    },
+    {
+      label: "Dondurulmuş sonuç raporunu gör",
+      href: "https://github.com/cemyildizcy/fashion-mnist-numpy-capacity/blob/36ac847/reports/results.json",
+    },
+    {
+      label: "Deney yöntemini oku",
+      href: "https://github.com/cemyildizcy/fashion-mnist-numpy-capacity/blob/36ac847/README.md",
+    },
+  ],
   "wc2026-ai-simulator": [
     {
       label: "GitHub deposunu aç",
@@ -38,6 +52,7 @@ describe("project catalog", () => {
       "sleepinfo",
       "wc2026-ai-simulator",
       "bike-demand-temporal-ml",
+      "fashion-mnist-numpy-capacity",
     ]));
   });
 
@@ -61,6 +76,10 @@ describe("project catalog", () => {
     expect(getProject("bike-demand-temporal-ml")?.image).toMatchObject({
       src: "/images/projects/bike-demand/temporal-test-mae.svg",
       alt: expect.stringContaining("77.79"),
+    });
+    expect(getProject("fashion-mnist-numpy-capacity")?.image).toMatchObject({
+      src: "/images/projects/fashion-mnist/clean-test-accuracy.svg",
+      alt: expect.stringContaining("%87.03"),
     });
 
     for (const project of projects) {
@@ -95,6 +114,17 @@ describe("project catalog", () => {
     expect(bike?.limits).toMatch(/iki yıllık veri/i);
     expect(bike?.limits).toMatch(/geçmiş gözlemler/i);
     expect(bike?.short).toMatch(/gözlenen hava durumu Ridge/);
+  });
+
+  it("reports the Fashion-MNIST NumPy comparison with its test and reproducibility limits", () => {
+    const fashionMnist = getProject("fashion-mnist-numpy-capacity");
+    expect(fashionMnist?.evidence.join(" ")).toContain("%87.03");
+    expect(fashionMnist?.evidence.join(" ")).toContain("%83.56");
+    expect(fashionMnist?.evidence.join(" ")).toContain("10.000");
+    expect(fashionMnist?.limits).toMatch(/tek seed/i);
+    expect(fashionMnist?.limits).toMatch(/tek.*split/i);
+    expect(fashionMnist?.limits).toMatch(/sentetik/i);
+    expect(fashionMnist?.aiRole).toMatch(/AI desteği/i);
   });
 
   it("returns undefined for unknown work", () => {

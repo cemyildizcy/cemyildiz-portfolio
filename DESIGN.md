@@ -23,7 +23,7 @@ The opening composition pairs a circular portrait and literal biography with a c
 The work sequence is intentionally unequal:
 
 - GündemAI is largest, with a tall real screenshot and the strongest title scale.
-- Bike Demand uses a compact held-out error chart and states that its weather inputs are historical observations.
+- Bike Demand and Fashion-MNIST use compact evidence charts, with their temporal and single-run/synthetic-noise limits stated beside the results.
 - WC2026 is more compact, pairing concise copy with an output chart so it cannot dominate.
 - SleepInfo remains a quiet link to its case page rather than a featured project; that page flags its unvalidated model metrics.
 

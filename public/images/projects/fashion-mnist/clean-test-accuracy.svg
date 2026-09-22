@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" role="img" aria-labelledby="title desc">
+  <title id="title">Fashion-MNIST temiz test doğruluğu</title>
+  <desc id="desc">Resmi 10.000 örnekli test kümesinde softmax lojistik regresyon yüzde 83.56, 128–64 ReLU MLP yüzde 87.03 doğruluk elde etti. Sonuç tek seed ve tek split içindir.</desc>
+  <rect width="760" height="330" fill="#fff"/>
+  <text x="40" y="48" fill="#17191d" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700">Temiz test doğruluğu</text>
+  <text x="40" y="76" fill="#5f6670" font-family="Arial, Helvetica, sans-serif" font-size="15">Fashion-MNIST · resmi test kümesi</text>
+
+  <text x="40" y="140" fill="#17191d" font-family="Arial, Helvetica, sans-serif" font-size="16">Lineer softmax</text>
+  <rect x="220" y="117" width="350" height="32" fill="#eef0f2"/>
+  <rect x="220" y="117" width="292.46" height="32" fill="#7b8794"/>
+  <text x="525" y="140" fill="#17191d" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">83.56%</text>
+
+  <text x="40" y="202" fill="#17191d" font-family="Arial, Helvetica, sans-serif" font-size="16">ReLU MLP 128–64</text>
+  <rect x="220" y="179" width="350" height="32" fill="#eef0f2"/>
+  <rect x="220" y="179" width="304.61" height="32" fill="#245aa5"/>
+  <text x="537" y="202" fill="#17191d" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">87.03%</text>
+
+  <line x1="220" y1="239" x2="570" y2="239" stroke="#d9dce1" stroke-width="1"/>
+  <text x="220" y="261" fill="#5f6670" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle">0%</text>
+  <text x="395" y="261" fill="#5f6670" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle">50%</text>
+  <text x="570" y="261" fill="#5f6670" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle">100%</text>
+
+  <text x="40" y="304" fill="#5f6670" font-family="Arial, Helvetica, sans-serif" font-size="14">n = 10.000 · tek seed ve tek split</text>
+</svg>

@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const routes = ["gundem-ai", "wc2026-ai-simulator", "sleepinfo", "bike-demand-temporal-ml"];
+const routes = ["gundem-ai", "wc2026-ai-simulator", "sleepinfo", "bike-demand-temporal-ml", "fashion-mnist-numpy-capacity"];
 
 test("ana sayfa Cem'i açık ve dürüst bir konumlandırmayla tanıtır", async ({ page }) => {
   await page.goto("/");
@@ -9,7 +9,7 @@ test("ana sayfa Cem'i açık ve dürüst bir konumlandırmayla tanıtır", async
   await expect(page.getByRole("heading", { level: 1, name: "Cem Yıldız" })).toBeVisible();
   await expect(page.locator(".hero-position")).toContainText("ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim");
   await expect(page.locator(".hero-position")).toContainText("İstatistik ve klasik makine öğrenmesi temellerimi güçlendiriyor");
-  await expect(page.locator(".hero-position")).toContainText(/derin öğrenmeye hazırlanıyorum/i);
+  await expect(page.locator(".hero-position")).toContainText(/derin öğrenme temellerini deneylerle çalışıyorum/i);
   await expect(page).toHaveTitle(/Cem Yıldız \| Yapay zekâ projeleri/);
 });
 
@@ -30,18 +30,21 @@ test("ilk görünüm Cem'i ve GündemAI Google Play ürününü birlikte göster
   expect(productBox?.y).toBeLessThan(844);
 });
 
-test("ana sayfa GündemAI, Bike Demand ve WC2026'yı öne çıkarır; SleepInfo'yu önceki proje olarak tutar", async ({ page }) => {
+test("ana sayfa dört seçili işi gösterir; SleepInfo'yu vitrinde göstermez", async ({ page }) => {
   await page.goto("/");
   const work = page.locator("#work");
   await expect(work.getByRole("heading", { level: 2, name: "Üretilen işler" })).toBeVisible();
   await expect(work.getByRole("heading", { name: "GündemAI" })).toBeVisible();
   await expect(work.getByRole("heading", { name: "Bike Demand: Temporal ML" })).toBeVisible();
+  await expect(work.getByRole("heading", { name: "Fashion-MNIST: NumPy ile MLP" })).toBeVisible();
   await expect(work.getByRole("heading", { name: "WC2026 AI Simulator" })).toBeVisible();
   await expect(work.getByAltText(/Kronolojik test MAE karşılaştırması.*77.79/i)).toBeVisible();
+  await expect(work.getByAltText(/Fashion-MNIST resmi 10.000 örnekli test kümesi.*%87.03/i)).toBeVisible();
   await expect(work.getByAltText(/WC2026.*çıktı grafiği/i)).toBeVisible();
   await expect(work.getByRole("link", { name: /GündemAI.*vaka/i })).toHaveAttribute("href", "/work/gundem-ai");
-  await expect(work.getByRole("link", { name: "SleepInfo" })).toHaveAttribute("href", "/work/sleepinfo");
+  await expect(work.getByText(/SleepInfo/)).toHaveCount(0);
   await expect(work.getByRole("link", { name: /Bike Demand: Temporal ML.*vaka/i })).toHaveAttribute("href", "/work/bike-demand-temporal-ml");
+  await expect(work.getByRole("link", { name: /Fashion-MNIST: NumPy ile MLP.*vaka/i })).toHaveAttribute("href", "/work/fashion-mnist-numpy-capacity");
   await expect(work.getByRole("link", { name: /WC2026.*vaka/i })).toHaveAttribute("href", "/work/wc2026-ai-simulator");
 });
 
@@ -54,6 +57,19 @@ test("Bike Demand vaka sayfası test metriğini ve hava durumu sınırını aç�
   await expect(page.getByRole("link", { name: "Test sonuçlarını gör" })).toHaveAttribute(
     "href",
     "https://github.com/cemyildizcy/bike-demand-temporal-ml/blob/main/reports/2026-09-22-bike-demand-results.md",
+  );
+});
+
+test("Fashion-MNIST vaka sayfası ölçümleri ve deney sınırlarını açıklar", async ({ page }) => {
+  await page.goto("/work/fashion-mnist-numpy-capacity");
+  await expect(page.getByRole("heading", { level: 1, name: "Fashion-MNIST: NumPy ile MLP" })).toBeVisible();
+  await expect(page.getByText(/temiz test doğruluğu.*%83\.56.*%87\.03/i)).toBeVisible();
+  await expect(page.getByText(/tek seed ve tek train\/validation split/i)).toBeVisible();
+  await expect(page.getByText(/sentetik iki piksel bozulması/i)).toBeVisible();
+  await expect(page.getByText(/AI desteği/i)).toBeVisible();
+  await expect(page.getByRole("link", { name: "Dondurulmuş sonuç raporunu gör" })).toHaveAttribute(
+    "href",
+    "https://github.com/cemyildizcy/fashion-mnist-numpy-capacity/blob/36ac847/reports/results.json",
   );
 });
 
@@ -104,7 +120,7 @@ test("404 Türkçe açıklama ve dönüş bağlantısı sunar", async ({ page })
   await expect(page.getByRole("link", { name: "Ana sayfaya dön" })).toBeVisible();
 });
 
-test("sitemap dört vaka rotasını içerir", async ({ request }) => {
+test("sitemap tüm beş vaka rotasını içerir", async ({ request }) => {
   const response = await request.get("/sitemap.xml");
   expect(response.ok()).toBeTruthy();
   const body = await response.text();
@@ -184,8 +200,13 @@ for (const viewport of [
     expect(await page.evaluate(() => document.documentElement.scrollWidth === document.documentElement.clientWidth)).toBe(true);
     const images = page.locator("main img");
     for (let index = 0; index < await images.count(); index += 1) {
-      await expect(images.nth(index)).toBeVisible();
-      expect(await images.nth(index).evaluate((image) => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+      const image = images.nth(index);
+      await image.scrollIntoViewIfNeeded();
+      await expect(image).toBeVisible();
+      const source = await image.getAttribute("src");
+      await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth), {
+        message: `Image failed to load: ${source}`,
+      }).toBeGreaterThan(0);
     }
   });
 }

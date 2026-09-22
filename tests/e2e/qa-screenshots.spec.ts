@@ -1,7 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import fs from "node:fs";
 import path from "node:path";
+
+async function loadPageImages(page: Page) {
+  const images = page.locator("main img");
+  for (let index = 0; index < await images.count(); index += 1) {
+    const image = images.nth(index);
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toBeVisible();
+    await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  }
+  await page.evaluate(() => window.scrollTo(0, 0));
+}
 
 test.describe("QA Screenshots and Audits", () => {
   test.beforeAll(async () => {
@@ -15,6 +26,7 @@ test.describe("QA Screenshots and Audits", () => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/");
     await page.waitForLoadState("networkidle");
+    await loadPageImages(page);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth);
     expect(overflow).toBe(true);
 
@@ -29,6 +41,7 @@ test.describe("QA Screenshots and Audits", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await page.waitForLoadState("networkidle");
+    await loadPageImages(page);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth);
     expect(overflow).toBe(true);
 
@@ -50,6 +63,7 @@ test.describe("QA Screenshots and Audits", () => {
     await page.setViewportSize({ width: 320, height: 844 });
     await page.goto("/");
     await page.waitForLoadState("networkidle");
+    await loadPageImages(page);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth);
     expect(overflow).toBe(true);
 
@@ -62,6 +76,7 @@ test.describe("QA Screenshots and Audits", () => {
     await page.setViewportSize({ width: 640, height: 800 });
     await page.goto("/");
     await page.waitForLoadState("networkidle");
+    await loadPageImages(page);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth);
     expect(overflow).toBe(true);
 
