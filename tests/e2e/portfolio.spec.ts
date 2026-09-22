@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const routes = ["gundem-ai", "wc2026-ai-simulator", "sleepinfo"];
+const routes = ["gundem-ai", "wc2026-ai-simulator", "sleepinfo", "bike-demand-temporal-ml"];
 
 test("ana sayfa Cem'i açık ve dürüst bir konumlandırmayla tanıtır", async ({ page }) => {
   await page.goto("/");
@@ -13,7 +13,7 @@ test("ana sayfa Cem'i açık ve dürüst bir konumlandırmayla tanıtır", async
   await expect(page).toHaveTitle(/Cem Yıldız \| Yapay zekâ projeleri/);
 });
 
-test("ilk görünüm Cem'i ve yayımlanmış GündemAI ürün kanıtını birlikte gösterir", async ({ page }) => {
+test("ilk görünüm Cem'i ve GündemAI kapalı test kanıtını birlikte gösterir", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
 
@@ -21,7 +21,7 @@ test("ilk görünüm Cem'i ve yayımlanmış GündemAI ürün kanıtını birlik
   const product = page.locator(".hero-product").getByAltText(/GündemAI.*gerçek Google Play ekran görüntüsü/i);
   await expect(portrait).toBeVisible();
   await expect(product).toBeVisible();
-  await expect(page.locator(".hero-product").getByRole("link", { name: "Google Play'de aç" })).toHaveAttribute(
+  await expect(page.locator(".hero-product").getByRole("link", { name: "Test bağlantısı (davet gerekli)" })).toHaveAttribute(
     "href",
     "https://play.google.com/store/apps/details?id=com.gundemai.app",
   );
@@ -30,18 +30,31 @@ test("ilk görünüm Cem'i ve yayımlanmış GündemAI ürün kanıtını birlik
   expect(productBox?.y).toBeLessThan(844);
 });
 
-test("ana sayfa ürünleri eşit kartlar yerine GündemAI, SleepInfo ve WC2026 hiyerarşisiyle sunar", async ({ page }) => {
+test("ana sayfa GündemAI, Bike Demand ve WC2026'yı öne çıkarır; SleepInfo'yu önceki proje olarak tutar", async ({ page }) => {
   await page.goto("/");
   const work = page.locator("#work");
   await expect(work.getByRole("heading", { level: 2, name: "Üretilen işler" })).toBeVisible();
   await expect(work.getByRole("heading", { name: "GündemAI" })).toBeVisible();
-  await expect(work.getByRole("heading", { name: "SleepInfo" })).toBeVisible();
+  await expect(work.getByRole("heading", { name: "Bike Demand: Temporal ML" })).toBeVisible();
   await expect(work.getByRole("heading", { name: "WC2026 AI Simulator" })).toBeVisible();
-  await expect(work.getByAltText(/SleepInfo.*özgün hero illüstrasyonu/i)).toBeVisible();
+  await expect(work.getByAltText(/Kronolojik test MAE karşılaştırması.*77.79/i)).toBeVisible();
   await expect(work.getByAltText(/WC2026.*çıktı grafiği/i)).toBeVisible();
   await expect(work.getByRole("link", { name: /GündemAI.*vaka/i })).toHaveAttribute("href", "/work/gundem-ai");
-  await expect(work.getByRole("link", { name: /SleepInfo.*vaka/i })).toHaveAttribute("href", "/work/sleepinfo");
+  await expect(work.getByRole("link", { name: "SleepInfo" })).toHaveAttribute("href", "/work/sleepinfo");
+  await expect(work.getByRole("link", { name: /Bike Demand: Temporal ML.*vaka/i })).toHaveAttribute("href", "/work/bike-demand-temporal-ml");
   await expect(work.getByRole("link", { name: /WC2026.*vaka/i })).toHaveAttribute("href", "/work/wc2026-ai-simulator");
+});
+
+test("Bike Demand vaka sayfası test metriğini ve hava durumu sınırını açıklar", async ({ page }) => {
+  await page.goto("/work/bike-demand-temporal-ml");
+  await expect(page.getByRole("heading", { level: 1, name: "Bike Demand: Temporal ML" })).toBeVisible();
+  await expect(page.getByText(/MAE 77\.79/)).toBeVisible();
+  await expect(page.getByText(/103\.54/)).toBeVisible();
+  await expect(page.getByText(/Hava durumu girdileri geçmiş gözlemlerdir/)).toBeVisible();
+  await expect(page.getByRole("link", { name: "Test sonuçlarını gör" })).toHaveAttribute(
+    "href",
+    "https://github.com/cemyildizcy/bike-demand-temporal-ml/blob/main/reports/2026-09-22-bike-demand-results.md",
+  );
 });
 
 test("ana sayfa X-Ray, harness, simülasyon ve ajan tiyatrosu içermez", async ({ page }) => {
@@ -91,7 +104,7 @@ test("404 Türkçe açıklama ve dönüş bağlantısı sunar", async ({ page })
   await expect(page.getByRole("link", { name: "Ana sayfaya dön" })).toBeVisible();
 });
 
-test("sitemap üç vaka rotasını içerir", async ({ request }) => {
+test("sitemap dört vaka rotasını içerir", async ({ request }) => {
   const response = await request.get("/sitemap.xml");
   expect(response.ok()).toBeTruthy();
   const body = await response.text();

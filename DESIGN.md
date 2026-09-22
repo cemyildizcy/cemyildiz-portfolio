@@ -23,8 +23,9 @@ The opening composition pairs a circular portrait and literal biography with a c
 The work sequence is intentionally unequal:
 
 - GündemAI is largest, with a tall real screenshot and the strongest title scale.
-- SleepInfo uses a broad pale-blue illustration field and medium title scale.
+- Bike Demand uses a compact held-out error chart and states that its weather inputs are historical observations.
 - WC2026 is more compact, pairing concise copy with an output chart so it cannot dominate.
+- SleepInfo remains a quiet link to its case page rather than a featured project; that page flags its unvalidated model metrics.
 
 Selected writing and the minor AI İnceleme Masası entry share a quieter two-column section. The dark closing section contains biography, education, and contact links.
 

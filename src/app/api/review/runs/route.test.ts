@@ -196,7 +196,7 @@ describe("POST /api/review/runs Route Handler", () => {
   });
 
   it("enforces atomic rate limiting returning 429 when IP limit is exceeded", async () => {
-    const { createReviewRunsHandler } = await import("./route");
+    const { createReviewRunsHandler } = await import("./handler");
     const { RateLimiter } = await import("@/lib/review/rate-limit");
     const rateLimiter = new RateLimiter({ limit: 5, windowMs: 60_000 });
     const handler = createReviewRunsHandler({ rateLimiter });
@@ -226,7 +226,7 @@ describe("POST /api/review/runs Route Handler", () => {
   });
 
   it("anonymizes IP immediately and never leaks raw IP in response or logs", async () => {
-    const { createReviewRunsHandler } = await import("./route");
+    const { createReviewRunsHandler } = await import("./handler");
     const { MemoryTelemetrySink } = await import("@/lib/review/telemetry");
     const telemetry = new MemoryTelemetrySink();
     const handler = createReviewRunsHandler({ telemetry });

@@ -19,10 +19,10 @@ export const projects: Project[] = [
     slug: "gundem-ai",
     title: "GündemAI",
     short: "Günün öne çıkan haberlerini daha sakin ve takip edilebilir bir mobil deneyimde sunan Android uygulaması.",
-    status: "Google Play'de yayında",
+    status: "Kapalı testte",
     premise: "Yoğun gündem akışı, kaynakları kaybetmeden daha kısa ve okunabilir bir mobil ürüne nasıl dönüşür?",
     evidence: [
-      "Android uygulaması Google Play üzerinden indirilebilir.",
+      "Android uygulaması Google Play kapalı testinde; indirme erişimi davetli test kullanıcılarıyla sınırlı.",
       "Ürün, gündemi konu başlıkları ve kaynak bağlantılarıyla okunabilir bir akışta sunuyor.",
     ],
     contribution: [
@@ -30,10 +30,10 @@ export const projects: Project[] = [
       "Araştırma, üretim ve eleştiri döngülerini yönetip yayımlama kararlarını verdim.",
     ],
     aiRole: "Yapay zekâyı araştırma, seçenek üretme, uygulama ve eleştiri için yoğun biçimde kullandım. Ürün kararları ve son kontrol bana ait.",
-    limits: "Haber özetleri bağlam kaybedebilir; kullanıcıların özgün kaynakları açabilmesi ürünün bilinçli bir parçasıdır.",
+    limits: "Uygulama henüz herkese açık değil; Google Play erişimi kapalı test daveti gerektiriyor. Haber özetleri bağlam kaybedebilir; kullanıcılar özgün kaynağı açabilir.",
     links: [
       {
-        label: "Google Play'de aç",
+        label: "Test bağlantısı (davet gerekli)",
         href: "https://play.google.com/store/apps/details?id=com.gundemai.app",
       },
     ],
@@ -54,14 +54,14 @@ export const projects: Project[] = [
     premise: "Yanıtı doğrudan ele veren değişkenler çıkarıldığında uyku verilerinden yararlı bir tahmin üretilebilir mi?",
     evidence: [
       "Çalışan ürün sleepinfo.com.tr adresinde, kaynak kodu GitHub'da yayımlanıyor.",
-      "Proje dokümanı veri sızıntısı önlemini ve model karşılaştırmasını açıklıyor.",
+      "Kaynak deposunda veri hazırlama ve model değerlendirme süreci belgeleniyor.",
     ],
     contribution: [
       "Problemi tanımladım, modelleri karşılaştırdım ve tahmini web ürününe dönüştürdüm.",
       "Sonucu kullanıcıların anlayabileceği bir deneyimde birleştirdim.",
     ],
     aiRole: "Yapay zekâyı uygulama, hata ayıklama ve ürün iyileştirmede kullandım; bu destek çerçeve uzmanlığı iddiası değildir.",
-    limits: "Bu bir eğitim projesidir; tıbbi tavsiye veya klinik değerlendirme sunmaz.",
+    limits: "Bu bir eğitim projesidir. Yayımlanmış model metriklerini bağımsız doğrulamadım; sonuçlar tıbbi tavsiye veya klinik değerlendirme değildir.",
     links: [
       { label: "Ürünü aç", href: "https://sleepinfo.com.tr" },
       { label: "GitHub deposunu aç", href: "https://github.com/cemyildizcy/uyku-sagligi-tahmincisi" },
@@ -73,6 +73,37 @@ export const projects: Project[] = [
       alt: "SleepInfo ürün deposundaki özgün hero illüstrasyonu: uyuyan kişi ve gece manzarası",
       width: 343,
       height: 361,
+    },
+  },
+  {
+    slug: "bike-demand-temporal-ml",
+    title: "Bike Demand: Temporal ML",
+    short: "Saatlik bisiklet kiralamalarında mevsimsel taban çizgisini takvim ve gözlenen hava durumu Ridge modelleriyle kronolojik olarak karşılaştıran çalışma.",
+    status: "Kronolojik test raporlandı",
+    premise: "Takvim ve gözlenen hava durumu, sonraki dönem tahminlerini mevsimsel bir taban çizgisinden daha iyi hâle getiriyor mu?",
+    evidence: [
+      "UCI Bike Sharing veri setindeki Washington, DC'den 2011–2012 yıllarına ait 17.379 saatlik kayıt kullanılıyor; veri CC BY 4.0 lisanslı.",
+      "Veri, eğitim/doğrulama/test bölümlerine zaman sırasını koruyan %70/%15/%15 oranıyla ayrılıyor; ön işleme yalnızca eğitim verisine uyduruluyor.",
+      "2.607 satırlık final test bölümünde, doğrulamada seçilen takvim+gözlenen hava durumu Ridge modeli MAE 77.79 bisiklet/saat bildirdi; mevsimsel taban çizgisi 103.54 oldu.",
+    ],
+    contribution: [
+      "Takvim ve hava durumu özellikli Ridge modellerini haftanın günü/saatine dayalı mevsimsel taban çizgisiyle karşılaştırdım.",
+      "Zaman sırasını koruyan ayrım kullandım ve ön işlemeyi yalnızca eğitim verisine uydurdum.",
+    ],
+    aiRole: "Depo, kod ve değerlendirme iskeletinin AI yardımıyla geliştirildiğini belirtiyor; yöntem ve ölçümler sürüm kontrolündeki raporda yer alıyor.",
+    limits: "Bu çalışma tek bir şehrin iki yıllık verisinden ayrılan kronolojik bir testtir; başka şehirler veya dönemler için dış doğrulama değildir. Hava durumu girdileri geçmiş gözlemlerdir; geleceğe dönük tahmin becerisini kanıtlamaz.",
+    links: [
+      { label: "GitHub deposunu aç", href: "https://github.com/cemyildizcy/bike-demand-temporal-ml" },
+      { label: "Test sonuçlarını gör", href: "https://github.com/cemyildizcy/bike-demand-temporal-ml/blob/main/reports/2026-09-22-bike-demand-results.md" },
+      { label: "UCI veri kaynağını gör", href: "https://doi.org/10.24432/C5W894" },
+    ],
+    note: "Ölçümler repodaki kronolojik test raporundan alınmıştır; dış doğrulama iddiası yoktur.",
+    caseHref: "/work/bike-demand-temporal-ml",
+    image: {
+      src: "/images/projects/bike-demand/temporal-test-mae.svg",
+      alt: "Kronolojik test MAE karşılaştırması: mevsimsel taban çizgisi 103.54, takvim ve gözlenen hava durumu Ridge modeli 77.79; düşük değer daha iyi.",
+      width: 860,
+      height: 480,
     },
   },
   {

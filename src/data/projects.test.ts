@@ -4,7 +4,7 @@ import { getProject, projects } from "./projects";
 const expectedLinks: Record<string, { label: string; href: string }[]> = {
   "gundem-ai": [
     {
-      label: "Google Play'de aç",
+      label: "Test bağlantısı (davet gerekli)",
       href: "https://play.google.com/store/apps/details?id=com.gundemai.app",
     },
   ],
@@ -15,6 +15,14 @@ const expectedLinks: Record<string, { label: string; href: string }[]> = {
       href: "https://github.com/cemyildizcy/uyku-sagligi-tahmincisi",
     },
   ],
+  "bike-demand-temporal-ml": [
+    { label: "GitHub deposunu aç", href: "https://github.com/cemyildizcy/bike-demand-temporal-ml" },
+    {
+      label: "Test sonuçlarını gör",
+      href: "https://github.com/cemyildizcy/bike-demand-temporal-ml/blob/main/reports/2026-09-22-bike-demand-results.md",
+    },
+    { label: "UCI veri kaynağını gör", href: "https://doi.org/10.24432/C5W894" },
+  ],
   "wc2026-ai-simulator": [
     {
       label: "GitHub deposunu aç",
@@ -24,17 +32,18 @@ const expectedLinks: Record<string, { label: string; href: string }[]> = {
 };
 
 describe("project catalog", () => {
-  it("keeps the three projects in their intended visual priority", () => {
-    expect(projects.map((project) => project.slug)).toEqual([
+  it("keeps the project catalog routes available", () => {
+    expect(new Set(projects.map((project) => project.slug))).toEqual(new Set([
       "gundem-ai",
       "sleepinfo",
       "wc2026-ai-simulator",
-    ]);
+      "bike-demand-temporal-ml",
+    ]));
   });
 
   it("records truthful status, links, and real product imagery", () => {
     expect(getProject("gundem-ai")).toMatchObject({
-      status: "Google Play'de yayında",
+      status: "Kapalı testte",
       image: {
         src: "/images/projects/gundemai/bugunun-gundemi.png",
         alt: expect.stringContaining("gerçek Google Play ekran görüntüsü"),
@@ -44,9 +53,14 @@ describe("project catalog", () => {
       src: "/images/projects/sleepinfo/hero.png",
       alt: expect.stringContaining("ürün deposundaki özgün hero illüstrasyonu"),
     });
+    expect(getProject("sleepinfo")?.limits).toMatch(/model metriklerini bağımsız doğrulamadım/i);
     expect(getProject("wc2026-ai-simulator")?.image).toMatchObject({
       src: "/images/projects/wc2026/champion-probabilities.png",
       alt: expect.stringContaining("çıktı grafiği"),
+    });
+    expect(getProject("bike-demand-temporal-ml")?.image).toMatchObject({
+      src: "/images/projects/bike-demand/temporal-test-mae.svg",
+      alt: expect.stringContaining("77.79"),
     });
 
     for (const project of projects) {
@@ -72,6 +86,15 @@ describe("project catalog", () => {
     expect(`${wc2026?.short} ${wc2026?.premise}`).toMatch(/Monte Carlo/);
     expect(`${wc2026?.short} ${wc2026?.premise}`).toMatch(/eğitim/i);
     expect(`${wc2026?.short} ${wc2026?.premise}`).not.toMatch(/eğitilmiş makine öğrenmesi/i);
+  });
+
+  it("reports Bike Demand metrics with the temporal holdout limits", () => {
+    const bike = getProject("bike-demand-temporal-ml");
+    expect(bike?.evidence.join(" ")).toContain("MAE 77.79");
+    expect(bike?.evidence.join(" ")).toContain("103.54");
+    expect(bike?.limits).toMatch(/iki yıllık veri/i);
+    expect(bike?.limits).toMatch(/geçmiş gözlemler/i);
+    expect(bike?.short).toMatch(/gözlenen hava durumu Ridge/);
   });
 
   it("returns undefined for unknown work", () => {

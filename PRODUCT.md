@@ -6,7 +6,7 @@ People considering Cem for internships, collaborations, or technical conversatio
 
 ## Purpose
 
-A Turkish-first, person-led portfolio built around real products. The homepage introduces Cem plainly and then presents GündemAI, SleepInfo, and WC2026 with real imagery, current status, direct links, one limitation, and deeper case pages.
+A Turkish-first, person-led portfolio built around real products. The homepage introduces Cem plainly and then presents GündemAI, the Bike Demand temporal benchmark, and WC2026 with evidence, current status, direct links, limitations, and deeper case pages. SleepInfo remains available as an earlier case study; its published model metrics are explicitly marked as not independently validated.
 
 ## Positioning
 
@@ -15,20 +15,22 @@ Cem is an Eskişehir Osmangazi University Mathematics and Computer Sciences stud
 ## Content hierarchy
 
 1. Cem's photograph, name, literal positioning, and direct CV/contact paths.
-2. GündemAI as the primary shipped product, with a real Google Play screenshot and store link visible in the opening viewport.
-3. SleepInfo as a secondary live educational product, with an illustration copied from its source repository.
-4. WC2026 as a tertiary educational statistical forecast engine, with its output chart and repository link. It uses feature weights, Poisson, and Monte Carlo; it is not trained machine learning.
-5. Selected technical writing, education, contact links, and a minor link to AI İnceleme Masası.
+2. GündemAI as the primary Android product in closed testing, with a real Google Play test screenshot and an invitation-required link visible in the opening viewport.
+3. Bike Demand as a temporal machine-learning benchmark, with its held-out MAE comparison and limitations visible.
+4. WC2026 as a tertiary educational statistical simulation, with its output chart and repository link. It uses feature weights, Poisson, and Monte Carlo; it is not trained machine learning.
+5. SleepInfo as a quiet link to its case page, which states that its published model metrics have not been independently validated.
+6. Selected technical writing, education, contact links, and a minor link to AI İnceleme Masası.
 
 ## Preserved product surface
 
-The three `/work` routes, blog routes, sitemap, CV, profile image, GitHub, LinkedIn, email, Play Store, SleepInfo live product/repository, WC2026 repository, `/ai-inceleme-masasi`, and `POST /api/review/runs` remain available.
+The `/work` routes, blog routes, sitemap, CV, profile image, GitHub, LinkedIn, email, GündemAI test link, Bike Demand repository/report, SleepInfo live product/repository, WC2026 repository, `/ai-inceleme-masasi`, and `POST /api/review/runs` remain available.
 
 ## Evidence and asset provenance
 
 - `public/images/projects/gundemai/bugunun-gundemi.png` is copied from GündemAI's real Play Store screenshot set: `store-assets/screenshots/play-store-real-2026-08-16/01-bugunun-gundemi.png`.
 - `public/images/projects/sleepinfo/hero.png` is the illustrative hero asset from the SleepInfo product repository: `frontend/src/assets/hero.png`. It is not described as a screenshot.
 - `public/images/projects/wc2026/champion-probabilities.png` is the existing simulation output chart.
+- `public/images/projects/bike-demand/temporal-test-mae.svg` visualizes the Bike Demand report's final-test MAE values without implying an external validation.
 
 ## Constraints
 

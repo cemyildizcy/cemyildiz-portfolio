@@ -26,7 +26,7 @@ function ProjectLinks({ project }: { project: (typeof projects)[number] }) {
 
 export default function Home() {
   const writing = getAllPosts().slice(0, 3);
-  const [gundem, sleepinfo, wc2026] = projects;
+  const [gundem, sleepinfo, bikeDemand, wc2026] = projects;
 
   return (
     <main>
@@ -97,15 +97,15 @@ export default function Home() {
 
         <article className="project-feature project-secondary">
           <div className="project-copy">
-            <p className="product-status">{sleepinfo.status}</p>
-            <h3>{sleepinfo.title}</h3>
-            <p>{sleepinfo.short}</p>
-            <p className="project-limit">Sınır: {sleepinfo.limits}</p>
-            <ProjectLinks project={sleepinfo} />
+            <p className="product-status">{bikeDemand.status}</p>
+            <h3>{bikeDemand.title}</h3>
+            <p>{bikeDemand.short}</p>
+            <p className="project-limit">Sınır: {bikeDemand.limits}</p>
+            <ProjectLinks project={bikeDemand} />
           </div>
-          <div className="project-visual project-visual-illustration">
-            <Image src={sleepinfo.image.src} alt={sleepinfo.image.alt} width={sleepinfo.image.width} height={sleepinfo.image.height} sizes="(max-width: 760px) 80vw, 420px" />
-          </div>
+          <figure className="project-chart">
+            <Image src={bikeDemand.image.src} alt={bikeDemand.image.alt} width={bikeDemand.image.width} height={bikeDemand.image.height} sizes="(max-width: 760px) 92vw, 500px" />
+          </figure>
         </article>
 
         <article className="project-feature project-tertiary">
@@ -120,6 +120,7 @@ export default function Home() {
             <Image src={wc2026.image.src} alt={wc2026.image.alt} width={wc2026.image.width} height={wc2026.image.height} sizes="(max-width: 760px) 92vw, 500px" />
           </figure>
         </article>
+        <p className="supporting-project">Önceki eğitim çalışması: <Link href={sleepinfo.caseHref}>SleepInfo</Link>. Yayımlanmış model metrikleri bağımsız doğrulanmadı.</p>
       </section>
 
       <section className="home-notes" aria-labelledby="writing-title">

@@ -1,52 +1,24 @@
-# Cem Yıldız Portfolio
+# Cem Yıldız — Portfolio
 
-Personal portfolio and data science case-study website for **Cem Yıldız** — a Mathematics & Computer Science student focused on Data Science, Machine Learning, and full-stack AI/data products.
+A Turkish-first portfolio for project notes and work by Cem Yıldız, a Mathematics and Computer Sciences undergraduate at Eskişehir Osmangazi University.
 
-Live: [cemyildiz.net](https://cemyildiz.net)
+The site presents shipped products and educational projects with their purpose, available evidence, Cem's role, AI assistance, and known limits. It is not a list of framework or expertise claims.
 
-## Overview
+## Featured projects
 
-This portfolio is designed as a **Data Lab / case-study showcase**, not a generic link list. Each project is presented with context, methodology, outputs, and learnings so visitors can understand both the technical implementation and the product thinking behind the work.
+- **GündemAI** — an Android news app in closed testing; access is limited to invited testers.
+- **Bike Demand: Temporal ML** — a chronological comparison of seasonal-naive and ridge models on the [UCI Bike Sharing dataset](https://doi.org/10.24432/C5W894). The repository reports a final-test MAE of 77.79 bikes versus 103.54 for the baseline; this is one city and two years, and historical weather does not establish advance forecast performance.
+- **WC2026 AI Simulator** — a probability-based tournament simulation using Poisson distributions and Monte Carlo. It is not a trained machine-learning model.
 
-## Features
+SleepInfo remains available as an earlier case study. Its published model metrics have not been independently validated.
 
-- Case-study driven project pages
-- Featured data science and ML projects
-- Responsive modern UI
-- Project storytelling sections
-- Lightweight social/project links
-- Built for deployment on Vercel
+## Site
 
-## Featured Projects
-
-- **2026 FIFA World Cup AI Simulator** — Poisson xG + Monte Carlo tournament forecasting dashboard
-- **SleepInfo** — AI-powered sleep health predictor with XGBoost, FastAPI, React, Supabase, and Gemini AI
-- **Turkey Earthquake Risk Analysis** — geospatial risk analysis with clustering and ML classification
-- **Student Performance Analysis** — academic success modeling with feature engineering and clustering
-
-## Tech Stack
-
-- **Framework:** Next.js
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Deployment:** Vercel
-- **Content:** project case-study data and custom portfolio sections
-
-## Local Development
+Built with Next.js, React, and TypeScript. Project content lives in `src/data/projects.ts`; the homepage is in `src/app/page.tsx`.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Build
-
-```bash
-npm run build
-```
-
-## Purpose
-
-The goal of this portfolio is to show how I turn datasets and ideas into polished, explainable, and interactive products — combining data science, machine learning, and full-stack development.
+Use `npm run lint`, `npm test`, `npx tsc --noEmit`, `npm run build`, and `npm run test:e2e` for local verification.
