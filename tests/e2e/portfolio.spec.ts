@@ -8,8 +8,8 @@ test("ana sayfa Cem'i açık ve dürüst bir konumlandırmayla tanıtır", async
   await expect(page.locator("html")).toHaveAttribute("lang", "tr");
   await expect(page.getByRole("heading", { level: 1, name: "Cem Yıldız" })).toBeVisible();
   await expect(page.locator(".hero-position")).toContainText("ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim");
-  await expect(page.locator(".hero-position")).toContainText("İstatistik ve klasik makine öğrenmesi temellerimi güçlendiriyor");
-  await expect(page.locator(".hero-position")).toContainText(/derin öğrenme temellerini deneylerle çalışıyorum/i);
+  await expect(page.locator(".hero-position")).toContainText("Yapay zekâ ve makine öğrenmesiyle");
+  await expect(page.locator(".hero-position")).toContainText("gerçek problemler için ürünler geliştiriyorum");
   await expect(page).toHaveTitle(/Cem Yıldız \| Yapay zekâ projeleri/);
 });
 

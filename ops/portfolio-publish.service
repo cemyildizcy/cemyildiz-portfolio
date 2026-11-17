@@ -1,0 +1,26 @@
+[Unit]
+Description=Publish verified public portfolio updates
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=portfolio-publisher
+Group=portfolio-publisher
+WorkingDirectory=/srv/cemyildiz-portfolio
+EnvironmentFile=/etc/portfolio-publisher.env
+Environment=HOME=/var/lib/portfolio-publisher
+ExecStart=/usr/bin/python3 /srv/cemyildiz-portfolio/scripts/portfolio_ops.py publish --queue ${PORTFOLIO_QUEUE} --repo /srv/cemyildiz-portfolio --state /var/lib/portfolio-publisher/state
+TimeoutStartSec=35min
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/srv/cemyildiz-portfolio /var/lib/portfolio-publisher
+RestrictSUIDSGID=true
+MemoryMax=3G
+CPUQuota=150%
+
+[Install]
+WantedBy=multi-user.target

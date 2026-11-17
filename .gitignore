@@ -41,3 +41,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Operator state and local evidence stay out of the public repository.
+__pycache__/
+*.pyc
+/.impeccable/
+/reports/portfolio-*.png
+/reports/2026-11-17-rebuild-contract.md

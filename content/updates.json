@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "portfolio-yenileme",
+      "type": "project",
+      "title": "Kendini güncel tutan bir portföy",
+      "summary": "Projelerimi, deneylerimi ve yeni çalışmalarımı tek bir yerde topladığım kişisel sitemi yeniden tasarlıyorum.",
+      "date": "2026-11-17",
+      "status": "in-progress",
+      "tags": [
+        "Web",
+        "Otomasyon"
+      ],
+      "problem": "Bir proje bittikten sonra portföyü elle güncellemek, çalışma ile paylaşım arasında gereksiz bir boşluk bırakıyor.",
+      "outcomes": [
+        "Yeni arayüz, çalışma günlüğü ve proje sayfaları üretim derlemesinde çalışıyor; mevcut proje ve yazı arşivi korunuyor."
+      ],
+      "contribution": [
+        "Site tasarımını, içerik yapısını ve hangi çalışmaların paylaşılacağını belirliyorum."
+      ],
+      "aiRole": "Araştırma, tasarım, uygulama ve kontrol aşamalarında yapay zekâ desteği kullanıyorum.",
+      "limitations": "Yenileme çalışması sürüyor. Otomatik yayın hattının sunucu kurulumu henüz tamamlanmadı.",
+      "paragraphs": [
+        "Hedefim yalnızca yeni bir görünüm değil: yaptığım işlerin, kaynakları ve sınırlarıyla birlikte güncel kaldığı bir portföy.",
+        "Özel notlar ve konuşmalar yayımlanmayacak. Yalnız paylaşılmaya uygun proje özetleri ayrı bir yayın kuyruğuna alınacak."
+      ],
+      "links": [
+        {
+          "label": "Kaynak kodu",
+          "href": "https://github.com/cemyildizcy/cemyildiz-portfolio"
+        }
+      ]
+    }
+  ]
+}

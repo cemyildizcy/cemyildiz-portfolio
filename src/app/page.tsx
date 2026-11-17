@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { projects } from "@/data/projects";
 import { getAllPosts } from "@/lib/blog";
+import { getPublications, statusLabel } from "@/lib/publications";
 
 const socialLinks = [
   { label: "GitHub", href: "https://github.com/cemyildizcy" },
@@ -27,9 +28,10 @@ function ProjectLinks({ project }: { project: (typeof projects)[number] }) {
 export default function Home() {
   const writing = getAllPosts().slice(0, 3);
   const [gundem, , bikeDemand, fashionMnist, wc2026] = projects;
+  const updates = getPublications().slice(0, 3);
 
   return (
-    <main>
+    <main className="portfolio-home">
       <section className="home-hero" aria-labelledby="hero-title">
         <div className="hero-identity">
           <Image
@@ -41,13 +43,13 @@ export default function Home() {
             priority
           />
           <div className="hero-intro">
-            <p className="eyebrow">Eskişehir, Türkiye</p>
             <h1 id="hero-title">Cem Yıldız</h1>
+            <p className="hero-thesis">Meraktan<br />çalışan bir şeye.</p>
             <p className="hero-position">
-              ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim. İstatistik ve klasik makine öğrenmesi temellerimi güçlendiriyor, derin öğrenme temellerini deneylerle çalışıyorum.
+              ESOGÜ Matematik ve Bilgisayar Bilimleri öğrencisiyim. Yapay zekâ ve makine öğrenmesiyle, gerçek problemler için ürünler geliştiriyorum.
             </p>
             <p className="hero-method">
-              Yapay zekâyı araştırma, üretim, orkestrasyon ve eleştiri için yoğun biçimde kullanarak gerçek ürünler geliştiriyorum.
+              Matematik, yapay zekâ ve gerçek problemler. Öğrendiklerimi yalnız not almıyor, bir şeyler yaparak sınıyorum.
             </p>
             <div className="hero-actions">
               <Link className="button-primary" href="#work">Projeleri gör</Link>
@@ -58,9 +60,9 @@ export default function Home() {
 
         <article className="hero-product" aria-labelledby="hero-product-title">
           <div className="hero-product-copy">
-            <p className="product-status">{gundem.status}</p>
+            <p className="product-status">Android · {gundem.status}</p>
             <h2 id="hero-product-title">{gundem.title}</h2>
-            <p>{gundem.short}</p>
+            <p>Gündemi kaybetmeden,<br />gürültüyü azaltmak.</p>
             <ProjectLinks project={gundem} />
           </div>
           <div className="phone-frame">
@@ -79,7 +81,7 @@ export default function Home() {
       <section id="work" className="work-showcase" aria-labelledby="work-title">
         <header className="section-intro">
           <h2 id="work-title">Üretilen işler</h2>
-          <p>Çalışan ürünler ve doğrulanabilir çıktılar.</p>
+          <p>Bir soru. Bir deneme.<br />İncelenebilir bir sonuç.</p>
         </header>
 
         <article className="project-feature project-primary">
@@ -135,6 +137,16 @@ export default function Home() {
         </article>
       </section>
 
+      <section className="home-journal" aria-labelledby="journal-title">
+        <header className="section-intro"><h2 id="journal-title">Masanın üstünde.</h2><Link className="text-link" href="/updates">Çalışma günlüğü <span aria-hidden="true">↗</span></Link></header>
+        <p className="journal-intro">Yaparken öğrendiklerim, yeni projeler ve küçük ilerlemeler.</p>
+        <div className="journal-list">{updates.map(entry => <article key={entry.id}>
+          <div className="journal-meta"><time dateTime={entry.date}>{new Intl.DateTimeFormat("tr-TR", {day: "numeric", month: "long", year: "numeric"}).format(new Date(entry.date + "T12:00:00Z"))}</time><span>{statusLabel(entry.status)}</span></div>
+          <h3><Link href={`/updates/${entry.id}`}>{entry.title}</Link></h3><p>{entry.summary}</p>
+          <Link className="text-link" href={entry.type === "project" ? `/work/${entry.id}` : `/updates/${entry.id}`}>Çalışmayı incele <span aria-hidden="true">↗</span></Link>
+        </article>)}</div>
+      </section>
+
       <section className="home-notes" aria-labelledby="writing-title">
         <div className="writing-column">
           <header className="section-intro compact">
@@ -152,7 +164,6 @@ export default function Home() {
         </div>
 
         <div id="review-desk" className="review-note" aria-labelledby="review-title">
-          <p className="eyebrow">Yan çalışma</p>
           <h2 id="review-title">AI İnceleme Masası</h2>
           <p>Sınırlandırılmış iddiaları kaynaklarla karşılaştıran deneysel inceleme aracı.</p>
           <Link href="/ai-inceleme-masasi">İnceleme masasını aç</Link>
@@ -161,8 +172,8 @@ export default function Home() {
 
       <section id="about" className="about-section" aria-labelledby="about-title">
         <div>
-          <h2 id="about-title">Hakkımda</h2>
-          <p>Yapay zekâ desteğini güçlü biçimde kullanıyor; ürün kararları, doğrulama ve yayımlanan işlerin sorumluluğunu üstleniyorum.</p>
+          <h2 id="about-title">Birlikte iyi bir<br />soru bulalım.</h2>
+          <p>Eskişehir’de matematik ve bilgisayar bilimleri okuyorum. Yapay zekâ, makine öğrenmesi ve işe yarayan ürünler üzerine çalışıyorum. Staj, proje veya yalnızca iyi bir fikir için yazabilirsin.</p>
           <div className="contact-links">
             {socialLinks.map((link) => (
               <a key={link.label} href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}>{link.label}</a>

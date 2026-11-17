@@ -1,0 +1,11 @@
+[Unit]
+Description=Check the public work queue every hour
+
+[Timer]
+OnCalendar=hourly
+RandomizedDelaySec=5min
+Persistent=true
+Unit=portfolio-publish.service
+
+[Install]
+WantedBy=timers.target
